@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>designtech.io</Name>
+    <Assembly>DesignTechRibbon.dll</Assembly>
+    <AddInId>6f58c367-a16c-4886-b768-334389fce350</AddInId>
+    <FullClassName>DesignTechRibbon.App</FullClassName>
+    <VendorId>designtech.io</VendorId>
+    <VendorDescription>designtech.io</VendorDescription>
+  </AddIn>
+</RevitAddIns>

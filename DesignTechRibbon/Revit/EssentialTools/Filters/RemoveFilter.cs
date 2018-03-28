@@ -108,13 +108,13 @@ namespace EssentialTools
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     store = form.resultStore;
-                    using (Transaction t = new Transaction(doc, "Delete filters"))
+                    using (Transaction t = new Transaction(doc, "Delete Filters"))
                     {
                         t.Start();
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                    TaskDialog.Show("Unused Filters.", "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.");
+                    TaskDialog.Show("Delete Filters", "Number of Filters Removed:" + Environment.NewLine + store.Count.ToString());
                 }
             }
         }

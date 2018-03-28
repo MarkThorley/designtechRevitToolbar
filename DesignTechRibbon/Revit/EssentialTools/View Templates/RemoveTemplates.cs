@@ -93,13 +93,13 @@ namespace EssentialTools
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     store = form.resultStore; 
-                    using (Transaction t = new Transaction(doc, "Delete filters"))
+                    using (Transaction t = new Transaction(doc, "Delete View Templates"))
                     {
                         t.Start();
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                    TaskDialog.Show("Unused View Templates.", "Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.");
+                    TaskDialog.Show("Delete View Templates", "Number of View Templates Removed:" + Environment.NewLine + store.Count.ToString());
                 }
             }
         }

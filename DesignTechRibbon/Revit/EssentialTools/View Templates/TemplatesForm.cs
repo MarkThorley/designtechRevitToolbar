@@ -45,23 +45,9 @@ namespace EssentialTools
             templateList.Items.AddRange(registrationsList);
             totalLbl.Text = registrationsList.Count().ToString();
             totalLbl.Update();
-            InitialiseRadioButtons();
         }
 
         #region Methods
-
-
-        private void InitialiseRadioButtons()
-        {
-            radioAll.Tag = this.storeAll;
-            radioUsed.Tag = this.storeUsed;
-            radioUnused.Tag = this.storeUnused;
-            radioUnassigned.Tag = this.storeUnassigned;
-            radioButtons.Add(radioAll);
-            radioButtons.Add(radioUsed);
-            radioButtons.Add(radioUnused);
-            radioButtons.Add(radioUnassigned);
-        }
 
 
         /// <summary>

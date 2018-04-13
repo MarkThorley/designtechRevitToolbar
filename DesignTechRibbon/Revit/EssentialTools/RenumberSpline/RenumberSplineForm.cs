@@ -21,6 +21,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         FilteredElementCollector collSplines;
         FilteredElementCollector collDoors;
         FilteredElementCollector collWindows;
+        FilteredElementCollector collWalls;
         FilteredElementCollector collRooms;
         FilteredElementCollector collLevels;
         ElementId currentViewID;
@@ -36,16 +37,37 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         List<Element> allViewportsOnSheet = new List<Element>();
 
-
         List<Tuple<double,Element,XYZ,XYZ>> orderedPoints = new List<Tuple<double, Element, XYZ , XYZ>>();
         List<ElementId> LevelViewID = new List<ElementId>();
 
-        public RenumberSplineForm(UIDocument doc,Element Spline)
+        string byDoors = "By Doors";
+        string byWindows = "By Windows";
+        string byRooms = "By Rooms";
+        string currentLevel = "Current Level";
+        string allLevels = "All Levels";
+
+        public RenumberSplineForm(UIDocument doc)
         {
 
             InitializeComponent();
             localDoc = doc;
-            localSpline = Spline;
+
+            FormCollection fc = Application.OpenForms;
+
+            foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
+            {
+                if(frm.Name == "SelectionForm")
+                {
+                    SelectionForm sf = frm as SelectionForm;
+
+                    localSpline = sf.MyProperty;
+
+                }
+            }
+
+
+
+           // localSpline = a.MyProperty;
             currentViewID = localDoc.ActiveView.GenLevel.Id;
 
 
@@ -59,8 +81,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             collLevels= new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType();
 
-
-         
+            collWalls = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Walls).WhereElementIsNotElementType();
+ 
 
             foreach (var item in collLevels)    //Document to level collection to levels ID
             {
@@ -70,73 +92,95 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             SplineCancelButton.Enabled = false;
             StatusLabel.Visible = false;
 
+            SelectElementBox.Items.Add(byDoors);
+            SelectElementBox.Items.Add(byWindows);
+            SelectElementBox.Items.Add(byRooms);
+            SelectElementBox.SelectedIndex = 0;
+
+            SelectLevelBox.Items.Add(currentLevel);
+            SelectLevelBox.Items.Add(allLevels);
+            SelectLevelBox.SelectedIndex = 0;
+
+
         }
 
         #region Buttons
 
-        private void SplineDoorByCurrentLevel_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
 
-            if (!this.backgroundWorker1.IsBusy)
+            if(SelectElementBox.SelectedItem.ToString() == byDoors && SelectLevelBox.SelectedItem.ToString() == currentLevel)
             {
-                StatusLabel.Visible = true;
-                this.backgroundWorker1.RunWorkerAsync();
-                ButtonsDisabled();
+                if (!this.backgroundWorker1.IsBusy)
+                {
+                    StatusLabel.Visible = true;
+                    this.backgroundWorker1.RunWorkerAsync();
+                    ButtonsDisabled();
+                }
+
             }
+            if (SelectElementBox.SelectedItem.ToString() == byDoors && SelectLevelBox.SelectedItem.ToString() == allLevels)
+            {
+                if (!this.backgroundWorker2.IsBusy)
+                {
+                    StatusLabel.Visible = true;
+                    this.backgroundWorker2.RunWorkerAsync();
+                    ButtonsDisabled();
+                }
+
+            }
+
+
+
+            if (SelectElementBox.SelectedItem.ToString() == byWindows && SelectLevelBox.SelectedItem.ToString() == currentLevel)
+            {
+                if (!this.backgroundWorker3.IsBusy)
+                {
+                    StatusLabel.Visible = true;
+                    this.backgroundWorker3.RunWorkerAsync();
+                    ButtonsDisabled();
+                }
+
+            }
+
+            if (SelectElementBox.SelectedItem.ToString() == byWindows && SelectLevelBox.SelectedItem.ToString() ==  allLevels)
+            {
+                if (!this.backgroundWorker4.IsBusy)
+                {
+                    StatusLabel.Visible = true;
+                    this.backgroundWorker4.RunWorkerAsync();
+                    ButtonsDisabled();
+                }
+
+            }
+
+
+            if (SelectElementBox.SelectedItem.ToString() == byRooms && SelectLevelBox.SelectedItem.ToString() == currentLevel)
+            {
+                if (!this.backgroundWorker5.IsBusy)
+                {
+                    StatusLabel.Visible = true;
+                    this.backgroundWorker5.RunWorkerAsync();
+                    ButtonsDisabled();
+                }
+
+
+            }
+
+            if (SelectElementBox.SelectedItem.ToString() == byRooms && SelectLevelBox.SelectedItem.ToString() == allLevels)
+            {
+                if (!this.backgroundWorker6.IsBusy)
+                {
+                    StatusLabel.Visible = true;
+                    this.backgroundWorker6.RunWorkerAsync();
+                    ButtonsDisabled();
+                }
+
+            }
+
 
         }
 
-        private void SplineDoorByAllLevels_Click(object sender, EventArgs e)
-        {
-            if (!this.backgroundWorker2.IsBusy)
-            {
-                StatusLabel.Visible = true;
-                this.backgroundWorker2.RunWorkerAsync();
-                ButtonsDisabled();
-            }
-        }
-
-        private void SplineWindowByCurrentLevel_Click(object sender, EventArgs e)
-        {
-            if (!this.backgroundWorker3.IsBusy)
-            {
-                StatusLabel.Visible = true;
-                this.backgroundWorker3.RunWorkerAsync();
-                ButtonsDisabled();
-            }
-
-        }
-
-        private void SplineWindowByAllLevels_Click(object sender, EventArgs e)
-        {
-            if (!this.backgroundWorker4.IsBusy)
-            {
-                StatusLabel.Visible = true;
-                this.backgroundWorker4.RunWorkerAsync();
-                ButtonsDisabled();
-            }
-        }
-
-        private void SplineRoomByCurrentLevel_Click(object sender, EventArgs e)
-        {
-            if (!this.backgroundWorker5.IsBusy)
-            {
-                StatusLabel.Visible = true;
-                this.backgroundWorker5.RunWorkerAsync();
-                ButtonsDisabled();
-            }
-
-        }
-
-        private void SplineRoomsByAllLevels_Click(object sender, EventArgs e)
-        {
-            if (!this.backgroundWorker6.IsBusy)
-            {
-                StatusLabel.Visible = true;
-                this.backgroundWorker6.RunWorkerAsync();
-                ButtonsDisabled();
-            }
-        }
 
         private void SplineCancelButton_Click(object sender, EventArgs e)
         {
@@ -160,28 +204,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         void ButtonsEnabled()
         {
-            SplineDoorByCurrentLevel.Enabled = true;
-            SplineDoorByAllLevels.Enabled = true;
-            SplineWindowByCurrentLevel.Enabled = true;
-            SplineWindowByAllLevels.Enabled = true;
-            SplineRoomByCurrentLevel.Enabled = true;
-            SplineRoomsByAllLevels.Enabled = true;
-
             SplineCancelButton.Enabled = false;
       
         }
 
         void ButtonsDisabled()
         {
-            SplineDoorByCurrentLevel.Enabled = false;
-            SplineDoorByAllLevels.Enabled = false;
-            SplineWindowByCurrentLevel.Enabled = false;
-            SplineWindowByAllLevels.Enabled = false;
-            SplineRoomByCurrentLevel.Enabled = false;
-            SplineRoomsByAllLevels.Enabled = false;
-
             SplineCancelButton.Enabled = true;
-      
+ 
         }
 
         #endregion
@@ -199,11 +229,47 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             foreach (Element E in collDoors)
             {
 
+      
                 if (E.LevelId == currentViewID)
                 {
                     LocationPoint getDoorPoint = E.Location as LocationPoint;
 
-                    doorPoints.Add(E, getDoorPoint.Point as Autodesk.Revit.DB.XYZ);
+
+                    if(getDoorPoint == null)
+                    {
+
+                        if(checkBoxCurtainWalls.Checked == true) //Add curtain walls to the list
+                        {
+                            Autodesk.Revit.DB.Element door = E as Autodesk.Revit.DB.Element;
+                            ElementId typeId = door.GetTypeId();
+                            Autodesk.Revit.DB.Element doorType = localDoc.Document.GetElement(typeId);   //Gets All the Doors
+
+                            FamilyInstance famIns = door as FamilyInstance;                 //Covnvert to family instance to get the host of the door
+                            Wall eleHost = famIns.Host as Wall;                             //doors Host
+
+                            LocationCurve LC = eleHost.Location as LocationCurve;
+                            Curve C = LC.Curve;
+
+                            Line L = C as Line;
+
+                            doorPoints.Add(E, L.Origin as Autodesk.Revit.DB.XYZ);
+
+                        }
+                        else
+                        {
+                            //Dont add any doors with null points (The doors on curtain walls)
+
+                        }
+         
+
+
+                    }
+                    else
+                    {
+                        doorPoints.Add(E, getDoorPoint.Point as Autodesk.Revit.DB.XYZ);
+                    }
+
+                   
                 }
 
             }
@@ -352,9 +418,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                                    select element;
 
 
+                        string paddingNumber = sort.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
                         for (int x = 0; x < sort.ToList().Count; x++)
                         {
-                            sort.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + "-" + "DT" + x + "-" + SuffixString.Text);
+                            sort.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes,'0') + SuffixString.Text);
 
                         }
 
@@ -385,6 +455,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         }
 
 
+
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
@@ -395,7 +466,41 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 LocationPoint getDoorPoint = E.Location as LocationPoint;
 
-                doorPoints.Add(E, getDoorPoint.Point as Autodesk.Revit.DB.XYZ);
+                if (getDoorPoint == null)
+                {
+
+                    if (checkBoxCurtainWalls.Checked == true) //Add curtain walls to the list
+                    {
+                        Autodesk.Revit.DB.Element door = E as Autodesk.Revit.DB.Element;
+                        ElementId typeId = door.GetTypeId();
+                        Autodesk.Revit.DB.Element doorType = localDoc.Document.GetElement(typeId);   //Gets All the Doors
+
+                        FamilyInstance famIns = door as FamilyInstance;                 //Covnvert to family instance to get the host of the door
+                        Wall eleHost = famIns.Host as Wall;                             //doors Host
+
+                        LocationCurve LC = eleHost.Location as LocationCurve;
+                        Curve C = LC.Curve;
+
+                        Line L = C as Line;
+
+                        doorPoints.Add(E, L.Origin as Autodesk.Revit.DB.XYZ);
+
+                    }
+                    else
+                    {
+                        //Dont add any doors with null points (The doors on curtain walls)
+
+                    }
+
+
+
+                }
+                else
+                {
+                    doorPoints.Add(E, getDoorPoint.Point as Autodesk.Revit.DB.XYZ);
+                }
+
+
 
             }
 
@@ -535,10 +640,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
+                        string paddingNumber = orderedPoints.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
-                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + "-" + "DT" + x + "-" + SuffixString.Text);
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes,'0') + SuffixString.Text);
                         }
 
                         t.Commit();
@@ -564,10 +672,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         }
 
 
+
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
-            double max = doorPoints.Count;
+            double max = windowPoints.Count;
 
             foreach (Element E in collWindows)
             {
@@ -719,12 +828,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                                    orderby element.Item1 ascending
                                    select element;
 
+                        string paddingNumber = sort.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
+
 
                         for (int x = 0; x < sort.ToList().Count; x++)
                         {
-                            sort.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + "-" + "DT" + x + "-" + SuffixString.Text);
-
-                                 }
+                            sort.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x + SuffixString.Text);
+                        }
 
                         t.Commit();
 
@@ -750,10 +863,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         }
 
 
+
         private void backgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
-            double max = doorPoints.Count;
+            double max = windowPoints.Count;
 
             foreach (Element E in collWindows)
             {
@@ -902,9 +1016,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
 
+                        string paddingNumber = orderedPoints.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
+
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
-                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + "-" + "DT" + x + "-" + SuffixString.Text);
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes, '0') + SuffixString.Text);
 
                         }
 
@@ -932,11 +1051,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         }
 
 
+        //ROOMS
         private void backgroundWorker5_DoWork(object sender, DoWorkEventArgs e)
         {
 
             double i = 0;
-            double max = doorPoints.Count;
+            double max = roomPoints.Count;
 
             foreach (Element E in collRooms)
             {
@@ -1090,12 +1210,15 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         orderedPoints = orderedPoints.OrderBy(b => b.Item1).ToList();
 
 
+                        string paddingNumber = orderedPoints.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
+
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
 
-                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ROOM_NUMBER).Set(PrefixString.Text + "-" + "DT" + x + "-" + SuffixString.Text);
-
-    
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ROOM_NUMBER).Set(PrefixString.Text + x.ToString().PadLeft(zeroes, '0') + SuffixString.Text);
 
                         }
 
@@ -1121,11 +1244,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         }
 
-
+    
         private void backgroundWorker6_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
-            double max = doorPoints.Count;
+            double max = roomPoints.Count;
 
 
             foreach (Element E in collRooms)
@@ -1284,13 +1407,21 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         t.Start();
 
-                        orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
+                       orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
+
+                
+
+                        string paddingNumber = orderedPoints.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
 
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
 
-                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ROOM_NUMBER).Set(PrefixString.Text + "-" + "DT" + x + "-" + SuffixString.Text);
+
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ROOM_NUMBER).Set(PrefixString.Text + x.ToString().PadLeft(zeroes, '0') + SuffixString.Text);
 
 
                         }
@@ -1319,11 +1450,29 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         }
 
 
-
-
         #endregion
 
+        private void SelectElementBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+            if(SelectElementBox.Text == "By Doors")
+            {
+                checkBoxCurtainWalls.Enabled = true;
+            }
+
+            if (SelectElementBox.Text == "By Windows")
+            {
+                checkBoxCurtainWalls.Checked = false;
+                checkBoxCurtainWalls.Enabled = false;
+            }
+
+            if (SelectElementBox.Text == "By Rooms")
+            {
+                checkBoxCurtainWalls.Checked = false;
+                checkBoxCurtainWalls.Enabled = false;
+            }
+
+        }
     }
 
 

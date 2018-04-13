@@ -23,7 +23,7 @@ namespace EssentialTools
         private Dictionary<string, Autodesk.Revit.DB.ElementId> storeUnused;
         private Dictionary<string, Autodesk.Revit.DB.ElementId> storeUnassigned;
         private List<RadioButton> radioButtons = new List<RadioButton>();
-        private bool lockIt = false;
+    
 
         public TemplatesForm(
             Dictionary<string, Autodesk.Revit.DB.ElementId> _store, 
@@ -45,6 +45,7 @@ namespace EssentialTools
             templateList.Items.AddRange(registrationsList);
             totalLbl.Text = registrationsList.Count().ToString();
             totalLbl.Update();
+    
         }
 
         #region Methods
@@ -201,37 +202,5 @@ namespace EssentialTools
 
         #endregion
 
-        private void radio_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!lockIt)
-            {
-                lockIt = true;
-
-                foreach (RadioButton rbtn in radioButtons)
-                {
-                    rbtn.Checked = false;
-                }
-                RadioButton current = sender as RadioButton;
-                current.Checked = true;
-                currentStore = current.Tag as Dictionary<string, Autodesk.Revit.DB.ElementId>;
-                var registrationsList = currentStore.Keys.ToList(); //return original data from Store
-
-                templateList.BeginUpdate();
-                templateList.Items.Clear();
-                templateList.Items.AddRange(registrationsList.ToArray());
-                templateList.EndUpdate();
-                totalLbl.Text = registrationsList.Count().ToString();
-                totalLbl.Update();
-
-
-                SrchBox.Text = "Contains ..";
-                SrchBox.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                SrchBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-                SrchBox.Update();
-
-                lockIt = false;
-                return;
-            }
-        }
     }
 }

@@ -104,17 +104,21 @@ namespace EssentialTools
             
             using (FiltersForm form = new FiltersForm(storeAll, storeUsed, storeUnused, storeUnassigned))
             {
+                form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                form.MaximizeBox = false;
+                form.MinimizeBox = false;
+                form.StartPosition = FormStartPosition.CenterScreen;
                 System.Windows.Forms.DialogResult result = form.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     store = form.resultStore;
-                    using (Transaction t = new Transaction(doc, "Delete Filters"))
+                    using (Transaction t = new Transaction(doc, "Delete filters"))
                     {
                         t.Start();
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                    TaskDialog.Show("Delete Filters", "Number of Filters Removed:" + Environment.NewLine + store.Count.ToString());
+                    TaskDialog.Show("Unused Filters.", "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.");
                 }
             }
         }
@@ -135,10 +139,34 @@ namespace EssentialTools
         /// <returns></returns>
         private void GetUsedFilters()
         {
-            FilteredElementCollector collector = new FilteredElementCollector(doc);
-            IList<Element> views = collector.OfClass(typeof(Autodesk.Revit.DB.View)).WhereElementIsNotElementType().ToElements();
+            //FilteredElementCollector collector = new FilteredElementCollector(doc);
+            //IList<Element> views = collector.OfClass(typeof(Autodesk.Revit.DB.View)).WhereElementIsNotElementType().ToElements();
+            //Filted Out the Sheets
 
-                foreach (Element el in views)
+            FilteredElementCollector collViewPlan = new FilteredElementCollector(doc).OfClass(typeof(ViewPlan)).WhereElementIsNotElementType();
+            FilteredElementCollector collViewSection = new FilteredElementCollector(doc).OfClass(typeof(ViewSection)).WhereElementIsNotElementType();
+            FilteredElementCollector collView3D= new FilteredElementCollector(doc).OfClass(typeof(View3D)).WhereElementIsNotElementType();
+
+            IList<Element> filteredViews = new List<Element>();
+
+            foreach (var item in collViewPlan)
+            {
+                filteredViews.Add(item);
+            }
+
+
+            foreach (var item in collViewSection)
+            {
+                filteredViews.Add(item);
+            }
+
+
+            foreach (var item in collView3D)
+            {
+                filteredViews.Add(item);
+            }
+
+            foreach (Element el in filteredViews)
                 {
                     Autodesk.Revit.DB.View v = el as Autodesk.Revit.DB.View;
                     ICollection<ElementId> filterIds;

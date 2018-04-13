@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EssentialTools
 {
@@ -73,13 +74,13 @@ namespace EssentialTools
             Document doc = this._commandData.Application.ActiveUIDocument.Document;
 
             FilteredElementCollector collector = new FilteredElementCollector(doc);
-            List<View> views = collector.OfClass(typeof(View)).Cast<View>().Where(x => !x.IsTemplate).ToList();
-            List<ElementId> usedTemplateIds = collector.OfClass(typeof(View)).Cast<View>().Where(x => !x.IsTemplate).Select(x => x.ViewTemplateId).ToList();
-            List<ElementId> allTemplateIds = collector.OfClass(typeof(View)).Cast<View>().Where(x => x.IsTemplate).Select(x => x.Id).ToList();
+            List<Autodesk.Revit.DB.View> views = collector.OfClass(typeof(Autodesk.Revit.DB.View)).Cast<Autodesk.Revit.DB.View>().Where(x => !x.IsTemplate).ToList();
+            List<ElementId> usedTemplateIds = collector.OfClass(typeof(Autodesk.Revit.DB.View)).Cast<Autodesk.Revit.DB.View>().Where(x => !x.IsTemplate).Select(x => x.ViewTemplateId).ToList();
+            List<ElementId> allTemplateIds = collector.OfClass(typeof(Autodesk.Revit.DB.View)).Cast<Autodesk.Revit.DB.View>().Where(x => x.IsTemplate).Select(x => x.Id).ToList();
             List<ElementId> unusedTemplateIds = allTemplateIds.Except(usedTemplateIds).ToList();
 
-            Dictionary<string, ElementId> store = unusedTemplateIds.DistinctBy(x => (doc.GetElement(x) as View).Name).ToDictionary(x => (doc.GetElement(x) as View).Name, x => x);
-            Dictionary<string, ElementId> storeAll = allTemplateIds.DistinctBy(x => (doc.GetElement(x) as View).Name).ToDictionary(x => (doc.GetElement(x) as View).Name, x => x);
+            Dictionary<string, ElementId> store = unusedTemplateIds.DistinctBy(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name).ToDictionary(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name, x => x);
+            Dictionary<string, ElementId> storeAll = allTemplateIds.DistinctBy(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name).ToDictionary(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name, x => x);
             //Dictionary<string, ElementId> store = unusedTemplateIds.ToDictionary(x => (doc.GetElement(x) as View).Name, x => x);
             //Dictionary<string, ElementId> storeAll = allTemplateIds.ToDictionary(x => (doc.GetElement(x) as View).Name, x => x);
 
@@ -89,17 +90,21 @@ namespace EssentialTools
 
             using (TemplatesForm form = new TemplatesForm(store, storeAll, storeUsed, storeUnused, storeUnassigned))
             {
+                form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                form.MaximizeBox = false;
+                form.MinimizeBox = false;
+                form.StartPosition = FormStartPosition.CenterScreen;
                 System.Windows.Forms.DialogResult result =  form.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     store = form.resultStore; 
-                    using (Transaction t = new Transaction(doc, "Delete View Templates"))
+                    using (Transaction t = new Transaction(doc, "Delete filters"))
                     {
                         t.Start();
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                    TaskDialog.Show("Delete View Templates", "Number of View Templates Removed:" + Environment.NewLine + store.Count.ToString());
+                    TaskDialog.Show("Unused View Templates.", "Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.");
                 }
             }
         }

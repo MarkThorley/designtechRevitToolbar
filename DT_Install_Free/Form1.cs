@@ -118,12 +118,14 @@ namespace DT_Install_Free
 
         private static void doCopy(string destination)
         {
-           
+
+            DeleteFilesBeforeInstall(destination);
+
             // Get Files
             DirectoryInfo di = new DirectoryInfo(sourcePath); //This is the directory where the files extensions are searched for
-            FileInfo[] fiAddin = di.GetFiles("*.addin");
-            FileInfo[] fiDll = di.GetFiles("*.dll");
-            FileInfo[] fiMP4 = di.GetFiles("*.mp4");
+            FileInfo[] fiAddin = di.GetFiles("DesignTechRibbon.addin");
+            FileInfo[] fiDll = di.GetFiles("DesignTechRibbon.dll");
+          //  FileInfo[] fiMP4 = di.GetFiles("*.mp4");
 
 
             if (!System.IO.Directory.Exists(dtFolder)) // If folder does not exist
@@ -159,7 +161,7 @@ namespace DT_Install_Free
                 try
                 {
                     fiDllNext.CopyTo(rootFolder + "\\" + fiDllNext.Name, true);
-
+                   
                 }
                 catch (Exception)
                 {
@@ -168,7 +170,7 @@ namespace DT_Install_Free
                 }
             }
 
-            foreach (FileInfo mp4 in fiMP4)
+         /*   foreach (FileInfo mp4 in fiMP4)
             {
                 try
                 {
@@ -181,13 +183,18 @@ namespace DT_Install_Free
                     // Quiet Fail
                
                 }
-            }
+            }*/
 
 
         }
 
         private static void DeleteFiles(string destination)
         {
+
+            string deleted = "";
+            bool dtAddin = false;
+            bool dtDll = false;
+
 
             try
             {
@@ -201,15 +208,27 @@ namespace DT_Install_Free
                 {
 
                     System.IO.File.Delete(rootFolder + "/DesignTechRibbon.addin");
+                    deleted += "DesignTechRibbon.addin, ";
+                    dtAddin = true;
 
                 }
                 if (System.IO.File.Exists(rootFolder + "/DesignTechRibbon.dll"))  // Deletes the DT Folder
                 {
 
                     System.IO.File.Delete(rootFolder + "/DesignTechRibbon.dll");
+                    deleted += "DesignTechRibbon.dll,";
+                    dtDll = true;
                 }
 
-                MessageBox.Show("The Toolbar Has Been Deleted", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if(dtAddin == true || dtDll == true)
+                {
+                    MessageBox.Show("The Files " + deleted + "have Been Deleted", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Files Not Found", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+              
 
             }
             catch(Exception ex)
@@ -220,7 +239,43 @@ namespace DT_Install_Free
 
 
         }
- 
+
+
+        private static void DeleteFilesBeforeInstall(string destination)
+        {
+
+            try
+            {
+                if (System.IO.Directory.Exists(dtFolder)) // Deletes the DT Folder
+                {
+                    System.IO.Directory.Delete(dtFolder, true);
+
+                }
+
+                if (System.IO.File.Exists(rootFolder + "/DesignTechRibbon.addin"))  
+                {
+
+                    System.IO.File.Delete(rootFolder + "/DesignTechRibbon.addin");
+
+                }
+                if (System.IO.File.Exists(rootFolder + "/DesignTechRibbon.dll"))  
+                {
+
+                    System.IO.File.Delete(rootFolder + "/DesignTechRibbon.dll");
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " Please ensure Revit is closed and try again ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+
+
+        }
+
     }
 }
 

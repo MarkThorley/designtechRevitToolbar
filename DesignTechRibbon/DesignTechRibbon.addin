@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <RevitAddIns>
   <AddIn Type="Application">
-    <Name>designtech.io</Name>
+    <Name>DT_Ribbon(Free)</Name>
     <Assembly>DesignTechRibbon.dll</Assembly>
     <AddInId>6f58c367-a16c-4886-b768-334389fce350</AddInId>
     <FullClassName>DesignTechRibbon.App</FullClassName>
     <VendorId>designtech.io</VendorId>
-    <VendorDescription>designtech.io</VendorDescription>
+    <VendorDescription>
+    (designtech.io,Webiste:http://designtech.io/, +44 2034 883377 ,info@designtech.io, Unit 740, Salisbury House 29 Finsbury Circus London EC2M 7AQ) 
+    </VendorDescription>
   </AddIn>
 </RevitAddIns>

@@ -22,7 +22,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         #region Initalise
 
         public Document localDoc;
-        UIApplication localApp;
+
         FilteredElementCollector sheetCollector;
         FilteredElementCollector viewPortCollector;
         FilteredElementCollector legendCollector;
@@ -37,7 +37,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         GetWinformItems WFItem = new GetWinformItems();
 
-        public LegendPlacerForm(Document doc, UIApplication app)
+        XYZ userSelectedPoint;
+
+        public LegendPlacerForm(Document doc)
         {
             InitializeComponent();
             backgroundWorker1.WorkerReportsProgress = true;
@@ -45,13 +47,27 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             backgroundWorker2.WorkerReportsProgress = true;
             backgroundWorker2.WorkerSupportsCancellation = true;
 
-
             localDoc = doc;
-            localApp = app;
 
             sheetCollector = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Sheets).WhereElementIsNotElementType();
             legendCollector = new FilteredElementCollector(doc).OfClass(typeof(Autodesk.Revit.DB.View)).WhereElementIsNotElementType();
             viewPortCollector = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Viewports).WhereElementIsNotElementType();
+
+
+            FormCollection fc = Application.OpenForms;
+
+            foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
+            {
+                if (frm.Name == "PointXYZSelector")
+                {
+                     PointXYZSelector pxyz = frm as PointXYZSelector;
+
+                    userSelectedPoint = pxyz.MyPoint;
+
+                }
+            }
+
+
 
 
             //get the ID of the views
@@ -402,7 +418,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 //Placed the elements onto the sheet here
 
-                XYZ point = new XYZ(0, 0, 0);
+                XYZ point = userSelectedPoint;
 
                 try
                 {

@@ -34,13 +34,19 @@
             this.GetDataButton = new System.Windows.Forms.Button();
             this.listViewExcel = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CreateSheetsButton = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.SelectNoneButton = new System.Windows.Forms.Button();
+            this.SelectAllButon = new System.Windows.Forms.Button();
+            this.StatusLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.StopButton = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.StatusLabel = new System.Windows.Forms.Label();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
             this.SuspendLayout();
@@ -69,7 +75,7 @@
             // GetDataButton
             // 
             this.GetDataButton.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.GetDataButton.Location = new System.Drawing.Point(9, 115);
+            this.GetDataButton.Location = new System.Drawing.Point(6, 91);
             this.GetDataButton.Name = "GetDataButton";
             this.GetDataButton.Size = new System.Drawing.Size(194, 42);
             this.GetDataButton.TabIndex = 2;
@@ -79,6 +85,7 @@
             // 
             // listViewExcel
             // 
+            this.listViewExcel.FullRowSelect = true;
             this.listViewExcel.Location = new System.Drawing.Point(9, 21);
             this.listViewExcel.Name = "listViewExcel";
             this.listViewExcel.Size = new System.Drawing.Size(320, 378);
@@ -88,6 +95,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.CreateSheetsButton);
+            this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.StatusLabel);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.StopButton);
@@ -97,10 +106,60 @@
             this.groupBox1.Controls.Add(this.closeButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(553, 547);
+            this.groupBox1.Size = new System.Drawing.Size(559, 547);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Excel Data";
+            // 
+            // CreateSheetsButton
+            // 
+            this.CreateSheetsButton.Location = new System.Drawing.Point(345, 334);
+            this.CreateSheetsButton.Name = "CreateSheetsButton";
+            this.CreateSheetsButton.Size = new System.Drawing.Size(197, 42);
+            this.CreateSheetsButton.TabIndex = 11;
+            this.CreateSheetsButton.Text = "Create Sheets";
+            this.CreateSheetsButton.UseVisualStyleBackColor = true;
+            this.CreateSheetsButton.Click += new System.EventHandler(this.CreateSheetsButton_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.SelectNoneButton);
+            this.groupBox3.Controls.Add(this.SelectAllButon);
+            this.groupBox3.Location = new System.Drawing.Point(339, 185);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(206, 124);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Selection";
+            // 
+            // SelectNoneButton
+            // 
+            this.SelectNoneButton.Location = new System.Drawing.Point(6, 69);
+            this.SelectNoneButton.Name = "SelectNoneButton";
+            this.SelectNoneButton.Size = new System.Drawing.Size(197, 42);
+            this.SelectNoneButton.TabIndex = 1;
+            this.SelectNoneButton.Text = "None";
+            this.SelectNoneButton.UseVisualStyleBackColor = true;
+            this.SelectNoneButton.Click += new System.EventHandler(this.SelectNoneButton_Click);
+            // 
+            // SelectAllButon
+            // 
+            this.SelectAllButon.Location = new System.Drawing.Point(6, 21);
+            this.SelectAllButon.Name = "SelectAllButon";
+            this.SelectAllButon.Size = new System.Drawing.Size(197, 42);
+            this.SelectAllButon.TabIndex = 0;
+            this.SelectAllButon.Text = "All";
+            this.SelectAllButon.UseVisualStyleBackColor = true;
+            this.SelectAllButon.Click += new System.EventHandler(this.SelectAllButon_Click);
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.AutoSize = true;
+            this.StatusLabel.Location = new System.Drawing.Point(400, 452);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(83, 17);
+            this.StatusLabel.TabIndex = 9;
+            this.StatusLabel.Text = "Please Wait";
             // 
             // groupBox2
             // 
@@ -108,7 +167,7 @@
             this.groupBox2.Controls.Add(this.GetDataButton);
             this.groupBox2.Location = new System.Drawing.Point(336, 21);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(209, 184);
+            this.groupBox2.Size = new System.Drawing.Size(209, 147);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Action";
@@ -151,28 +210,28 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // StatusLabel
+            // backgroundWorker2
             // 
-            this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(400, 452);
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(83, 17);
-            this.StatusLabel.TabIndex = 9;
-            this.StatusLabel.Text = "Please Wait";
+            this.backgroundWorker2.WorkerReportsProgress = true;
+            this.backgroundWorker2.WorkerSupportsCancellation = true;
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
+            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
             // SheetsFromExcelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 560);
+            this.ClientSize = new System.Drawing.Size(576, 560);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SheetsFromExcelForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Excel Sheets";
+            this.Text = "Import Sheets";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).EndInit();
             this.ResumeLayout(false);
@@ -192,5 +251,10 @@
         private System.Windows.Forms.Button StopButton;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.Button CreateSheetsButton;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button SelectNoneButton;
+        private System.Windows.Forms.Button SelectAllButon;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
     }
 }

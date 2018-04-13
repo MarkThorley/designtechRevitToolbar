@@ -9,45 +9,30 @@ using Autodesk.Revit.UI;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.Attributes;
 using System.Windows.Forms;
-using System.Threading;
-using DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall;
-
+using DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm;
+using DesignTechRibbon.Revit.EssentialTools.Info;
 
 namespace EssentialTools
 {
+
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
-    class MatchFireDoorWall : IExternalCommand
+    class Info : IExternalCommand
     {
-        public Autodesk.Revit.UI.Result Execute(ExternalCommandData revit,ref string message, ElementSet elements)
+        public Autodesk.Revit.UI.Result Execute(ExternalCommandData revit,
+        ref string message, ElementSet elements)
         {
 
             UIApplication uiapp = revit.Application;
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
             Document doc = uidoc.Document;
-            UIApplication uiApp = new UIApplication(revit.Application.Application);
 
-            MatchFireDoorWallForm form = new MatchFireDoorWallForm(uidoc);
-
-            form.FormBorderStyle = FormBorderStyle.FixedDialog;
-            form.MaximizeBox = false;
-            form.MinimizeBox = false;
-            form.StartPosition = FormStartPosition.CenterScreen;
-
+            InfoForm form = new InfoForm();
 
             form.ShowDialog();
-
-            form.Dispose();
-
             return Result.Succeeded;
 
-
-
         }
-
-
-
-
 
     }
 }

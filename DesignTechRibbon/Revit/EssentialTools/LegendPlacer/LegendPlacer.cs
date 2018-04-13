@@ -17,6 +17,9 @@ namespace EssentialTools
     class LegendPlacer : IExternalCommand
     {
 
+
+        bool isFormOpen;
+
         public Autodesk.Revit.UI.Result Execute(ExternalCommandData revit,
           ref string message, ElementSet elements)
         {
@@ -27,11 +30,37 @@ namespace EssentialTools
             Document doc = uidoc.Document;
             UIApplication uiApp = new UIApplication(revit.Application.Application);
 
-            LegendPlacerForm form = new LegendPlacerForm(doc,uiApp);
 
-            form.ShowDialog();
+            FormCollection fc = Application.OpenForms;
 
-            form.Dispose();
+            foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
+            {
+                if (frm.Name == "PointXYZSelector")
+                {
+                    isFormOpen = true;
+
+                }
+            }
+
+
+            if (isFormOpen == false)
+            {
+                isFormOpen = true;
+
+                PointXYZSelector form = new PointXYZSelector(uidoc);
+
+                form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                form.MaximizeBox = false;
+                form.MinimizeBox = false;
+                form.StartPosition = FormStartPosition.CenterScreen;
+
+                form.Show();
+
+            }
+            else
+            {
+                MessageBox.Show("Form Already Open, Please Close Previous Instance", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
 
             return Result.Succeeded;
 

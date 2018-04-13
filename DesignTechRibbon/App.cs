@@ -43,128 +43,37 @@ namespace DesignTechRibbon
             String tabName = "designtech.io";
             application.CreateRibbonTab(tabName);
 
+     
+            Autodesk.Revit.UI.RibbonPanel aboutPanel = application.CreateRibbonPanel(tabName, "About");
             Autodesk.Revit.UI.RibbonPanel managePanel = application.CreateRibbonPanel(tabName,"Manage");
             Autodesk.Revit.UI.RibbonPanel toolsPanel = application.CreateRibbonPanel(tabName, "Tools");
             Autodesk.Revit.UI.RibbonPanel excelPanel = application.CreateRibbonPanel(tabName, "Excel");
 
+            //info
+            CreateInfoButton(application, tabName, aboutPanel);
+
             //Manage
-            CreateRemoveViewTemplatesButton(application,tabName,managePanel);
-            CreateRemoveFiltersButton(application,tabName,managePanel);
+            CreateRemoveViewTemplatesButton(application, tabName, managePanel);
+            CreateRemoveFiltersButton(application, tabName, managePanel);
 
             //Tools   
             CreatePinUnpinButton(application, tabName, toolsPanel);
             CreateSplineRenumberButton(application, tabName, toolsPanel);
+
             CreateMatchFireRatingButton(application, tabName, toolsPanel);
             CreateLegendPlacerButton(application, tabName, toolsPanel);
 
-
             //Excel
-            CreateExcelSheetButton(application, tabName,excelPanel);
-
-
-
-
-            /*   // Add a new ribbon panel
-                 Autodesk.Revit.UI.RibbonPanel ribbonPanel1 = application.CreateRibbonPanel(tabName, "Tools");
-                 Autodesk.Revit.UI.RibbonPanel ribbonPanel2 = application.CreateRibbonPanel(tabName, "View Templates");
-                 Autodesk.Revit.UI.RibbonPanel ribbonPanel3 = application.CreateRibbonPanel(tabName, "Filters");
-
-            // Get dll assembly path
-            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
-
-            //Create RemoveViewTemplates button
-            CreatePushButton(ribbonPanel2, String.Format("Removes" + Environment.NewLine + "View Templates"), thisAssemblyPath, "EssentialTools.CommandRemoveTemplates",
-                "Remove used or unused View Templates in bulk.", "EssentialTools/RemoveTemplatesPlaceholder.png");
-            //Create RemoveFilters button
-            CreatePushButton(ribbonPanel3, String.Format("Removes" + Environment.NewLine + "Filters"), thisAssemblyPath, "EssentialTools.CommandRemoveFilters",
-                "Remove used or unused Filters in bulk.", "EssentialTools/RemoveFiltersPlaceholder.png");
-
-            //Create push buttons for split drop down
-            PushButtonData bOne = new PushButtonData(
-                "cmdCurveTotalLength",
-                "Curve Length",
-                thisAssemblyPath,
-                "TotalLength.CurveTotalLength");
-            bOne.LargeImage = new BitmapImage(new Uri(@"pack://application:,,,/DesignTechRibbon;component/Resources/CurveTotalLength.png"));
-
-            PushButtonData bTwo = new PushButtonData(
-                "cmdWallTotalLength",
-                "Wall Length",
-                thisAssemblyPath,
-                "TotalLength.WallTotalLength");
-            bTwo.LargeImage = new BitmapImage(new Uri(@"pack://application:,,,/DesignTechRibbon;component/Resources/WallTotalLength.png"));
-
-            PushButtonData bThree = new PushButtonData(
-                "cmdFramingTotalLength",
-                "Beam Length",
-                thisAssemblyPath,
-                "TotalLength.FramingTotalLength");
-            bThree.LargeImage = new BitmapImage(new Uri(@"pack://application:,,,/DesignTechRibbon;component/Resources/FramingTotalLength.png"));
-
-            PushButtonData bFour = new PushButtonData(
-                "cmdPipingTotalLength",
-                "Pipe Length",
-                thisAssemblyPath,
-                 "TotalLength.PipingTotalLength");
-            bFour.LargeImage = new BitmapImage(new Uri(@"pack://application:,,,/DesignTechRibbon;component/Resources/PipingTotalLength.png"));
-
-            SplitButtonData sb1 = new SplitButtonData("splitButton1", "Split");
-            SplitButton sb = ribbonPanel1.AddItem(sb1) as SplitButton;
-            sb.AddPushButton(bOne);
-            sb.AddPushButton(bTwo);
-            sb.AddPushButton(bThree);
-            sb.AddPushButton(bFour);
-            
-             
-             */
-
+            CreateExcelSheetButton(application, tabName, excelPanel);
 
 
 
         }
-
-        static void CreateThePushButton(UIControlledApplication a, string tabname)
-        {
-            // Add a new ribbon panel
-
-            Autodesk.Revit.UI.RibbonPanel newPanel = a.CreateRibbonPanel(tabname, "NewRibbonPanel");
-
-            // Create a push button to trigger a command add it to the ribbon panel.
-            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
-
-            PushButtonData buttonData = new PushButtonData("cmdHelloWorld",
-               "Hello World", thisAssemblyPath, "Test.testclass"); //Make sure this class exists
-
-            PushButton pushButton = newPanel.AddItem(buttonData) as PushButton;
-
-            // Optionally, other properties may be assigned to the button
-            // a) tool-tip
-            pushButton.ToolTip = "Say hello to the entire world.";
-
-          
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/PipingTotalLength.png"));
-            // Apply image to bitmap
-            BitmapImage largeImage = new BitmapImage(uriImage);
-            // Apply image to button 
-            pushButton.LargeImage = largeImage;
-
-
-
-
-
-
-
-        }
-
 
         //Manage Tab Buttons
         static void CreateRemoveViewTemplatesButton(UIControlledApplication a, string tabname, Autodesk.Revit.UI.RibbonPanel rp)
         {
-            // Add a new ribbon panel
 
-           // Autodesk.Revit.UI.RibbonPanel newPanel = a.CreateRibbonPanel(tabname,"Manage");
-
-            // Create a push button to trigger a command add it to the ribbon panel.
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             PushButtonData buttonData = new PushButtonData("cmdTemplates",
@@ -172,8 +81,32 @@ namespace DesignTechRibbon
 
             PushButton pushButton = rp.AddItem(buttonData) as PushButton;
 
+            pushButton.ToolTip = "Delete view templates from a custom UI interface. Toggle between view templates that are used and not used, or search for a particular view template by its name.";
 
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/RemoveTemplatesPlaceholder.png"));
+            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/view_template.png"));
+            // Apply image to bitmap
+            BitmapImage largeImage = new BitmapImage(uriImage);
+            // Apply image to button 
+            pushButton.LargeImage = largeImage;
+
+
+        }
+
+        static void CreateInfoButton(UIControlledApplication a, string tabname, Autodesk.Revit.UI.RibbonPanel rp)
+        {
+  
+
+            // Create a push button to trigger a command add it to the ribbon panel.
+            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
+
+            PushButtonData buttonData = new PushButtonData("cmdInfo",
+               "Info", thisAssemblyPath, "EssentialTools.Info"); //Make sure this class exists
+
+            PushButton pushButton = rp.AddItem(buttonData) as PushButton;
+
+            pushButton.ToolTip = "Licence Information";
+
+            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/about.png"));
             // Apply image to bitmap
             BitmapImage largeImage = new BitmapImage(uriImage);
             // Apply image to button 
@@ -190,11 +123,13 @@ namespace DesignTechRibbon
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             PushButtonData buttonData = new PushButtonData("cmdRemoveFilters",
-               "Filters", thisAssemblyPath, "EssentialTools.CommandRemoveFilters"); //Make sure this class exists
+               "Remove\nFilters", thisAssemblyPath, "EssentialTools.CommandRemoveFilters"); //Make sure this class exists
 
             PushButton pushButton = rp.AddItem(buttonData) as PushButton;
 
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/RemoveFiltersPlaceholder.png"));
+            pushButton.ToolTip = "Delete filters from a custom UI interface. Toggle between any filters in the model that are unused, used or unassigned, or search for a particular filter by its name";
+
+            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/filters.png"));
             // Apply image to bitmap
             BitmapImage largeImage = new BitmapImage(uriImage);
             // Apply image to button 
@@ -203,9 +138,12 @@ namespace DesignTechRibbon
 
         }
 
+
+        //Tools Buttons
+
         static void CreatePinUnpinButton(UIControlledApplication a, string tabname, Autodesk.Revit.UI.RibbonPanel rp)
         {
-           // Autodesk.Revit.UI.RibbonPanel newPanel = a.CreateRibbonPanel(tabname, "Manage");
+            // Autodesk.Revit.UI.RibbonPanel newPanel = a.CreateRibbonPanel(tabname, "Manage");
 
             // Create a push button to trigger a command add it to the ribbon panel.
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
@@ -215,53 +153,18 @@ namespace DesignTechRibbon
 
             PushButton pushButton = rp.AddItem(buttonData) as PushButton;
 
-            // Optionally, other properties may be assigned to the button
-            // a) tool-tip
-            pushButton.ToolTip = "Pin/Unpin From List";
+            pushButton.ToolTip = @"Choose to pin/unpin levels, grids and links in bulk from a custom UI interface.";
 
-          
-            SetRibbonItemToolTip(pushButton, PinUnpinToolTip);
+            Uri uriImage2 = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/pin_unpin.png"));
 
-
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/PinIcon.png"));
             // Apply image to bitmap
-            BitmapImage largeImage = new BitmapImage(uriImage);
+            BitmapImage largeImage = new BitmapImage(uriImage2);
             // Apply image to button 
-            pushButton.LargeImage = largeImage; 
+            pushButton.LargeImage = largeImage;
 
 
         }
 
-
-        //Excel Tab Buttons
-        static void CreateExcelSheetButton(UIControlledApplication a, string tabname,Autodesk.Revit.UI.RibbonPanel rp)
-        {
-
-            // Create a push button to trigger a command add it to the ribbon panel.
-            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
-
-            PushButtonData buttonData = new PushButtonData("cmdExcelSheet",
-               "Import\nSheets", thisAssemblyPath, "EssentialTools.SheetsFromExcel"); //Make sure this class exists
-
-            PushButton pushButton = rp.AddItem(buttonData) as PushButton;
-
-            // Optionally, other properties may be assigned to the button
-            // a) tool-tip
-            pushButton.ToolTip = "Import Data From Excel";
-
-            SetRibbonItemToolTip(pushButton, CreateExcelToolTip);
-
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/ExcelLogo.png"));
-            // Apply image to bitmap
-            BitmapImage largeImage = new BitmapImage(uriImage);
-            // Apply image to button 
-            pushButton.LargeImage = largeImage; 
-
-
-        }
-
-
-        //Tools Buttons
         static void CreateSplineRenumberButton(UIControlledApplication a, string tabname, Autodesk.Revit.UI.RibbonPanel rp)
         {
 
@@ -273,14 +176,22 @@ namespace DesignTechRibbon
 
             PushButton pushButton = rp.AddItem(buttonData) as PushButton;
 
-            SetRibbonItemToolTip(pushButton, CreateSplineToolTip);
+            //  SetRibbonItemToolTip(pushButton, CreateSplineToolTip);
+            pushButton.ToolTip = "Renumber doors, windows or rooms based on a picked spline. Elements are then numbered based on their proximity to parameters on that curve.";
 
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/SplineIcon.png"));
-            // Apply image to bitmap
-            BitmapImage largeImage = new BitmapImage(uriImage);
-            // Apply image to button 
-            pushButton.LargeImage = largeImage;
 
+            try
+            {
+                Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/renumber_elements.png"));
+                // Apply image to bitmap
+                BitmapImage largeImage = new BitmapImage(uriImage);
+                // Apply image to button 
+                pushButton.LargeImage = largeImage;
+            }
+            catch(Exception ex)
+            {
+                Autodesk.Revit.UI.TaskDialog.Show("a", ex.Message);
+            }
 
         }
 
@@ -295,17 +206,20 @@ namespace DesignTechRibbon
 
             PushButton pushButton = rp.AddItem(buttonData) as PushButton;
 
-            // Optionally, other properties may be assigned to the button
-            // a) tool-tip
-          
-            SetRibbonItemToolTip(pushButton, MatchFireRatingToolTip);
+            pushButton.ToolTip = "Push Fire Rating From Walls to Doors/Windows";
 
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/DoorIcon.png"));
-            // Apply image to bitmap
-            BitmapImage largeImage = new BitmapImage(uriImage);
-            // Apply image to button 
-            pushButton.LargeImage = largeImage; 
-
+            try
+            {
+                Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/fire_ratings.png"));
+                // Apply image to bitmap
+                BitmapImage largeImage = new BitmapImage(uriImage);
+                // Apply image to button 
+                pushButton.LargeImage = largeImage;
+            }
+            catch (Exception ex)
+            {
+                Autodesk.Revit.UI.TaskDialog.Show("a", ex.Message);
+            }
 
         }
 
@@ -320,66 +234,50 @@ namespace DesignTechRibbon
 
             PushButton pushButton = rp.AddItem(buttonData) as PushButton;
 
+            pushButton.ToolTip = "Select a series of sheets and choose to place a legend automatically on each one at a specified location.";
 
-            SetRibbonItemToolTip(pushButton, CreateLegendToolTip);
+            try
+            {
+               // Uri uriImage = new Uri((@"C:\Users\rahil\Documents\Visual Studio 2015\Projects\designtechRibbon-master-20180206T094812Z-001\designtechRibbon-master\DesignTechRibbon\Resources\EssentialTools\place_legends.png"));
+                Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/place_legends.png"));
 
-            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/LegendIcon.png"));
-            // Apply image to bitmap
-            BitmapImage largeImage = new BitmapImage(uriImage);
-            // Apply image to button 
-            pushButton.LargeImage = largeImage; 
+                // Apply image to bitmap
+                BitmapImage largeImage = new BitmapImage(uriImage);
+                // Apply image to button 
+                pushButton.LargeImage = largeImage;
+            }
+            catch (Exception ex)
+            {
+                Autodesk.Revit.UI.TaskDialog.Show("a", ex.Message);
+            }
+
 
 
         }
 
 
-
-
-        #region ToolTips
-
-        static RibbonToolTip PinUnpinToolTip = new RibbonToolTip()
+        //Excel Tab Buttons
+        static void CreateExcelSheetButton(UIControlledApplication a, string tabname, Autodesk.Revit.UI.RibbonPanel rp)
         {
-            Title = "Pin and Unpin Tool",
-            ExpandedContent = @"Pin And Unpin Single Or Multiple Items In The Current Document",
 
-            ExpandedVideo = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Autodesk/Revit/Addins/2018/designtech.bundle/PinUnpinT.mp4"),
-       
-        };
+            // Create a push button to trigger a command add it to the ribbon panel.
+            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
-        static RibbonToolTip CreateExcelToolTip = new RibbonToolTip()
-        {
-            Title = "Excel Import Tool",
-            ExpandedContent = @"Imports Data From An Excel Spreadsheet And Stores It In A List ",
-            ExpandedVideo = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Autodesk/Revit/Addins/2018/designtech.bundle/ExcelSheetsT.mp4"),
+            PushButtonData buttonData = new PushButtonData("cmdExcelSheet",
+               "Import\nSheets", thisAssemblyPath, "EssentialTools.SheetsFromExcel"); //Make sure this class exists
 
-        };
+            PushButton pushButton = rp.AddItem(buttonData) as PushButton;
 
-        static RibbonToolTip CreateSplineToolTip = new RibbonToolTip()
-        {
-            Title = "Spline Naming Tool",
-            ExpandedContent = @"Renumbers In Order All The Elements In A Specific Category Based On A Selected Spline.",
-            ExpandedVideo = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Autodesk/Revit/Addins/2018/designtech.bundle/SplineT.mp4"),
+            pushButton.ToolTip = "Create drawing sheets by importing a simple Excel drawing list.";
 
-        };
-
-        static RibbonToolTip MatchFireRatingToolTip = new RibbonToolTip()
-        {
-            Title = "Match Fire Rating Tool",
-            ExpandedContent = @"Matches The Fire Rating Between Walls And Doors",
-            ExpandedVideo = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Autodesk/Revit/Addins/2018/designtech.bundle/FireRatingT.mp4"),
-
-        };
-
-        static RibbonToolTip CreateLegendToolTip = new RibbonToolTip()
-        {
-            Title = "Create Legend Tool",
-            ExpandedContent = @"Places the specified legend in the selected sheets, in the same location as the original.",
-            ExpandedVideo = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Autodesk/Revit/Addins/2018/designtech.bundle/LegendsPlacementT.mp4"),
-
-        };
+            Uri uriImage = new Uri((@"pack://application:,,,/DesignTechRibbon;component/Resources/EssentialTools/import_sheets.png"));
+            // Apply image to bitmap
+            BitmapImage largeImage = new BitmapImage(uriImage);
+            // Apply image to button 
+            pushButton.LargeImage = largeImage;
 
 
-        #endregion
+        }
 
         /// <summary>
         /// A method that allows you to create a Push Button with greater ease

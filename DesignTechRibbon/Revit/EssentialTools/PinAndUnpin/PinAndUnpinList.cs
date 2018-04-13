@@ -28,6 +28,13 @@ namespace EssentialTools
 
             PinAndUnpinForm form = new PinAndUnpinForm(doc);
 
+
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.MaximizeBox = false;
+            form.MinimizeBox = false;
+            form.StartPosition = FormStartPosition.CenterScreen;
+
+
             form.ShowDialog();
 
             form.Dispose();

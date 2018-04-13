@@ -31,43 +31,35 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenumberSplineForm));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.SplineDoorByCurrentLevel = new System.Windows.Forms.Button();
-            this.SplineDoorByAllLevels = new System.Windows.Forms.Button();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.groupBoxMain = new System.Windows.Forms.GroupBox();
+            this.checkBoxCurtainWalls = new System.Windows.Forms.CheckBox();
+            this.StartButton = new System.Windows.Forms.Button();
+            this.SelectLevelBox = new System.Windows.Forms.ComboBox();
+            this.SelectElementBox = new System.Windows.Forms.ComboBox();
+            this.StatusLabel = new System.Windows.Forms.Label();
             this.SplineCancelButton = new System.Windows.Forms.Button();
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.CloseButton = new System.Windows.Forms.Button();
-            this.groupBoxRooms = new System.Windows.Forms.GroupBox();
-            this.SplineRoomsByAllLevels = new System.Windows.Forms.Button();
-            this.SplineRoomByCurrentLevel = new System.Windows.Forms.Button();
-            this.groupBoxWindows = new System.Windows.Forms.GroupBox();
-            this.SplineWindowByAllLevels = new System.Windows.Forms.Button();
-            this.SplineWindowByCurrentLevel = new System.Windows.Forms.Button();
             this.groupBoxInput = new System.Windows.Forms.GroupBox();
             this.labelSufix = new System.Windows.Forms.Label();
             this.LabelPrefix = new System.Windows.Forms.Label();
             this.SuffixString = new System.Windows.Forms.TextBox();
             this.PrefixString = new System.Windows.Forms.TextBox();
-            this.groupBoxDoors = new System.Windows.Forms.GroupBox();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker5 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker6 = new System.ComponentModel.BackgroundWorker();
-            this.StatusLabel = new System.Windows.Forms.Label();
             this.groupBoxMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
-            this.groupBoxRooms.SuspendLayout();
-            this.groupBoxWindows.SuspendLayout();
             this.groupBoxInput.SuspendLayout();
-            this.groupBoxDoors.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(7, 21);
+            this.progressBar1.Location = new System.Drawing.Point(7, 210);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(452, 46);
+            this.progressBar1.Size = new System.Drawing.Size(313, 46);
             this.progressBar1.TabIndex = 0;
             // 
             // backgroundWorker1
@@ -77,26 +69,6 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // SplineDoorByCurrentLevel
-            // 
-            this.SplineDoorByCurrentLevel.Location = new System.Drawing.Point(20, 38);
-            this.SplineDoorByCurrentLevel.Name = "SplineDoorByCurrentLevel";
-            this.SplineDoorByCurrentLevel.Size = new System.Drawing.Size(177, 46);
-            this.SplineDoorByCurrentLevel.TabIndex = 1;
-            this.SplineDoorByCurrentLevel.Text = "By Level";
-            this.SplineDoorByCurrentLevel.UseVisualStyleBackColor = true;
-            this.SplineDoorByCurrentLevel.Click += new System.EventHandler(this.SplineDoorByCurrentLevel_Click);
-            // 
-            // SplineDoorByAllLevels
-            // 
-            this.SplineDoorByAllLevels.Location = new System.Drawing.Point(20, 100);
-            this.SplineDoorByAllLevels.Name = "SplineDoorByAllLevels";
-            this.SplineDoorByAllLevels.Size = new System.Drawing.Size(177, 46);
-            this.SplineDoorByAllLevels.TabIndex = 2;
-            this.SplineDoorByAllLevels.Text = "All Levels";
-            this.SplineDoorByAllLevels.UseVisualStyleBackColor = true;
-            this.SplineDoorByAllLevels.Click += new System.EventHandler(this.SplineDoorByAllLevels_Click);
             // 
             // backgroundWorker2
             // 
@@ -108,24 +80,73 @@
             // 
             // groupBoxMain
             // 
+            this.groupBoxMain.Controls.Add(this.checkBoxCurtainWalls);
+            this.groupBoxMain.Controls.Add(this.StartButton);
+            this.groupBoxMain.Controls.Add(this.SelectLevelBox);
+            this.groupBoxMain.Controls.Add(this.SelectElementBox);
             this.groupBoxMain.Controls.Add(this.StatusLabel);
             this.groupBoxMain.Controls.Add(this.SplineCancelButton);
             this.groupBoxMain.Controls.Add(this.designtechLogo);
             this.groupBoxMain.Controls.Add(this.CloseButton);
-            this.groupBoxMain.Controls.Add(this.groupBoxRooms);
-            this.groupBoxMain.Controls.Add(this.groupBoxWindows);
             this.groupBoxMain.Controls.Add(this.groupBoxInput);
-            this.groupBoxMain.Controls.Add(this.groupBoxDoors);
             this.groupBoxMain.Controls.Add(this.progressBar1);
-            this.groupBoxMain.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxMain.Location = new System.Drawing.Point(6, 3);
             this.groupBoxMain.Name = "groupBoxMain";
-            this.groupBoxMain.Size = new System.Drawing.Size(655, 476);
+            this.groupBoxMain.Size = new System.Drawing.Size(532, 363);
             this.groupBoxMain.TabIndex = 3;
             this.groupBoxMain.TabStop = false;
             // 
+            // checkBoxCurtainWalls
+            // 
+            this.checkBoxCurtainWalls.AutoSize = true;
+            this.checkBoxCurtainWalls.Location = new System.Drawing.Point(338, 120);
+            this.checkBoxCurtainWalls.Name = "checkBoxCurtainWalls";
+            this.checkBoxCurtainWalls.Size = new System.Drawing.Size(162, 21);
+            this.checkBoxCurtainWalls.TabIndex = 16;
+            this.checkBoxCurtainWalls.Text = "Include Curtain Walls";
+            this.checkBoxCurtainWalls.UseVisualStyleBackColor = true;
+            // 
+            // StartButton
+            // 
+            this.StartButton.Location = new System.Drawing.Point(338, 21);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(177, 46);
+            this.StartButton.TabIndex = 9;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
+            // 
+            // SelectLevelBox
+            // 
+            this.SelectLevelBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SelectLevelBox.FormattingEnabled = true;
+            this.SelectLevelBox.Location = new System.Drawing.Point(177, 33);
+            this.SelectLevelBox.Name = "SelectLevelBox";
+            this.SelectLevelBox.Size = new System.Drawing.Size(143, 24);
+            this.SelectLevelBox.TabIndex = 15;
+            // 
+            // SelectElementBox
+            // 
+            this.SelectElementBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SelectElementBox.FormattingEnabled = true;
+            this.SelectElementBox.Location = new System.Drawing.Point(8, 33);
+            this.SelectElementBox.Name = "SelectElementBox";
+            this.SelectElementBox.Size = new System.Drawing.Size(143, 24);
+            this.SelectElementBox.TabIndex = 14;
+            this.SelectElementBox.SelectedIndexChanged += new System.EventHandler(this.SelectElementBox_SelectedIndexChanged);
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.AutoSize = true;
+            this.StatusLabel.Location = new System.Drawing.Point(379, 270);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(83, 17);
+            this.StatusLabel.TabIndex = 13;
+            this.StatusLabel.Text = "Please Wait";
+            // 
             // SplineCancelButton
             // 
-            this.SplineCancelButton.Location = new System.Drawing.Point(465, 21);
+            this.SplineCancelButton.Location = new System.Drawing.Point(338, 210);
             this.SplineCancelButton.Name = "SplineCancelButton";
             this.SplineCancelButton.Size = new System.Drawing.Size(177, 46);
             this.SplineCancelButton.TabIndex = 12;
@@ -138,7 +159,7 @@
             this.designtechLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.designtechLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.designtechLogo.Image = ((System.Drawing.Image)(resources.GetObject("designtechLogo.Image")));
-            this.designtechLogo.Location = new System.Drawing.Point(7, 396);
+            this.designtechLogo.Location = new System.Drawing.Point(7, 283);
             this.designtechLogo.Margin = new System.Windows.Forms.Padding(4);
             this.designtechLogo.Name = "designtechLogo";
             this.designtechLogo.Size = new System.Drawing.Size(312, 73);
@@ -148,7 +169,7 @@
             // 
             // CloseButton
             // 
-            this.CloseButton.Location = new System.Drawing.Point(465, 420);
+            this.CloseButton.Location = new System.Drawing.Point(338, 310);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(177, 46);
             this.CloseButton.TabIndex = 9;
@@ -156,77 +177,15 @@
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
-            // groupBoxRooms
-            // 
-            this.groupBoxRooms.Controls.Add(this.SplineRoomsByAllLevels);
-            this.groupBoxRooms.Controls.Add(this.SplineRoomByCurrentLevel);
-            this.groupBoxRooms.Location = new System.Drawing.Point(7, 96);
-            this.groupBoxRooms.Name = "groupBoxRooms";
-            this.groupBoxRooms.Size = new System.Drawing.Size(200, 172);
-            this.groupBoxRooms.TabIndex = 8;
-            this.groupBoxRooms.TabStop = false;
-            this.groupBoxRooms.Text = "Rooms";
-            // 
-            // SplineRoomsByAllLevels
-            // 
-            this.SplineRoomsByAllLevels.Location = new System.Drawing.Point(17, 100);
-            this.SplineRoomsByAllLevels.Name = "SplineRoomsByAllLevels";
-            this.SplineRoomsByAllLevels.Size = new System.Drawing.Size(177, 46);
-            this.SplineRoomsByAllLevels.TabIndex = 9;
-            this.SplineRoomsByAllLevels.Text = "All Levels";
-            this.SplineRoomsByAllLevels.UseVisualStyleBackColor = true;
-            this.SplineRoomsByAllLevels.Click += new System.EventHandler(this.SplineRoomsByAllLevels_Click);
-            // 
-            // SplineRoomByCurrentLevel
-            // 
-            this.SplineRoomByCurrentLevel.Location = new System.Drawing.Point(17, 38);
-            this.SplineRoomByCurrentLevel.Name = "SplineRoomByCurrentLevel";
-            this.SplineRoomByCurrentLevel.Size = new System.Drawing.Size(177, 46);
-            this.SplineRoomByCurrentLevel.TabIndex = 9;
-            this.SplineRoomByCurrentLevel.Text = "Current Level";
-            this.SplineRoomByCurrentLevel.UseVisualStyleBackColor = true;
-            this.SplineRoomByCurrentLevel.Click += new System.EventHandler(this.SplineRoomByCurrentLevel_Click);
-            // 
-            // groupBoxWindows
-            // 
-            this.groupBoxWindows.Controls.Add(this.SplineWindowByAllLevels);
-            this.groupBoxWindows.Controls.Add(this.SplineWindowByCurrentLevel);
-            this.groupBoxWindows.Location = new System.Drawing.Point(442, 96);
-            this.groupBoxWindows.Name = "groupBoxWindows";
-            this.groupBoxWindows.Size = new System.Drawing.Size(200, 172);
-            this.groupBoxWindows.TabIndex = 7;
-            this.groupBoxWindows.TabStop = false;
-            this.groupBoxWindows.Text = "Windows";
-            // 
-            // SplineWindowByAllLevels
-            // 
-            this.SplineWindowByAllLevels.Location = new System.Drawing.Point(11, 100);
-            this.SplineWindowByAllLevels.Name = "SplineWindowByAllLevels";
-            this.SplineWindowByAllLevels.Size = new System.Drawing.Size(177, 46);
-            this.SplineWindowByAllLevels.TabIndex = 8;
-            this.SplineWindowByAllLevels.Text = "All Levels";
-            this.SplineWindowByAllLevels.UseVisualStyleBackColor = true;
-            this.SplineWindowByAllLevels.Click += new System.EventHandler(this.SplineWindowByAllLevels_Click);
-            // 
-            // SplineWindowByCurrentLevel
-            // 
-            this.SplineWindowByCurrentLevel.Location = new System.Drawing.Point(11, 38);
-            this.SplineWindowByCurrentLevel.Name = "SplineWindowByCurrentLevel";
-            this.SplineWindowByCurrentLevel.Size = new System.Drawing.Size(177, 46);
-            this.SplineWindowByCurrentLevel.TabIndex = 8;
-            this.SplineWindowByCurrentLevel.Text = "By Level";
-            this.SplineWindowByCurrentLevel.UseVisualStyleBackColor = true;
-            this.SplineWindowByCurrentLevel.Click += new System.EventHandler(this.SplineWindowByCurrentLevel_Click);
-            // 
             // groupBoxInput
             // 
             this.groupBoxInput.Controls.Add(this.labelSufix);
             this.groupBoxInput.Controls.Add(this.LabelPrefix);
             this.groupBoxInput.Controls.Add(this.SuffixString);
             this.groupBoxInput.Controls.Add(this.PrefixString);
-            this.groupBoxInput.Location = new System.Drawing.Point(7, 267);
+            this.groupBoxInput.Location = new System.Drawing.Point(8, 81);
             this.groupBoxInput.Name = "groupBoxInput";
-            this.groupBoxInput.Size = new System.Drawing.Size(417, 113);
+            this.groupBoxInput.Size = new System.Drawing.Size(301, 113);
             this.groupBoxInput.TabIndex = 6;
             this.groupBoxInput.TabStop = false;
             this.groupBoxInput.Text = "Input";
@@ -253,26 +212,15 @@
             // 
             this.SuffixString.Location = new System.Drawing.Point(74, 73);
             this.SuffixString.Name = "SuffixString";
-            this.SuffixString.Size = new System.Drawing.Size(322, 22);
+            this.SuffixString.Size = new System.Drawing.Size(211, 22);
             this.SuffixString.TabIndex = 5;
             // 
             // PrefixString
             // 
-            this.PrefixString.Location = new System.Drawing.Point(74, 37);
+            this.PrefixString.Location = new System.Drawing.Point(76, 37);
             this.PrefixString.Name = "PrefixString";
-            this.PrefixString.Size = new System.Drawing.Size(322, 22);
+            this.PrefixString.Size = new System.Drawing.Size(209, 22);
             this.PrefixString.TabIndex = 4;
-            // 
-            // groupBoxDoors
-            // 
-            this.groupBoxDoors.Controls.Add(this.SplineDoorByCurrentLevel);
-            this.groupBoxDoors.Controls.Add(this.SplineDoorByAllLevels);
-            this.groupBoxDoors.Location = new System.Drawing.Point(218, 96);
-            this.groupBoxDoors.Name = "groupBoxDoors";
-            this.groupBoxDoors.Size = new System.Drawing.Size(218, 172);
-            this.groupBoxDoors.TabIndex = 3;
-            this.groupBoxDoors.TabStop = false;
-            this.groupBoxDoors.Text = "Doors";
             // 
             // backgroundWorker3
             // 
@@ -306,34 +254,22 @@
             this.backgroundWorker6.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker6_ProgressChanged);
             this.backgroundWorker6.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker6_RunWorkerCompleted);
             // 
-            // StatusLabel
-            // 
-            this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(507, 76);
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(83, 17);
-            this.StatusLabel.TabIndex = 13;
-            this.StatusLabel.Text = "Please Wait";
-            // 
             // RenumberSplineForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 497);
+            this.ClientSize = new System.Drawing.Size(550, 378);
             this.Controls.Add(this.groupBoxMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RenumberSplineForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Renumber Spline";
+            this.Text = "Renumber Elements";
             this.groupBoxMain.ResumeLayout(false);
             this.groupBoxMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).EndInit();
-            this.groupBoxRooms.ResumeLayout(false);
-            this.groupBoxWindows.ResumeLayout(false);
             this.groupBoxInput.ResumeLayout(false);
             this.groupBoxInput.PerformLayout();
-            this.groupBoxDoors.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -342,29 +278,24 @@
 
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Button SplineDoorByCurrentLevel;
-        private System.Windows.Forms.Button SplineDoorByAllLevels;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.GroupBox groupBoxMain;
-        private System.Windows.Forms.GroupBox groupBoxDoors;
         private System.Windows.Forms.TextBox SuffixString;
         private System.Windows.Forms.TextBox PrefixString;
         private System.Windows.Forms.GroupBox groupBoxInput;
         private System.Windows.Forms.Label labelSufix;
         private System.Windows.Forms.Label LabelPrefix;
-        private System.Windows.Forms.GroupBox groupBoxWindows;
-        private System.Windows.Forms.Button SplineWindowByAllLevels;
-        private System.Windows.Forms.Button SplineWindowByCurrentLevel;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.ComponentModel.BackgroundWorker backgroundWorker4;
-        private System.Windows.Forms.GroupBox groupBoxRooms;
-        private System.Windows.Forms.Button SplineRoomByCurrentLevel;
         private System.ComponentModel.BackgroundWorker backgroundWorker5;
         private System.ComponentModel.BackgroundWorker backgroundWorker6;
-        private System.Windows.Forms.Button SplineRoomsByAllLevels;
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.PictureBox designtechLogo;
         private System.Windows.Forms.Button SplineCancelButton;
         private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.ComboBox SelectLevelBox;
+        private System.Windows.Forms.ComboBox SelectElementBox;
+        private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.CheckBox checkBoxCurtainWalls;
     }
 }

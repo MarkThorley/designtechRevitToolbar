@@ -29,6 +29,11 @@ namespace EssentialTools
 
             SheetsFromExcelForm form = new SheetsFromExcelForm(doc);  //Calls the internal class which then calls the form
 
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.MaximizeBox = false;
+            form.MinimizeBox = false;
+            form.StartPosition = FormStartPosition.CenterScreen;
+
             form.ShowDialog();
 
             form.Dispose();

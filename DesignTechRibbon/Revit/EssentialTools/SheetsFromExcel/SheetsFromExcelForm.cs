@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 {
@@ -13,16 +14,26 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
         #region Initalise
 
+        Document localDoc;
+
         GetSetData Variables = new GetSetData();
 
         ListView listData = new ListView();
 
         List<ListViewItem> elements = new List<ListViewItem>();
 
+        Dictionary<string, string> sheetData = new Dictionary<string, string>();
+
+        List<Tuple<FamilySymbol,string,string>> userSheets = new List<Tuple<FamilySymbol, string, string>>();
+ 
+        FilteredElementCollector collSheets;
+
         public SheetsFromExcelForm(Document doc)
         {
 
             InitializeComponent();
+
+            localDoc = doc;
 
             if (Variables.xlApp == null)
             {
@@ -30,12 +41,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 return;
             }
 
-            listViewExcel.Columns.Add("Column One",156);
-            listViewExcel.Columns.Add("Column Two",160);
+            listViewExcel.Columns.Add("Sheet Number", 156);
+            listViewExcel.Columns.Add("Sheet Name", 160);
 
             listViewExcel.FullRowSelect = true;
             StopButton.Enabled = false;
             StatusLabel.Visible = false;
+
+            collSheets = new FilteredElementCollector(localDoc).OfClass(typeof(ViewSheet)).WhereElementIsNotElementType();
 
 
         }
@@ -56,12 +69,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
             Variables.xlWorkSheetTemplate = (Excel.Worksheet)Variables.xlWorkBookTemplate.Worksheets.get_Item(1);
 
-            Variables.xlWorkSheetTemplate.Cells[1, 1] = "One";
-            Variables.xlWorkSheetTemplate.Cells[1, 2] = "1";
-            Variables.xlWorkSheetTemplate.Cells[2, 1] = "Two";
-            Variables.xlWorkSheetTemplate.Cells[2, 2] = "2";
-            Variables.xlWorkSheetTemplate.Cells[3, 1] = "Three";
-            Variables.xlWorkSheetTemplate.Cells[3, 2] = "3";
+            Variables.xlWorkSheetTemplate.Cells[1, 1] = "Sheet Number";
+            Variables.xlWorkSheetTemplate.Cells[1, 2] = "Sheet Name";
+            Variables.xlWorkSheetTemplate.Cells[2, 1] = "1";
+            Variables.xlWorkSheetTemplate.Cells[2, 2] = "Sheet One";
+            Variables.xlWorkSheetTemplate.Cells[3, 1] = "2";
+            Variables.xlWorkSheetTemplate.Cells[3, 2] = "Sheet Two";
 
 
             FolderBrowserDialog browseFolders = new FolderBrowserDialog();
@@ -129,6 +142,68 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             backgroundWorker1.CancelAsync();
         }
 
+
+        private void SelectAllButon_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int x = 0; x < listViewExcel.Items.Count; x++)
+                {
+                    listViewExcel.Items[x].Selected = true;
+                    listViewExcel.Select();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void SelectNoneButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int x = 0; x < listViewExcel.Items.Count; x++)
+                {
+                    listViewExcel.Items[x].Selected = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void CreateSheetsButton_Click(object sender, EventArgs e)
+        {
+
+            if(listViewExcel.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem item in listViewExcel.SelectedItems)
+                {
+                    sheetData.Add(item.SubItems[0].Text, item.SubItems[1].Text);
+                }
+
+                if (!this.backgroundWorker2.IsBusy)
+                {
+                    backgroundWorker2.RunWorkerAsync();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("No items Were Seleted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+
+        }
+
         #endregion
 
 
@@ -177,6 +252,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
                             if (y == 1)
                             {
+                             
                                 Variables.collOne.Add(Variables.xlRangeExtract.Cells[x, y].Value.ToString());
                             }
                             else
@@ -190,11 +266,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                         {
                             if (y == 1)
                             {
-                                Variables.collOne.Add("Empty");
+                                Variables.collOne.Add("Unnamed");
                             }
                             else
                             {
-                                Variables.collTwo.Add("Empty");
+                                Variables.collTwo.Add("Unnamed");
                             }
 
 
@@ -274,6 +350,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                     Variables.collTwo.Clear();
 
 
+                    listViewExcel.Items.RemoveAt(0);
+
                     MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     progressBar1.Value = 0;
                
@@ -328,8 +406,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
             listViewExcel.Clear();
 
-            listViewExcel.Columns.Add("Column One", 200);
-            listViewExcel.Columns.Add("Column Two", 200);
+            listViewExcel.Columns.Add("Sheet Number", 156);
+            listViewExcel.Columns.Add("Sheet Name", 160);
 
             listViewExcel.FullRowSelect = true;
 
@@ -374,8 +452,147 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             public ListViewItem listElement;
         }
 
+
         #endregion
 
 
+
+        private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+
+            double i = 0;
+            double max = sheetData.Count;
+
+
+                foreach (var data in sheetData)
+            {
+
+
+                i += (100 * 1) / max;
+
+                if (i <= 100)
+                {
+                    backgroundWorker2.ReportProgress((int)i);
+                }
+
+
+                //if cancellation is pending, cancel work.  
+                if (backgroundWorker2.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+
+
+                bool doesIDExist = false;
+
+                    foreach (var E in collSheets)
+                    {
+                        ViewSheet VS = (ViewSheet)E;
+
+                        if (VS.SheetNumber == data.Key)
+                        {
+                            doesIDExist = true;
+                        }
+
+                    }
+
+                    if (doesIDExist == false)
+                    {
+
+                        try
+                        {
+
+                            // Get an available title block from document
+                            FilteredElementCollector collector = new FilteredElementCollector(localDoc);
+                            collector.OfClass(typeof(FamilySymbol));
+                            collector.OfCategory(BuiltInCategory.OST_TitleBlocks);
+
+                            FamilySymbol fs = collector.FirstElement() as FamilySymbol;
+
+                            userSheets.Add(new Tuple<FamilySymbol, string, string>(fs, data.Key, data.Value));
+
+
+                        }
+                        catch
+                        {
+
+                        }
+
+                    }
+                
+
+
+            }
+
+        }
+
+        private void backgroundWorker2_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker2_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+    
+                if (e.Cancelled)
+                {
+                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    progressBar1.Value = 0;
+                    StatusLabel.Visible = false;
+
+
+                }
+                else if (e.Error != null)
+                {
+                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    progressBar1.Value = 0;
+                    StatusLabel.Visible = false;
+                }
+                else
+                {
+
+                using (Transaction t = new Transaction(localDoc, "Add Sheet"))
+                {
+
+                    t.Start();
+
+                    foreach (Tuple<FamilySymbol, string, string> item in userSheets)
+                    {
+
+                        ViewSheet viewSheet = ViewSheet.Create(localDoc, item.Item1.Id);
+
+                        viewSheet.SheetNumber = item.Item2;
+
+                        viewSheet.ViewName = item.Item3;
+
+                    
+
+                    }
+
+                    t.Commit();
+
+                }
+
+
+                userSheets.Clear();
+                sheetData.Clear();
+
+                MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar1.Value = 0;
+
+              
+
+                }
+
+
+
+
+   
+
+
+
+        }
     }
-}
+    }

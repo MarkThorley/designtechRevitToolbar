@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.Revit.DB;
-using System.Reflection;
+﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System.Windows.Media.Imaging;
-using Autodesk.Revit.Attributes;
-using System.Windows.Forms;
 using DesignTechRibbon.Revit.EssentialTools.RenumberSpline;
-using Autodesk.Revit.UI.Selection;
+using System.Windows.Forms;
 
 namespace EssentialTools
 {
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+
+
     class RenumberSpline : IExternalCommand
     {
+
+        public RenumberSplineForm RenumForm;
 
         Reference splineRefrence;
 
         Element selectedSpline;
+
+        bool isFormOpen;
 
         public Autodesk.Revit.UI.Result Execute(ExternalCommandData revit,
         ref string message, ElementSet elements)
@@ -31,9 +28,42 @@ namespace EssentialTools
             Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
+       
+            FormCollection fc = Application.OpenForms;
+
+            foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
+            {
+                if(frm.Name == "SelectionForm")
+                {
+                    isFormOpen = true;
+
+                }
+            }
+
+            if(isFormOpen == false)
+            {
+                isFormOpen = true;
+
+                SelectionForm form = new SelectionForm(uidoc);
+
+                form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                form.MaximizeBox = false;
+                form.MinimizeBox = false;
+                form.StartPosition = FormStartPosition.CenterScreen;
+
+                form.Show();
+
+            }
+            else
+            {
+                MessageBox.Show("Form Already Open, Please Close Previous Instance","Warning",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+            }
+
+
+
+            /*
             ReferenceArray ra = new ReferenceArray();
             ISelectionFilter selFilter = new DetailLineFilter();
-
 
             try
             {
@@ -48,25 +78,23 @@ namespace EssentialTools
             {
                 TaskDialog.Show("Error", ex.Message);
             }
+            */
 
 
-            return Result.Succeeded;
+     
+                return Result.Succeeded;
 
-        }
 
-
-        public class DetailLineFilter : ISelectionFilter
-        {
-            public bool AllowElement(Element e)
-            {
-                return (e.Category.Id.IntegerValue.Equals(
-                  (int)BuiltInCategory.OST_Lines));
-            }
-            public bool AllowReference(Reference r, XYZ p)
-            {
-                return false;
-            }
-        }
 
     }
+
+
+    }
+
+
+
+
+
+
+
 }

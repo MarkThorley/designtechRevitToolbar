@@ -17,16 +17,25 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
 
         FilteredElementCollector doorCollector;
-        FilteredElementCollector WallCollector;
-
+        FilteredElementCollector windowCollector;
         UIDocument localDoc;
 
-        List<Tuple<Parameter, string>> ChangeWall= new List<Tuple<Parameter, string>>();
-        List<Tuple<Parameter, string>> ChangeDoor = new List<Tuple<Parameter, string>>();
+        //    List<Tuple<Parameter, string>> ChangeDoors = new List<Tuple<Parameter, string>>();
+        //   List<Tuple<Parameter, string>> ChangeWindow = new List<Tuple<Parameter, string>>();
 
-        public string stringParamWall = "empty";
-        public string stringParamDoor = "empty";
+      //  List<FamilySymbol> wallToDoors = new List<FamilySymbol>();
+      //  Dictionary<Family,string> wallToDoors2 = new Dictionary<Family, string>();
 
+        List<FamilySymbol> wallToWindows = new List<FamilySymbol>();
+
+        List<Family> doorFamilies = new List<Family>();
+        Dictionary<Element, string> doorElementsDictionary = new Dictionary<Element, string>();
+
+        List<Family> windowFamilies = new List<Family>();
+        Dictionary<Element, string> windowElementsDictionary = new Dictionary<Element, string>();
+
+        List<Family> deleteParametersDoors = new List<Family>();
+        List<Family> deleteParametersWindows = new List<Family>();
 
         List<Element> doors = new List<Element>();
 
@@ -42,7 +51,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             localDoc = doc;
 
             doorCollector = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Doors).WhereElementIsNotElementType();
-            WallCollector = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Walls).WhereElementIsNotElementType();
+            windowCollector = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Windows).WhereElementIsNotElementType();
 
 
             buttonCancel.Enabled = false;
@@ -54,11 +63,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         #region Buttons
 
-        private void DoorToWall_Click(object sender, EventArgs e)
+        private void WallToDoor_Click(object sender, EventArgs e)
         {
 
             DoorToWall.Enabled = false;
-            WallToDoor.Enabled = false;
+            WindowToWall.Enabled = false;
+            DeleteFireRatingsDoors.Enabled = false;
+            DeleteFireRatingsWindow.Enabled = false;
+           
             buttonCancel.Enabled = true;
 
             StatusLabel.Visible = true;
@@ -72,18 +84,50 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
         }
 
-        private void WallToDoor_Click(object sender, EventArgs e)
+        private void DeleteFireRatings_Click(object sender, EventArgs e)
+        {
+            DoorToWall.Enabled = false;
+            WindowToWall.Enabled = false;
+            DeleteFireRatingsDoors.Enabled = false;
+            DeleteFireRatingsWindow.Enabled = false;
+
+            if (!this.backgroundWorker3.IsBusy)
+            {
+                this.backgroundWorker3.RunWorkerAsync();
+            }
+
+        }
+
+        private void DeleteFireRatingsWindow_Click(object sender, EventArgs e)
         {
 
             DoorToWall.Enabled = false;
-            WallToDoor.Enabled = false;
+            WindowToWall.Enabled = false;
+            DeleteFireRatingsDoors.Enabled = false;
+            DeleteFireRatingsWindow.Enabled = false;
+
+
+            if (!this.backgroundWorker4.IsBusy)
+            {
+                this.backgroundWorker4.RunWorkerAsync();
+            }
+        }
+
+
+        private void WindowToWall_Click(object sender, EventArgs e)
+        {
+
+            DoorToWall.Enabled = false;
+            WindowToWall.Enabled = false;
+            DeleteFireRatingsDoors.Enabled = false;
+            DeleteFireRatingsWindow.Enabled = false;
             buttonCancel.Enabled = true;
             StatusLabel.Visible = true;
 
             if (!this.backgroundWorker2.IsBusy)
             {
                 this.backgroundWorker2.RunWorkerAsync();
-                this.WallToDoor.Enabled = false;
+                this.WindowToWall.Enabled = false;
 
             }
         }
@@ -115,6 +159,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             double i = 0;
             double max = doorCollector.Count();
 
+            string stringParamWall = "empty";
 
             foreach (Element Ele in doorCollector)
             {
@@ -148,24 +193,31 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 ElementId typeIdW = wallHost.GetTypeId();                       //get the type Id of the host as an element
                 Autodesk.Revit.DB.Element wallType = localDoc.Document.GetElement(typeIdW);   //Use the type ID to find that specific element
 
+             
+                stringParamWall = wallType.get_Parameter(BuiltInParameter.FIRE_RATING).AsString(); //getting wall rating
 
-                stringParamDoor = doorType.get_Parameter(BuiltInParameter.FIRE_RATING).AsString(); //getting wall rating
-
-
-                ParameterSet parameters = wallType.Parameters;  //Finds All walls which needs to be changed
-                foreach (Parameter param in parameters)
+                if(stringParamWall == null)
                 {
-
-                    if (param.Definition.Name.Equals("Fire Rating") && param.AsString() != "")
-                    {
-                        ChangeDoor.Add(new Tuple<Parameter, string>(param, stringParamDoor));
-
-                    }
+                    stringParamWall = "No Value";
                 }
 
 
+                ParameterSet parameters = door.Parameters;  //Finds All walls which needs to be changed
+
+                ElementId typeID = famIns.GetTypeId(); //get type id of the family instance
+
+                FamilySymbol fam = localDoc.Document.GetElement(typeID) as FamilySymbol; // get the instance as a Family Symbol
+
+                //wallToDoors.Add(fam);
+
+                //  wallToDoors2.Add(fam.Family,stringParamWall);
+
+                doorFamilies.Add(fam.Family);
+                doorElementsDictionary.Add(Ele, stringParamWall);
+
+
             }
-        }
+        } 
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -173,6 +225,201 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            
+            try
+            {
+
+                if (e.Cancelled)
+                {
+                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    progressBar1.Value = 0;
+                    StatusLabel.Visible = false;
+
+                }
+                else if (e.Error != null)
+                {
+                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    progressBar1.Value = 0;
+                    StatusLabel.Visible = false;
+                }
+                else
+                {
+             
+                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+
+                    var distinctItems = doorFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
+
+                    Document famDoc;
+
+                    foreach (var item in distinctItems)
+                    {
+
+                        famDoc = localDoc.Document.EditFamily(item); //get the family property of the family
+                        FamilyManager familyManager = famDoc.FamilyManager;
+
+                        using (Transaction t = new Transaction(famDoc, "Set Parameter")) //Change Door values
+                        {
+                            t.Start();
+
+                            try
+                            {
+
+                                FamilyParameter newParam = familyManager.AddParameter("Fire_Rating", BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
+
+
+                            }
+                            catch
+                            {
+                                //silent catch to continue if Fire_Rating is already on a door from a previous activation
+                            }
+
+
+                            t.Commit();
+
+                            LoadOpts famLoadOptions = new LoadOpts();
+                            Autodesk.Revit.DB.Family newFam = famDoc.LoadFamily(localDoc.Document, famLoadOptions);
+
+                        }
+
+                    }
+
+
+                    using (Transaction t = new Transaction(localDoc.Document, "Set Parameter")) //Change Door values
+                    {
+
+                        t.Start();
+
+                        foreach (var item in doorElementsDictionary)
+                        {
+
+                            ParameterSet ps = item.Key.Parameters;
+             
+                            foreach (Parameter p in ps)
+                            {
+                                if (p.Definition.Name == "Fire_Rating")
+                                {
+                                    p.Set(item.Value);
+                                }
+
+                            }
+
+
+                        }
+
+
+                        t.Commit();
+                    }
+
+
+                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    progressBar1.Value = 0;
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+            //ChangeWindow.Clear();
+            //ChangeDoors.Clear();
+
+
+
+
+            DoorToWall.Enabled = true;
+            WindowToWall.Enabled = true;
+            DeleteFireRatingsDoors.Enabled = true;
+            DeleteFireRatingsWindow.Enabled = true;
+
+            buttonCancel.Enabled = false;
+            StatusLabel.Visible = false;
+
+
+        }
+
+
+
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            double i = 0;
+            double max = doorCollector.Count();
+
+            string stringParamWindow = "empty";
+
+            foreach (Element Ele in windowCollector)
+            {
+
+                i += 100 / max;
+
+                if (i <= 100)
+                {
+                    backgroundWorker2.ReportProgress((int)i);
+                }
+                else
+                {
+                    i = 100;
+                    backgroundWorker2.ReportProgress((int)i);
+                }
+
+                if (backgroundWorker2.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+
+                Autodesk.Revit.DB.Element window = Ele as Autodesk.Revit.DB.Element;
+                ElementId typeId = window.GetTypeId();
+                Autodesk.Revit.DB.Element windowType = localDoc.Document.GetElement(typeId);   //Gets All the Doors
+
+                FamilyInstance famIns = window as FamilyInstance;                 //Covnvert to family instance to get the host of the door
+                Element eleHost = famIns.Host;                                  //doors Host
+                Autodesk.Revit.DB.Element wallHost = eleHost as Element;        //convert host back to an element
+                ElementId typeIdW = wallHost.GetTypeId();                       //get the type Id of the host as an element
+                Autodesk.Revit.DB.Element wallType = localDoc.Document.GetElement(typeIdW);   //Use the type ID to find that specific element
+
+
+                stringParamWindow = wallType.get_Parameter(BuiltInParameter.FIRE_RATING).AsString(); //getting wall rating
+
+
+                if (stringParamWindow == null)
+                {
+                    stringParamWindow = "No Value";
+                }
+
+
+                ParameterSet parameters = window.Parameters;  //Finds All walls which needs to be changed
+
+                ElementId typeID = famIns.GetTypeId(); //get type id of the family instance
+
+                FamilySymbol fam = localDoc.Document.GetElement(typeID) as FamilySymbol; // get the instance as a Family Symbol
+
+
+
+              //  wallToWindows.Add(fam);
+
+                windowFamilies.Add(fam.Family);
+                windowElementsDictionary.Add(Ele,stringParamWindow);
+
+
+
+
+            }
+
+
+
+        }
+
+        private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
             {
@@ -192,47 +439,105 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
+                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+
+                    var distinctItems = windowFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
+
+                    Document famDoc;
+
+                    foreach (var item in distinctItems)
+                    {
+
+                        famDoc = localDoc.Document.EditFamily(item); //get the family property of the family
+                        FamilyManager familyManager = famDoc.FamilyManager;
+
+                        using (Transaction t = new Transaction(famDoc, "Set Parameter")) //Change Door values
+                        {
+                            t.Start();
+
+                            try
+                            {
+
+                                FamilyParameter newParam = familyManager.AddParameter("Fire_Rating", BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
+
+
+                            }
+                            catch
+                            {
+                                //silent catch to continue if Fire_Rating is already on a door from a previous activation
+                            }
+
+
+                            t.Commit();
+
+                            LoadOpts famLoadOptions = new LoadOpts();
+                            Autodesk.Revit.DB.Family newFam = famDoc.LoadFamily(localDoc.Document, famLoadOptions);
+
+                        }
+
+                    }
 
 
                     using (Transaction t = new Transaction(localDoc.Document, "Set Parameter")) //Change Door values
                     {
+
                         t.Start();
 
-                        foreach (Tuple<Parameter,string> param in ChangeDoor)
+                        foreach (var item in windowElementsDictionary)
                         {
-                            param.Item1.Set(param.Item2);
+
+                            ParameterSet ps = item.Key.Parameters;
+             
+                            foreach (Parameter p in ps)
+                            {
+                                if (p.Definition.Name == "Fire_Rating")
+                                {
+                                    p.Set(item.Value);
+                                }
+
+                            }
+
+
                         }
 
 
                         t.Commit();
                     }
 
-            
+
                     MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     progressBar1.Value = 0;
-                }
 
+
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
 
-            ChangeDoor.Clear();
-            ChangeWall.Clear();
-
-            WallToDoor.Enabled = true;
             DoorToWall.Enabled = true;
+            WindowToWall.Enabled = true;
+            DeleteFireRatingsDoors.Enabled = true;
+            DeleteFireRatingsWindow.Enabled = true;
+
+
             buttonCancel.Enabled = false;
             StatusLabel.Visible = false;
 
 
+
+
         }
+        
 
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+
+
+        #endregion
+
+        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
         {
-
             double i = 0;
             double max = doorCollector.Count();
 
@@ -244,96 +549,122 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 if (i <= 100)
                 {
-                    backgroundWorker2.ReportProgress((int)i);
+                    backgroundWorker3.ReportProgress((int)i);
                 }
                 else
                 {
                     i = 100;
-                    backgroundWorker2.ReportProgress((int)i);
+                    backgroundWorker3.ReportProgress((int)i);
                 }
 
-                Autodesk.Revit.DB.Element wall = Ele as Autodesk.Revit.DB.Element;
-                ElementId typeId = wall.GetTypeId();
-                Autodesk.Revit.DB.Element wallType = localDoc.Document.GetElement(typeId);   //Gets All the Walls
-
-                FamilyInstance famIns = wall as FamilyInstance;                 //Covnvert to family instance to get the host of the wall
-                Element eleHost = famIns.Host;                                  //doors Host
-                Autodesk.Revit.DB.Element doorHost = eleHost as Element;        //convert host back to an element
-                ElementId typeIdD = doorHost.GetTypeId();                       //get the type Id of the host as an element
-                Autodesk.Revit.DB.Element doorType = localDoc.Document.GetElement(typeIdD);   //Use the type ID to find that specific element
-
-
-                stringParamWall = doorType.get_Parameter(BuiltInParameter.FIRE_RATING).AsString(); //getting door rating
-
-
-                ParameterSet parameters = wallType.Parameters;  //Finds All the Doors Paramaters which need to change
-                foreach (Parameter param in parameters)
+                if (backgroundWorker3.CancellationPending)
                 {
-
-                    if (param.Definition.Name.Equals("Fire Rating") && param.AsString() != "")
-                    {
-                        ChangeWall.Add(new Tuple<Parameter, string>(param, stringParamWall));
-
-                    }
+                    e.Cancel = true;
+                    return;
                 }
 
- 
+
+                //
+
+                Autodesk.Revit.DB.Element door = Ele as Autodesk.Revit.DB.Element;
+                ElementId typeId = door.GetTypeId();
+                Autodesk.Revit.DB.Element doorType = localDoc.Document.GetElement(typeId);   //Gets All the Doors
+
+                FamilyInstance famIns = door as FamilyInstance;                 //Covnvert to family instance to get the host of the door
+                Element eleHost = famIns.Host;                                  //doors Host
+                Autodesk.Revit.DB.Element wallHost = eleHost as Element;        //convert host back to an element
+                ElementId typeIdW = wallHost.GetTypeId();                       //get the type Id of the host as an element
+                Autodesk.Revit.DB.Element wallType = localDoc.Document.GetElement(typeIdW);   //Use the type ID to find that specific element
+
+                ParameterSet parameters = doorType.Parameters;  //Finds All walls which needs to be changed
+
+                ElementId typeID = famIns.GetTypeId(); //get type id of the family instance
+
+                FamilySymbol fam = localDoc.Document.GetElement(typeID) as FamilySymbol; // get the instance as a Family Symbol
+
+
+                deleteParametersDoors.Add(fam.Family);
+                //wallToDoors.Add(fam);
 
 
             }
 
 
 
-
         }
 
-        private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void backgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;
         }
 
-        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
             {
 
                 if (e.Cancelled)
                 {
-
-                    MessageBox.Show("The task has been cancelled.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString());
+                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
                 else
                 {
+                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
+               
 
-                    using (Transaction t = new Transaction(localDoc.Document, "Set Parameter")) //Change Door values
+                    var distinctItems = deleteParametersDoors.GroupBy(x => x.Id).Select(y => y.First()); //Sorts the list into only unique items
+
+                    foreach (var item in distinctItems)
                     {
-                        t.Start();
-         
 
-                        foreach (Tuple<Parameter, string> param in ChangeWall)
+                        Document famDoc = localDoc.Document.EditFamily(item); //get the family property of the family
+                        FamilyManager familyManager = famDoc.FamilyManager;
+
+                        using (Transaction t = new Transaction(famDoc, "Set Parameter")) //Change Door values
                         {
-                            param.Item1.Set(param.Item2);
+                            t.Start();
+
+                            try
+                            {
+                                ///delete here
+                                ///
+
+                                FamilyParameter param = familyManager.get_Parameter("Fire_Rating");
+          
+                                familyManager.RemoveParameter(param);
+
+
+                            }
+                            catch
+                            {
+                                //silent catch to continue if Fire_Rating is already on a door from a previous activation
+                            }
+
+                            t.Commit();
+
+                            LoadOpts famLoadOptions = new LoadOpts();
+                            Autodesk.Revit.DB.Family newFam = famDoc.LoadFamily(localDoc.Document, famLoadOptions);
+
                         }
 
-
-                        t.Commit();
                     }
 
 
-                    MessageBox.Show("The task has been completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    progressBar1.Value = 0;
-                }
 
+                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    progressBar1.Value = 0;
+
+                }
             }
             catch (Exception ex)
             {
@@ -341,21 +672,181 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
 
 
-            ChangeDoor.Clear();
-            ChangeWall.Clear();
 
-            WallToDoor.Enabled = true;
             DoorToWall.Enabled = true;
+            WindowToWall.Enabled = true;
+            DeleteFireRatingsDoors.Enabled = true;
+            DeleteFireRatingsWindow.Enabled = true;
+
             buttonCancel.Enabled = false;
             StatusLabel.Visible = false;
 
+            deleteParametersDoors.Clear();
+
+        }
+
+        private void backgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
+        {
+            double i = 0;
+            double max = windowCollector.Count();
+
+
+            foreach (Element Ele in windowCollector)
+            {
+
+                i += 100 / max;
+
+                if (i <= 100)
+                {
+                    backgroundWorker4.ReportProgress((int)i);
+                }
+                else
+                {
+                    i = 100;
+                    backgroundWorker4.ReportProgress((int)i);
+                }
+
+                if (backgroundWorker4.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+
+                Autodesk.Revit.DB.Element window = Ele as Autodesk.Revit.DB.Element;
+                ElementId windowID = window.GetTypeId();
+                Autodesk.Revit.DB.Element windowType = localDoc.Document.GetElement(windowID);                  
+
+                FamilyInstance famInsWin = window as FamilyInstance;                                          
+                Element eleHostWin = famInsWin.Host;                                                        
+                Autodesk.Revit.DB.Element wallHostWin = eleHostWin as Element;                             
+                ElementId typeIdForWindow = wallHostWin.GetTypeId();                                        
+                Autodesk.Revit.DB.Element wallTypeWindow = localDoc.Document.GetElement(typeIdForWindow);  
+
+                ParameterSet parametersWindow = windowType.Parameters; 
+
+                ElementId typeIDW = famInsWin.GetTypeId(); 
+
+                FamilySymbol famW = localDoc.Document.GetElement(typeIDW) as FamilySymbol; // get the instance as a Family Symbol
+
+
+                deleteParametersWindows.Add(famW.Family);
+
+
+
+
+
+
+            }
+
+        }
+
+        private void backgroundWorker4_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+
+                if (e.Cancelled)
+                {
+                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    progressBar1.Value = 0;
+                    StatusLabel.Visible = false;
+
+                }
+                else if (e.Error != null)
+                {
+                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    progressBar1.Value = 0;
+                    StatusLabel.Visible = false;
+                }
+                else
+                {
+                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+
+
+                    var distinctItems = deleteParametersWindows.GroupBy(x => x.Id).Select(y => y.First()); //Sorts the list into only unique items
+
+                    foreach (var item in distinctItems)
+                    {
+
+                        Document famDoc = localDoc.Document.EditFamily(item); //get the family property of the family
+                        FamilyManager familyManager = famDoc.FamilyManager;
+
+                        using (Transaction t = new Transaction(famDoc, "Set Parameter")) //Change Door values
+                        {
+                            t.Start();
+
+                            try
+                            {
+                                ///delete here
+                                ///
+
+                                FamilyParameter param = familyManager.get_Parameter("Fire_Rating");
+
+                                familyManager.RemoveParameter(param);
+
+
+                            }
+                            catch
+                            {
+                                //silent catch to continue if Fire_Rating is already on a door from a previous activation
+                            }
+
+                            t.Commit();
+
+                            LoadOpts famLoadOptions = new LoadOpts();
+                            Autodesk.Revit.DB.Family newFam = famDoc.LoadFamily(localDoc.Document, famLoadOptions);
+
+                        }
+
+                    }
+
+
+
+                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    progressBar1.Value = 0;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            DoorToWall.Enabled = true;
+            WindowToWall.Enabled = true;
+            DeleteFireRatingsDoors.Enabled = true;
+            DeleteFireRatingsWindow.Enabled = true;
+
+            deleteParametersWindows.Clear();
+
+            buttonCancel.Enabled = false;
+            StatusLabel.Visible = false;
 
         }
 
 
-        #endregion
+        class LoadOpts : IFamilyLoadOptions
+        {
+            public bool OnFamilyFound(bool familyInUse, out bool overwriteParameterValues)
+            {
+                overwriteParameterValues = true;
+                return true;
+            }
 
-   
+            public bool OnSharedFamilyFound(Family sharedFamily, bool familyInUse, out FamilySource source, out bool overwriteParameterValues)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+
     }
 
 

@@ -121,12 +121,25 @@
     <Compile Include="Revit\EssentialTools\Filters\FiltersForm.designer.cs">
       <DependentUpon>FiltersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Revit\EssentialTools\Info\Info.cs" />
+    <Compile Include="Revit\EssentialTools\Info\InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Revit\EssentialTools\Info\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Revit\EssentialTools\LegendPlacer\LegendPlacer.cs" />
     <Compile Include="Revit\EssentialTools\LegendPlacer\LegendPlacerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Revit\EssentialTools\LegendPlacer\LegendPlacerForm.Designer.cs">
       <DependentUpon>LegendPlacerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Revit\EssentialTools\LegendPlacer\PointXYZSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Revit\EssentialTools\LegendPlacer\PointXYZSelector.Designer.cs">
+      <DependentUpon>PointXYZSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Revit\EssentialTools\MatchFireDoorWall\MatchFireDoorWallForm.cs">
       <SubType>Form</SubType>
@@ -142,12 +155,25 @@
     <Compile Include="Revit\EssentialTools\PinAndUnpin\PinAndUnpinForm.Designer.cs">
       <DependentUpon>PinAndUnpinForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Revit\EssentialTools\PopulateRoomInfo\PopulateRoom.cs" />
+    <Compile Include="Revit\EssentialTools\PopulateRoomInfo\PopulateRoomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Revit\EssentialTools\PopulateRoomInfo\PopulateRoomForm.Designer.cs">
+      <DependentUpon>PopulateRoomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Revit\EssentialTools\RenumberSpline\RenumberSpline.cs" />
     <Compile Include="Revit\EssentialTools\RenumberSpline\RenumberSplineForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Revit\EssentialTools\RenumberSpline\RenumberSplineForm.Designer.cs">
       <DependentUpon>RenumberSplineForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Revit\EssentialTools\RenumberSpline\SelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Revit\EssentialTools\RenumberSpline\SelectionForm.designer.cs">
+      <DependentUpon>SelectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Revit\EssentialTools\SheetsFromExcel\SheetsFromExcel.cs" />
     <Compile Include="Revit\EssentialTools\SheetsFromExcel\SheetsFromExcelForm.cs">
@@ -174,8 +200,32 @@
     <Content Include="DesignTechRibbon.addin">
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\EssentialTools\filters.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\EssentialTools\pin_unpin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\EssentialTools\fire_ratings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\EssentialTools\place_legends.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\EssentialTools\import_sheets.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\EssentialTools\about.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\EssentialTools\RemoveFiltersPlaceholder.png" />
     <Content Include="Resources\EssentialTools\RemoveTemplatesPlaceholder.png" />
+    <Resource Include="Resources\EssentialTools\view_template.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\EssentialTools\renumber_elements.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Videos\ExcelSheetsT.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -192,7 +242,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\EssentialTools\SplineIcon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\EssentialTools\LegendIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -201,9 +251,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\EssentialTools\ExcelLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\EssentialTools\PinIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\EssentialTools\PipingTotalLength.png">
@@ -236,8 +283,14 @@
     <EmbeddedResource Include="Revit\EssentialTools\Filters\FiltersForm.resx">
       <DependentUpon>FiltersForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Revit\EssentialTools\Info\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Revit\EssentialTools\LegendPlacer\LegendPlacerForm.resx">
       <DependentUpon>LegendPlacerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Revit\EssentialTools\LegendPlacer\PointXYZSelector.resx">
+      <DependentUpon>PointXYZSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Revit\EssentialTools\MatchFireDoorWall\MatchFireDoorWallForm.resx">
       <DependentUpon>MatchFireDoorWallForm.cs</DependentUpon>
@@ -247,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Revit\EssentialTools\RenumberSpline\RenumberSplineForm.resx">
       <DependentUpon>RenumberSplineForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Revit\EssentialTools\RenumberSpline\SelectionForm.resx">
+      <DependentUpon>SelectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Revit\EssentialTools\SheetsFromExcel\SheetsFromExcelForm.resx">
       <DependentUpon>SheetsFromExcelForm.cs</DependentUpon>
@@ -291,15 +347,11 @@
 
 copy "$(ProjectDir)bin\Debug\designtech.bundle\DesignTechRibbon.dll" "$(AppData)\Autodesk\REVIT\Addins\2018"
 
-copy "$(ProjectDir)bin\Debug\designtech.bundle\Resources\Videos\PinUnpinT.mp4" "$(ProgramData)\Autodesk\Revit\Addins\2018\designtech.bundle"
-
-copy "$(ProjectDir)bin\Debug\designtech.bundle\Resources\Videos\ExcelSheetsT.mp4" "$(ProgramData)\Autodesk\Revit\Addins\2018\designtech.bundle"
-
-copy "$(ProjectDir)bin\Debug\designtech.bundle\Resources\Videos\FireRatingT.mp4" "$(ProgramData)\Autodesk\Revit\Addins\2018\designtech.bundle"
-
-copy "$(ProjectDir)bin\Debug\designtech.bundle\Resources\Videos\LegendsPlacementT.mp4" "$(ProgramData)\Autodesk\Revit\Addins\2018\designtech.bundle"
-
-copy "$(ProjectDir)bin\Debug\designtech.bundle\Resources\Videos\SplineT.mp4" "$(ProgramData)\Autodesk\Revit\Addins\2018\designtech.bundle"</PostBuildEvent>
+</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

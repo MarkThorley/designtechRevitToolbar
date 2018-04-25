@@ -1,2 +1,2 @@
 # designtechRevitToolbar
-Visual Studio project for both the paid and free designtech Revit ribbon
+Visual Studio project for the free designtech Revit ribbon

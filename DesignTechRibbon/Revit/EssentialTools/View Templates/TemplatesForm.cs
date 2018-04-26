@@ -183,7 +183,7 @@ namespace EssentialTools
         private void delBtn_Click(object sender, EventArgs e)
         {
             var listResults = templateList.SelectedItems.Cast<String>().ToList();
-            resultStore = currentStore.Where(x => listResults.Contains(x.Key)).ToDictionary(dict => dict.Key, dict => dict.Value);
+            resultStore = currentStore.Where(x => listResults.Contains(x.Key)).ToDictionary(dict => dict.Key, dict => dict.Value);            
             this.DialogResult = DialogResult.Yes;
             this.Close();
         }

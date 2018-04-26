@@ -45,7 +45,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 userSelectedPoint = localDoc.Selection.PickPoint();
 
-                label1.Text = "User Selected\n" + "\nX: " + userSelectedPoint.X + "\nY: " + userSelectedPoint.Y;
+                label1.Text = "User Selected\n" + "\nX: " + Math.Round(userSelectedPoint.X,5)  + "\nY: " + Math.Round(userSelectedPoint.Y,5);
 
                 this.Show();
             }

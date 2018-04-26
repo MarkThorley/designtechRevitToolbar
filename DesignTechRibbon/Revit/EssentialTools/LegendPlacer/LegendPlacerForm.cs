@@ -712,6 +712,23 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         {
             labelSelectedCount.Text = "Selected Sheets: " + SheetListBox.SelectedItems.Count.ToString();
         }
+
+        private void LegendPlacerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormCollection fc = Application.OpenForms;
+
+            foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
+            {
+                if (frm.Name == "PointXYZSelector")
+                {
+                    frm.Close();
+                    frm.Dispose();
+                   
+
+                }
+            }
+
+        }
     }
 
 

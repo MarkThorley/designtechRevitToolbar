@@ -235,6 +235,7 @@
             this.Name = "LegendPlacerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Place Legends";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LegendPlacerForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

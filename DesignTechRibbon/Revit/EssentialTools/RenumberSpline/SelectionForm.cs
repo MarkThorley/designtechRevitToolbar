@@ -51,8 +51,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 Element S = localDoc.Document.GetElement(selectedRef);
 
 
-                if (S.Category.Name.ToString() == "Lines")
+                if (S.GetType().Name == typeof(NurbSpline).Name)
                 {
+                   
+
                     LabelSelected.Text = "User Selected: " + S.Name;
                     SelectedElement = localDoc.Document.GetElement(S.Id);
                 }
@@ -126,14 +128,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             if (SelectedElement != null)
             {
 
-                var confirmResult = MessageBox.Show("Load This Item", "Confirm", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+               // var confirmResult = MessageBox.Show("Load This Item", "Confirm", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
 
-                if (confirmResult == DialogResult.Yes)
-                {
+               // if (confirmResult == DialogResult.Yes)
+                //{
 
                     exEvent.Raise();
 
-                }
+               // }
 
             }
             else

@@ -64,14 +64,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             if (userSelectedPoint != null)
             {
 
-                var confirmResult = MessageBox.Show("Use This Point", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+               // var confirmResult = MessageBox.Show("Use This Point", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (confirmResult == DialogResult.Yes)
-                {
+                //if (confirmResult == DialogResult.Yes)
+                //{
 
                     exEvent.Raise();
 
-                }
+                //}
 
             }
             else

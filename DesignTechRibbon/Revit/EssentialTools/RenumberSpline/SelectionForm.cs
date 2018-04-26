@@ -55,7 +55,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 if (S.GetType().Name.ToString() == typeof(ModelNurbSpline).Name.ToString())
                 {
 
-
+                    LabelSelected.Text = "went back in time";
                     LabelSelected.Text = "This line is compatible";
                     SelectedElement = localDoc.Document.GetElement(S.Id);
                 }

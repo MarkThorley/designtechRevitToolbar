@@ -34,7 +34,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
         string col1 = "Type";
         string col2 = "Name";
         string col3 = "Pinned";
-
     
         List<string> getListBoxAsStrings = new List<string>();
 
@@ -43,8 +42,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
             InitializeComponent();
 
             this.localDoc = doc;
-
-
+            
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
 
@@ -128,6 +126,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
 
             }
+
+            this.totalLbl.Text = listView1.Items.Count.ToString() + " items";
 
             elementList.Hide();
 
@@ -360,8 +360,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                     listView1.Items[x].Selected = true;
                     listView1.Select();
                 }
-
-
+                
             }
             catch (Exception ex)
             {
@@ -380,7 +379,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                     listView1.Items[x].Selected = false;
                    // listView1.Select();
                 }
-
+                totalLbl.Text = listView1.Items.Count.ToString() + " items";
 
             }
             catch (Exception ex)
@@ -1440,13 +1439,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         }
 
+
+
+
+
+
         #endregion
 
-
-
-
-
-
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+                totalLbl.Text = listView1.SelectedItems.Count.ToString() + " selected items";
+            else
+                totalLbl.Text = listView1.Items.Count.ToString() + " items";
+        }
     }
 
 

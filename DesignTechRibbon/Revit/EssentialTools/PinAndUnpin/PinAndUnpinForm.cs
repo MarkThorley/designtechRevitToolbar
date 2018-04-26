@@ -130,6 +130,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
             }
 
             elementList.Hide();
+            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
         }
 

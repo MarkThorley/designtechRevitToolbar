@@ -287,6 +287,7 @@
             this.Name = "RenumberSplineForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Renumber Elements";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RenumberSplineForm_FormClosing);
             this.groupBoxMain.ResumeLayout(false);
             this.groupBoxMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).EndInit();

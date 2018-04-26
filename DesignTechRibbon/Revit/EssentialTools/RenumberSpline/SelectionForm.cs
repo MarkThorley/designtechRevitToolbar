@@ -55,9 +55,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 if (S.GetType().Name.ToString() == typeof(ModelNurbSpline).Name.ToString())
                 {
 
-
-                    LabelSelected.Text = "This line is compatible";
-                    SelectedElement = localDoc.Document.GetElement(S.Id);
+                    exEvent.Raise();
+                    //abelSelected.Text = "This line is compatible";
+                    //  SelectedElement = localDoc.Document.GetElement(S.Id);
                 }
                 else
                 {

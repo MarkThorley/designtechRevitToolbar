@@ -37,6 +37,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             InitializeComponent();
             localDoc = doc;
 
+            InfoLabel.Text = "";
+
         }
 
         private void SelectionButton_Click(object sender, EventArgs e)
@@ -50,17 +52,17 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 Element S = localDoc.Document.GetElement(selectedRef);
 
-
-                if (S.GetType().Name == typeof(NurbSpline).Name)
+                if (S.GetType().Name.ToString() == typeof(ModelNurbSpline).Name.ToString())
                 {
-                   
 
-                    LabelSelected.Text = "User Selected: " + S.Name;
+
+                    LabelSelected.Text = "This line is compatible";
                     SelectedElement = localDoc.Document.GetElement(S.Id);
                 }
                 else
                 {
-                    MessageBox.Show("Selected Item Is Not A Line", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    LabelSelected.Text = "Not compatible";
+                    MessageBox.Show("Selected Item Is Not A Model Nurb Spline", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
                 this.Show();
@@ -140,7 +142,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             }
             else
             {
-                MessageBox.Show("No Model Line Selected","Error",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                MessageBox.Show("Please Select a Valid Model Spline","Error",MessageBoxButtons.OK,MessageBoxIcon.Stop);
             }
 
         }

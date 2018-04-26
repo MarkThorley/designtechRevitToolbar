@@ -38,6 +38,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.InfoLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
@@ -49,18 +50,18 @@
             this.SelectionButton.Name = "SelectionButton";
             this.SelectionButton.Size = new System.Drawing.Size(156, 47);
             this.SelectionButton.TabIndex = 0;
-            this.SelectionButton.Text = "Select Line";
+            this.SelectionButton.Text = "Pick Line In Revit";
             this.SelectionButton.UseVisualStyleBackColor = true;
             this.SelectionButton.Click += new System.EventHandler(this.SelectionButton_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 18);
+            this.label1.Location = new System.Drawing.Point(17, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(203, 17);
+            this.label1.Size = new System.Drawing.Size(292, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Select A Line In The Document";
+            this.label1.Text = "Select A Model Nurb Spline In The Document";
             // 
             // LoadButton
             // 
@@ -68,12 +69,13 @@
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(156, 47);
             this.LoadButton.TabIndex = 2;
-            this.LoadButton.Text = "Load Line";
+            this.LoadButton.Text = "Use Selected Line";
             this.LoadButton.UseVisualStyleBackColor = true;
             this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.InfoLabel);
             this.groupBox1.Controls.Add(this.LabelSelected);
             this.groupBox1.Controls.Add(this.CloseWindow);
             this.groupBox1.Controls.Add(this.groupBox2);
@@ -81,22 +83,22 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(529, 256);
+            this.groupBox1.Size = new System.Drawing.Size(529, 301);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
             // LabelSelected
             // 
             this.LabelSelected.AutoSize = true;
-            this.LabelSelected.Location = new System.Drawing.Point(18, 92);
+            this.LabelSelected.Location = new System.Drawing.Point(382, 194);
             this.LabelSelected.Name = "LabelSelected";
-            this.LabelSelected.Size = new System.Drawing.Size(107, 17);
+            this.LabelSelected.Size = new System.Drawing.Size(86, 17);
             this.LabelSelected.TabIndex = 12;
-            this.LabelSelected.Text = "Selection Name";
+            this.LabelSelected.Text = "Current Line";
             // 
             // CloseWindow
             // 
-            this.CloseWindow.Location = new System.Drawing.Point(332, 191);
+            this.CloseWindow.Location = new System.Drawing.Point(332, 236);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(186, 47);
             this.CloseWindow.TabIndex = 10;
@@ -119,7 +121,7 @@
             this.designtechLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.designtechLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.designtechLogo.Image = ((System.Drawing.Image)(resources.GetObject("designtechLogo.Image")));
-            this.designtechLogo.Location = new System.Drawing.Point(7, 165);
+            this.designtechLogo.Location = new System.Drawing.Point(7, 210);
             this.designtechLogo.Margin = new System.Windows.Forms.Padding(4);
             this.designtechLogo.Name = "designtechLogo";
             this.designtechLogo.Size = new System.Drawing.Size(313, 73);
@@ -127,11 +129,20 @@
             this.designtechLogo.TabIndex = 8;
             this.designtechLogo.TabStop = false;
             // 
+            // InfoLabel
+            // 
+            this.InfoLabel.Location = new System.Drawing.Point(17, 54);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(274, 88);
+            this.InfoLabel.TabIndex = 13;
+            this.InfoLabel.Text = "This Tool Renumbers All Doors/Windows/Rooms Based On The Proximity Of The Element" +
+    " To The Line";
+            // 
             // SelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 268);
+            this.ClientSize = new System.Drawing.Size(551, 317);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectionForm";
@@ -157,5 +168,6 @@
         private System.Windows.Forms.PictureBox designtechLogo;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label LabelSelected;
+        private System.Windows.Forms.Label InfoLabel;
     }
 }

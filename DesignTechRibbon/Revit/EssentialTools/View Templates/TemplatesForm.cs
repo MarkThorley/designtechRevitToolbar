@@ -43,7 +43,7 @@ namespace EssentialTools
             this.currentStore = store;
             var registrationsList = store.Keys.ToArray();
             templateList.Items.AddRange(registrationsList);
-            totalLbl.Text = registrationsList.Count().ToString();
+            totalLbl.Text = registrationsList.Count().ToString() + " items";
             totalLbl.Update();
     
         }
@@ -81,7 +81,7 @@ namespace EssentialTools
                     templateList.Items.AddRange(registrationsList.ToArray()); //there is no any filter string, so add all data we have in Store
 
                 templateList.EndUpdate();
-                totalLbl.Text = templateList.Items.Count.ToString();
+                totalLbl.Text = templateList.Items.Count.ToString() + " items";
                 totalLbl.Update();
             }
         }
@@ -135,7 +135,7 @@ namespace EssentialTools
             templateList.Items.AddRange(registrationsList.ToArray());
             templateList.EndUpdate();
 
-            totalLbl.Text = registrationsList.Count().ToString();
+            totalLbl.Text = registrationsList.Count().ToString() + " items";
             totalLbl.Update();
         }
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -202,5 +202,9 @@ namespace EssentialTools
 
         #endregion
 
+        private void templateList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            totalLbl.Text = templateList.SelectedItems.Count.ToString() + " selected items";
+        }
     }
 }

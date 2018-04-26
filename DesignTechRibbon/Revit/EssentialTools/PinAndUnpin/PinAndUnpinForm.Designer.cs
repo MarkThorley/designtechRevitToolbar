@@ -49,6 +49,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.totalLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
             this.mainPanel.SuspendLayout();
             this.Action.SuspendLayout();
@@ -109,6 +110,7 @@
             this.mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainPanel.Controls.Add(this.totalLbl);
             this.mainPanel.Controls.Add(this.listView1);
             this.mainPanel.Controls.Add(this.Action);
             this.mainPanel.Controls.Add(this.cancelBtn);
@@ -129,9 +131,10 @@
             this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(2, 30);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(448, 406);
+            this.listView1.Size = new System.Drawing.Size(448, 374);
             this.listView1.TabIndex = 18;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // Action
             // 
@@ -286,6 +289,15 @@
             this.backgroundWorker3.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker3_ProgressChanged);
             this.backgroundWorker3.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker3_RunWorkerCompleted);
             // 
+            // totalLbl
+            // 
+            this.totalLbl.AutoSize = true;
+            this.totalLbl.Location = new System.Drawing.Point(2, 407);
+            this.totalLbl.Name = "totalLbl";
+            this.totalLbl.Size = new System.Drawing.Size(46, 19);
+            this.totalLbl.TabIndex = 19;
+            this.totalLbl.Text = "Total:";
+            // 
             // PinAndUnpinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -300,6 +312,7 @@
             this.Text = "Pin/Unpin List";
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).EndInit();
             this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.Action.ResumeLayout(false);
             this.groupBoxSelection.ResumeLayout(false);
             this.groupBoxSelection.PerformLayout();
@@ -329,5 +342,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Label totalLbl;
     }
 }

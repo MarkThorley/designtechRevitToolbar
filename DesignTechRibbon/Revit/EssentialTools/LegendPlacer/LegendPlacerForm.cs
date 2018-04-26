@@ -222,53 +222,61 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         private void RemoveButton_Click(object sender, EventArgs e)
         {
 
-            WFItem.selectedSheetsList.Clear();
-
-            RemoveButton.Enabled = false;
-            StatusLabel.Visible = true;
-            StopButton.Enabled = true;
-            StatusLabel.Text = "Please Wait";
-
-
-            foreach (string SS in SheetListBox.SelectedItems) // in every selected item by user
+            if (SheetListBox.SelectedItems.Count <= 0 || LegendListBox.SelectedItems.Count <= 0)
             {
+                MessageBox.Show("Please Select At Least One Item In Each Box", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                WFItem.selectedSheetsList.Clear();
 
-                int findSpace = 0;
+                RemoveButton.Enabled = false;
+                StatusLabel.Visible = true;
+                StopButton.Enabled = true;
+                StatusLabel.Text = "Please Wait";
 
-                findSpace = SS.IndexOf(":");
-
-                string getSheetID = SS.Remove(findSpace);
-
-                foreach (Tuple<string, Element> All in WFItem.allSheetsList) // in all the sheets on the form
+                foreach (string SS in SheetListBox.SelectedItems) // in every selected item by user
                 {
 
-                    if (getSheetID == All.Item1) // If the selected sheet name matches the sheet ID out of all
+                    int findSpace = 0;
+
+                    findSpace = SS.IndexOf(":");
+
+                    string getSheetID = SS.Remove(findSpace);
+
+                    foreach (Tuple<string, Element> All in WFItem.allSheetsList) // in all the sheets on the form
                     {
 
-                        WFItem.selectedSheetsList.Add(new Tuple<string, Element>(All.Item1, All.Item2)); //Add
+                        if (getSheetID == All.Item1) // If the selected sheet name matches the sheet ID out of all
+                        {
+
+                            WFItem.selectedSheetsList.Add(new Tuple<string, Element>(All.Item1, All.Item2)); //Add
+                        
+                        }
 
                     }
 
+                }
 
+                foreach (string SL in LegendListBox.SelectedItems)
+                {
+
+                    WFItem.SelectedLegends.Add(SL);
+                }
+
+                if (!this.backgroundWorker2.IsBusy)
+                {
+                    this.backgroundWorker2.RunWorkerAsync();
+                    this.RemoveButton.Enabled = false;
+                    this.PlaceButton.Enabled = false;
 
                 }
 
-            }
-
-
-            foreach (string SL in LegendListBox.SelectedItems)
-            {
-
-                WFItem.SelectedLegends.Add(SL);
-            }
-
-            if (!this.backgroundWorker2.IsBusy)
-            {
-                this.backgroundWorker2.RunWorkerAsync();
-                this.RemoveButton.Enabled = false;
-                this.PlaceButton.Enabled = false;
 
             }
+
+
+         
 
 
         }
@@ -697,9 +705,30 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         }
 
+
         #endregion
 
+        private void SheetListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            labelSelectedCount.Text = "Selected Sheets: " + SheetListBox.SelectedItems.Count.ToString();
+        }
 
+        private void LegendPlacerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormCollection fc = Application.OpenForms;
+
+            foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
+            {
+                if (frm.Name == "PointXYZSelector")
+                {
+                    frm.Close();
+                    frm.Dispose();
+                   
+
+                }
+            }
+
+        }
     }
 
 

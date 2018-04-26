@@ -352,8 +352,15 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
                     listViewExcel.Items.RemoveAt(0);
 
-
-                    listViewExcel.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    if(listViewExcel.Columns[0].Width < 200)
+                    {
+                        listViewExcel.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    }
+                    else
+                    {
+                        listViewExcel.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    }
+                    
 
                     MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     progressBar1.Value = 0;

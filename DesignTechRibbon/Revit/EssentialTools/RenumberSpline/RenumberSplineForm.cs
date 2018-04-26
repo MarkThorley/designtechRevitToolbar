@@ -431,9 +431,44 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
 
+
+
                         t.Commit();
 
                     }
+
+                    //TEST CODE TO DRAW LINES///////////////////////////////////////////////////////////////////////////
+                    using (Transaction tx = new Transaction(localDoc.Document))
+                    {
+                        tx.Start("Draw Curves at Points");
+
+                        foreach (KeyValuePair<int, XYZ> pt in splinePoints)
+                        {
+                            CreateCircle(localDoc.Document, pt.Value, 1);
+
+
+                        }
+
+                      
+                        for (int x = 0; x < orderedPoints.ToList().Count; x++)
+                        {
+
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set("a" + x);
+
+
+                            XYZ P1 = new XYZ(orderedPoints.ToList()[x].Item3.X, orderedPoints.ToList()[x].Item3.Y, 0);
+                            XYZ P2 = new XYZ(orderedPoints.ToList()[x].Item4.X, orderedPoints.ToList()[x].Item4.Y, 0);
+                            Line L1 = Line.CreateBound(P1, P2);
+                            localDoc.Document.Create.NewDetailCurve(localDoc.ActiveView, L1);
+
+
+                        }
+
+
+                        tx.Commit();
+
+                    }
+
 
 
                     MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1472,6 +1507,28 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 checkBoxCurtainWalls.Enabled = false;
             }
 
+        }
+
+
+        DetailArc CreateCircle(Document doc, XYZ location, double radius)
+        {
+            XYZ norm = XYZ.BasisZ;
+
+            double startAngle = 0;
+            double endAngle = 2 * Math.PI;
+
+            //   Plane plane = new Plane(norm, location);
+
+            Plane plane;
+
+            plane = Plane.CreateByNormalAndOrigin(norm, location);
+
+
+            Arc arc = Arc.Create(plane,
+              radius, startAngle, endAngle);
+
+            return doc.Create.NewDetailCurve(
+              doc.ActiveView, arc) as DetailArc;
         }
     }
 

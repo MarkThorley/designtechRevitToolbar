@@ -211,6 +211,7 @@
             this.filtersList.Size = new System.Drawing.Size(324, 213);
             this.filtersList.Sorted = true;
             this.filtersList.TabIndex = 0;
+            this.filtersList.SelectedIndexChanged += new System.EventHandler(this.filtersList_SelectedIndexChanged);
             // 
             // contextMenuStrip1
             // 

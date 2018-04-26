@@ -93,7 +93,7 @@
             this.LoadPointButton.Name = "LoadPointButton";
             this.LoadPointButton.Size = new System.Drawing.Size(138, 38);
             this.LoadPointButton.TabIndex = 10;
-            this.LoadPointButton.Text = "Load ";
+            this.LoadPointButton.Text = "Use";
             this.LoadPointButton.UseVisualStyleBackColor = true;
             this.LoadPointButton.Click += new System.EventHandler(this.LoadPointButton_Click);
             // 

@@ -104,7 +104,7 @@ namespace EssentialTools
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                    TaskDialog.Show("Unused View Templates.", "Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.");
+                    MessageBox.Show("Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.", "Unused View Templates.");
                 }
             }
         }

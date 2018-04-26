@@ -45,6 +45,7 @@
             this.SheetListBox = new System.Windows.Forms.ListBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.labelSelectedCount = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
@@ -53,6 +54,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelSelectedCount);
             this.groupBox1.Controls.Add(this.StatusLabel);
             this.groupBox1.Controls.Add(this.StopButton);
             this.groupBox1.Controls.Add(this.progressBar1);
@@ -197,6 +199,7 @@
             this.SheetListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.SheetListBox.Size = new System.Drawing.Size(230, 388);
             this.SheetListBox.TabIndex = 0;
+            this.SheetListBox.SelectedIndexChanged += new System.EventHandler(this.SheetListBox_SelectedIndexChanged);
             // 
             // backgroundWorker1
             // 
@@ -209,6 +212,15 @@
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
+            // 
+            // labelSelectedCount
+            // 
+            this.labelSelectedCount.AutoSize = true;
+            this.labelSelectedCount.Location = new System.Drawing.Point(488, 346);
+            this.labelSelectedCount.Name = "labelSelectedCount";
+            this.labelSelectedCount.Size = new System.Drawing.Size(115, 17);
+            this.labelSelectedCount.TabIndex = 13;
+            this.labelSelectedCount.Text = "Selected Sheets:";
             // 
             // LegendPlacerForm
             // 
@@ -250,5 +262,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.Button StopButton;
         private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.Label labelSelectedCount;
     }
 }

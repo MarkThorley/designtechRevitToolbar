@@ -727,7 +727,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 {
                     frm.Close();
                     frm.Dispose();
-                   
+                    break;
+
 
                 }
             }

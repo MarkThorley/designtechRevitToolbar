@@ -104,16 +104,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
             comboBoxZeroPad.Items.Add("0");
-            comboBoxZeroPad.Items.Add("1");
-            comboBoxZeroPad.Items.Add("2");
-            comboBoxZeroPad.Items.Add("3");
-            comboBoxZeroPad.Items.Add("4");
-            comboBoxZeroPad.Items.Add("5");
-            comboBoxZeroPad.Items.Add("6");
-            comboBoxZeroPad.Items.Add("7");
-            comboBoxZeroPad.Items.Add("8");
-            comboBoxZeroPad.Items.Add("9");
-            comboBoxZeroPad.SelectedIndex = 0;
+            comboBoxZeroPad.Items.Add("0");
+            comboBoxZeroPad.Items.Add("0");
+            comboBoxZeroPad.Items.Add("0");
+            comboBoxZeroPad.Items.Add("0");
+            comboBoxZeroPad.Items.Add("0");
 
 
         }
@@ -123,7 +118,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         private void StartButton_Click(object sender, EventArgs e)
         {
 
-            if(SelectElementBox.SelectedItem.ToString() == byDoors && SelectLevelBox.SelectedItem.ToString() == currentLevel)
+            if (SelectElementBox.SelectedItem.ToString() == byDoors && SelectLevelBox.SelectedItem.ToString() == currentLevel)
             {
                 if (!this.backgroundWorker1.IsBusy)
                 {
@@ -427,20 +422,24 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         t.Start();
 
-                        var sort = from element in orderedPoints //sort by distance to the door
+                      /*  var sort = from element in orderedPoints //sort by distance to the door
                                    orderby element.Item1 ascending
-                                   select element;
+                                   select element;*/
 
 
-                        string paddingNumber = sort.ToList().Count.ToString();
+                        orderedPoints = orderedPoints.OrderBy(b => b.Item1).ToList();
 
-                      //  int zeroes = paddingNumber.Count(char.IsNumber);
 
-                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem);
+                        string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        for (int x = 0; x < sort.ToList().Count; x++)
+
+                       // string paddingNumber = sort.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
+                        for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
-                            sort.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes,'0') + SuffixString.Text);
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes,'0') + SuffixString.Text);
 
                         }
 
@@ -453,37 +452,37 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     }
 
-                    //TEST CODE TO DRAW LINES///////////////////////////////////////////////////////////////////////////
-                    using (Transaction tx = new Transaction(localDoc.Document))
-                    {
-                        tx.Start("Draw Curves at Points");
+                    ////TEST CODE TO DRAW LINES///////////////////////////////////////////////////////////////////////////
+                    //using (Transaction tx = new Transaction(localDoc.Document))
+                    //{
+                    //    tx.Start("Draw Curves at Points");
 
-                        foreach (KeyValuePair<int, XYZ> pt in splinePoints)
-                        {
-                            CreateCircle(localDoc.Document, pt.Value, 1);
+                    //    foreach (KeyValuePair<int, XYZ> pt in splinePoints)
+                    //    {
+                    //        CreateCircle(localDoc.Document, pt.Value, 1);
 
 
-                        }
+                    //    }
 
                       
-                        for (int x = 0; x < orderedPoints.ToList().Count; x++)
-                        {
+                    //    for (int x = 0; x < orderedPoints.ToList().Count; x++)
+                    //    {
 
-                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set("a" + x);
-
-
-                            XYZ P1 = new XYZ(orderedPoints.ToList()[x].Item3.X, orderedPoints.ToList()[x].Item3.Y, 0);
-                            XYZ P2 = new XYZ(orderedPoints.ToList()[x].Item4.X, orderedPoints.ToList()[x].Item4.Y, 0);
-                            Line L1 = Line.CreateBound(P1, P2);
-                            localDoc.Document.Create.NewDetailCurve(localDoc.ActiveView, L1);
+                    //        orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set("a" + x);
 
 
-                        }
+                    //        XYZ P1 = new XYZ(orderedPoints.ToList()[x].Item3.X, orderedPoints.ToList()[x].Item3.Y, 0);
+                    //        XYZ P2 = new XYZ(orderedPoints.ToList()[x].Item4.X, orderedPoints.ToList()[x].Item4.Y, 0);
+                    //        Line L1 = Line.CreateBound(P1, P2);
+                    //        localDoc.Document.Create.NewDetailCurve(localDoc.ActiveView, L1);
 
 
-                        tx.Commit();
+                    //    }
 
-                    }
+
+                    //    tx.Commit();
+
+                    //}
 
 
 
@@ -502,6 +501,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
+            this.Close();
+            this.Dispose();
 
         }
 
@@ -693,8 +694,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                     //   int zeroes = paddingNumber.Count(char.IsNumber);
-                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem);
+                        int zeroes = paddingNumber.Count(char.IsNumber);
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
@@ -720,7 +720,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-
+            this.Close();
+            this.Dispose();
         }
 
 
@@ -876,19 +877,22 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         t.Start();
 
-                        var sort = from element in orderedPoints //sort by distance to the door
-                                   orderby element.Item1 ascending
-                                   select element;
-
-                        string paddingNumber = sort.ToList().Count.ToString();
-
-                      //  int zeroes = paddingNumber.Count(char.IsNumber);
-                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem);
+                        //var sort = from element in orderedPoints //sort by distance to the door
+                        //           orderby element.Item1 ascending
+                        //           select element;
 
 
-                        for (int x = 0; x < sort.ToList().Count; x++)
+                        orderedPoints = orderedPoints.OrderBy(b => b.Item1).ToList();
+
+                        string paddingNumber = orderedPoints.ToList().Count.ToString();
+
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
+
+
+                        for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
-                            sort.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x + SuffixString.Text);
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x + SuffixString.Text);
                         }
 
                         t.Commit();
@@ -911,7 +915,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-
+            this.Close();
+            this.Dispose();
         }
 
 
@@ -1070,8 +1075,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        // int zeroes = paddingNumber.Count(char.IsNumber);
-                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem);
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
@@ -1099,7 +1104,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-
+            this.Close();
+            this.Dispose();
         }
 
 
@@ -1264,8 +1270,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        //int zeroes = paddingNumber.Count(char.IsNumber);
-                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem);
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
@@ -1293,6 +1299,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             {
                 MessageBox.Show(ex.Message);
             }
+
+            this.Close();
+            this.Dispose();
 
         }
 
@@ -1465,8 +1474,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        //int zeroes = paddingNumber.Count(char.IsNumber);
-                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem);
+                        int zeroes = paddingNumber.Count(char.IsNumber);
+
 
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
@@ -1499,6 +1508,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
+
+            this.Close();
+            this.Dispose();
         }
 
 
@@ -1546,6 +1558,22 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             return doc.Create.NewDetailCurve(
               doc.ActiveView, arc) as DetailArc;
+        }
+
+        private void RenumberSplineForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FormCollection fc = Application.OpenForms;
+
+            foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
+            {
+                if (frm.Name == "SelectionForm")
+                {
+                    frm.Close();
+                    frm.Dispose();
+                    break;
+
+                }
+            }
         }
     }
 

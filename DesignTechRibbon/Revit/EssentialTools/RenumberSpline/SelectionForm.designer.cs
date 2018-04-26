@@ -31,14 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectionForm));
             this.SelectionButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.LoadButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.LabelSelected = new System.Windows.Forms.Label();
+            this.InfoLabel = new System.Windows.Forms.Label();
             this.CloseWindow = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.InfoLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
@@ -63,20 +62,10 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Select A Model Nurb Spline In The Document";
             // 
-            // LoadButton
-            // 
-            this.LoadButton.Location = new System.Drawing.Point(15, 91);
-            this.LoadButton.Name = "LoadButton";
-            this.LoadButton.Size = new System.Drawing.Size(156, 47);
-            this.LoadButton.TabIndex = 2;
-            this.LoadButton.Text = "Use Selected Line";
-            this.LoadButton.UseVisualStyleBackColor = true;
-            this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.InfoLabel);
-            this.groupBox1.Controls.Add(this.LabelSelected);
             this.groupBox1.Controls.Add(this.CloseWindow);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.designtechLogo);
@@ -87,14 +76,14 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
-            // LabelSelected
+            // InfoLabel
             // 
-            this.LabelSelected.AutoSize = true;
-            this.LabelSelected.Location = new System.Drawing.Point(382, 194);
-            this.LabelSelected.Name = "LabelSelected";
-            this.LabelSelected.Size = new System.Drawing.Size(86, 17);
-            this.LabelSelected.TabIndex = 12;
-            this.LabelSelected.Text = "Current Line";
+            this.InfoLabel.Location = new System.Drawing.Point(17, 64);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(274, 99);
+            this.InfoLabel.TabIndex = 13;
+            this.InfoLabel.Text = "This Tool Renumbers All Doors/Windows/Rooms Based On The Proximity Of The Element" +
+    " To The Line ";
             // 
             // CloseWindow
             // 
@@ -109,10 +98,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.SelectionButton);
-            this.groupBox2.Controls.Add(this.LoadButton);
             this.groupBox2.Location = new System.Drawing.Point(332, 18);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(186, 152);
+            this.groupBox2.Size = new System.Drawing.Size(186, 104);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             // 
@@ -129,14 +117,14 @@
             this.designtechLogo.TabIndex = 8;
             this.designtechLogo.TabStop = false;
             // 
-            // InfoLabel
+            // label2
             // 
-            this.InfoLabel.Location = new System.Drawing.Point(17, 54);
-            this.InfoLabel.Name = "InfoLabel";
-            this.InfoLabel.Size = new System.Drawing.Size(274, 88);
-            this.InfoLabel.TabIndex = 13;
-            this.InfoLabel.Text = "This Tool Renumbers All Doors/Windows/Rooms Based On The Proximity Of The Element" +
-    " To The Line";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 146);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(378, 17);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Please Draw Spline As Close As Possible To The Elements";
             // 
             // SelectionForm
             // 
@@ -161,13 +149,12 @@
 
         private System.Windows.Forms.Button SelectionButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button LoadButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button CloseWindow;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.PictureBox designtechLogo;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Label LabelSelected;
         private System.Windows.Forms.Label InfoLabel;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -37,7 +37,7 @@ namespace EssentialTools
             this.currentStore = storeUnused;
             var registrationsList = currentStore.Keys.ToArray();
             filtersList.Items.AddRange(registrationsList);
-            totalLbl.Text = registrationsList.Count().ToString();
+            totalLbl.Text = registrationsList.Count().ToString() + " items";
             totalLbl.Update();
             InitialiseRadioButtons();
         }
@@ -89,7 +89,7 @@ namespace EssentialTools
                     filtersList.Items.AddRange(registrationsList.ToArray()); //there is no any filter string, so add all data we have in Store
 
                 filtersList.EndUpdate();
-                totalLbl.Text = filtersList.Items.Count.ToString();
+                totalLbl.Text = filtersList.Items.Count.ToString() + " items";
                 totalLbl.Update();
             }
         }
@@ -141,7 +141,7 @@ namespace EssentialTools
                 filtersList.Items.Clear();
                 filtersList.Items.AddRange(registrationsList.ToArray());
                 filtersList.EndUpdate();
-                totalLbl.Text = registrationsList.Count().ToString();
+                totalLbl.Text = registrationsList.Count().ToString() + " items";
                 totalLbl.Update();
                 
                 
@@ -215,8 +215,12 @@ namespace EssentialTools
             Process.Start(designtechWeb);
         }
 
+
         #endregion
 
-
+        private void filtersList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            totalLbl.Text = filtersList.SelectedItems.Count.ToString() + " selected items";
+        }
     }
 }

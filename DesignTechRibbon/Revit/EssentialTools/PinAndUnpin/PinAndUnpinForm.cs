@@ -130,6 +130,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
             this.totalLbl.Text = listView1.Items.Count.ToString() + " items";
 
             elementList.Hide();
+            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
         }
 

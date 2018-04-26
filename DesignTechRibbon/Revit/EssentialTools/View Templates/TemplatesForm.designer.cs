@@ -161,6 +161,7 @@
             this.templateList.Size = new System.Drawing.Size(340, 175);
             this.templateList.Sorted = true;
             this.templateList.TabIndex = 0;
+            this.templateList.SelectedIndexChanged += new System.EventHandler(this.templateList_SelectedIndexChanged);
             // 
             // contextMenuStrip1
             // 

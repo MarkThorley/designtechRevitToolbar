@@ -50,6 +50,8 @@
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker5 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker6 = new System.ComponentModel.BackgroundWorker();
+            this.comboBoxZeroPad = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBoxMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
             this.groupBoxInput.SuspendLayout();
@@ -80,6 +82,8 @@
             // 
             // groupBoxMain
             // 
+            this.groupBoxMain.Controls.Add(this.label1);
+            this.groupBoxMain.Controls.Add(this.comboBoxZeroPad);
             this.groupBoxMain.Controls.Add(this.checkBoxCurtainWalls);
             this.groupBoxMain.Controls.Add(this.StartButton);
             this.groupBoxMain.Controls.Add(this.SelectLevelBox);
@@ -99,7 +103,7 @@
             // checkBoxCurtainWalls
             // 
             this.checkBoxCurtainWalls.AutoSize = true;
-            this.checkBoxCurtainWalls.Location = new System.Drawing.Point(338, 120);
+            this.checkBoxCurtainWalls.Location = new System.Drawing.Point(338, 96);
             this.checkBoxCurtainWalls.Name = "checkBoxCurtainWalls";
             this.checkBoxCurtainWalls.Size = new System.Drawing.Size(162, 21);
             this.checkBoxCurtainWalls.TabIndex = 16;
@@ -254,6 +258,24 @@
             this.backgroundWorker6.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker6_ProgressChanged);
             this.backgroundWorker6.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker6_RunWorkerCompleted);
             // 
+            // comboBoxZeroPad
+            // 
+            this.comboBoxZeroPad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxZeroPad.FormattingEnabled = true;
+            this.comboBoxZeroPad.Location = new System.Drawing.Point(428, 154);
+            this.comboBoxZeroPad.Name = "comboBoxZeroPad";
+            this.comboBoxZeroPad.Size = new System.Drawing.Size(68, 24);
+            this.comboBoxZeroPad.TabIndex = 17;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(328, 157);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 17);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Padding Zero";
+            // 
             // RenumberSplineForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -297,5 +319,7 @@
         private System.Windows.Forms.ComboBox SelectElementBox;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.CheckBox checkBoxCurtainWalls;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxZeroPad;
     }
 }

@@ -160,58 +160,62 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         private void PlaceButton_Click(object sender, EventArgs e)
         {
 
-            PlaceButton.Enabled = false;
-            RemoveButton.Enabled = false;
-            StopButton.Enabled = true;
-
-            WFItem.selectedSheetsList.Clear();
-
-            StatusLabel.Visible = true;
-            StatusLabel.Text = "Please Wait";
-
-            foreach (string SS in SheetListBox.SelectedItems) // in every selected item by user
+            if(SheetListBox.SelectedItems.Count <= 0 || LegendListBox.SelectedItems.Count<= 0)
             {
+                MessageBox.Show("Please Select At Least One Item In Each Box", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                PlaceButton.Enabled = false;
+                RemoveButton.Enabled = false;
+                StopButton.Enabled = true;
 
-                int findSpace = 0;
+                WFItem.selectedSheetsList.Clear();
 
-                findSpace = SS.IndexOf(":");
+                StatusLabel.Visible = true;
+                StatusLabel.Text = "Please Wait";
 
-                string getSheetID = SS.Remove(findSpace);
-
-                foreach(Tuple<string, Element> All in WFItem.allSheetsList) // in all the sheets on the form
+                foreach (string SS in SheetListBox.SelectedItems) // in every selected item by user
                 {
 
-                    if(getSheetID == All.Item1) // If the selected sheet name matches the sheet ID out of all
+                    int findSpace = 0;
+
+                    findSpace = SS.IndexOf(":");
+
+                    string getSheetID = SS.Remove(findSpace);
+
+                    foreach (Tuple<string, Element> All in WFItem.allSheetsList) // in all the sheets on the form
                     {
 
-                        WFItem.selectedSheetsList.Add(new Tuple<string, Element>(All.Item1,All.Item2)); //Add
+                        if (getSheetID == All.Item1) // If the selected sheet name matches the sheet ID out of all
+                        {
+
+                            WFItem.selectedSheetsList.Add(new Tuple<string, Element>(All.Item1, All.Item2)); //Add
+
+                        }
 
                     }
 
 
+                    foreach (string SL in LegendListBox.SelectedItems)
+                    {
+
+                        WFItem.SelectedLegends.Add(SL);
+                    }
+
+
+                    // progressBar1.Style = ProgressBarStyle.Marquee;
+
+                    if (!this.backgroundWorker1.IsBusy)
+                    {
+                        this.backgroundWorker1.RunWorkerAsync();
+                        this.PlaceButton.Enabled = false;
+
+                    }
 
                 }
 
             }
-
-
-            foreach (string SL in LegendListBox.SelectedItems)
-            {
-
-                WFItem.SelectedLegends.Add(SL);
-            }
-
-
-           // progressBar1.Style = ProgressBarStyle.Marquee;
-
-            if (!this.backgroundWorker1.IsBusy)
-            {
-                this.backgroundWorker1.RunWorkerAsync();
-                this.PlaceButton.Enabled = false;
-
-            }
-
-
 
         }
 
@@ -441,6 +445,19 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                     MessageBox.Show(ex.Message);
                 }
 
+                if(AddToSheet.Count == 0)
+                {
+                    MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
+                }
+                else if(AddToSheet.Count == 1)
+                {
+
+                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
                 WFItem.SelectedLegends.Clear();
                 WFItem.SelectedSheets.Clear();
@@ -452,7 +469,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 StopButton.Enabled = false;
 
                 StatusLabel.Visible = false;
-                MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+              
             }
 
 
@@ -625,6 +642,21 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 }
 
 
+
+                if (RemoveFromSheet.Count == 0)
+                {
+                    MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Deleted As They Do Not Exist");
+                }
+                else if (RemoveFromSheet.Count == 1)
+                {
+
+                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 WFItem.SelectedLegends.Clear();
                 WFItem.SelectedSheets.Clear();
                 RemoveFromSheet.Clear();
@@ -635,7 +667,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 this.RemoveButton.Enabled = true;
                 StopButton.Enabled = false;
                 StatusLabel.Visible = false;
-                MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
             }

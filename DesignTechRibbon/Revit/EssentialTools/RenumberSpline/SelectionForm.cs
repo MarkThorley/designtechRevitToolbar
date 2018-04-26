@@ -67,9 +67,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                this.Close();
+                this.Dispose();
+
+     
             }
 
-  
 
             /*
             selectedIds.Clear();
@@ -155,6 +158,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             }
         }
 
+        private void SelectionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }
 
     class ExternalEventMy : IExternalEventHandler

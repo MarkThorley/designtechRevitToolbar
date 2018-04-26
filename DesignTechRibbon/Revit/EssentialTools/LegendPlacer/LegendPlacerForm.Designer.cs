@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LegendPlacerForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelSelectedCount = new System.Windows.Forms.Label();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.StopButton = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -45,7 +46,8 @@
             this.SheetListBox = new System.Windows.Forms.ListBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.labelSelectedCount = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
@@ -54,6 +56,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.labelSelectedCount);
             this.groupBox1.Controls.Add(this.StatusLabel);
             this.groupBox1.Controls.Add(this.StopButton);
@@ -69,6 +73,15 @@
             this.groupBox1.Size = new System.Drawing.Size(685, 540);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // labelSelectedCount
+            // 
+            this.labelSelectedCount.AutoSize = true;
+            this.labelSelectedCount.Location = new System.Drawing.Point(488, 346);
+            this.labelSelectedCount.Name = "labelSelectedCount";
+            this.labelSelectedCount.Size = new System.Drawing.Size(115, 17);
+            this.labelSelectedCount.TabIndex = 13;
+            this.labelSelectedCount.Text = "Selected Sheets:";
             // 
             // StatusLabel
             // 
@@ -185,19 +198,19 @@
             // 
             this.LegendListBox.FormattingEnabled = true;
             this.LegendListBox.ItemHeight = 16;
-            this.LegendListBox.Location = new System.Drawing.Point(241, 21);
+            this.LegendListBox.Location = new System.Drawing.Point(241, 37);
             this.LegendListBox.Name = "LegendListBox";
-            this.LegendListBox.Size = new System.Drawing.Size(230, 388);
+            this.LegendListBox.Size = new System.Drawing.Size(230, 372);
             this.LegendListBox.TabIndex = 1;
             // 
             // SheetListBox
             // 
             this.SheetListBox.FormattingEnabled = true;
             this.SheetListBox.ItemHeight = 16;
-            this.SheetListBox.Location = new System.Drawing.Point(5, 21);
+            this.SheetListBox.Location = new System.Drawing.Point(5, 37);
             this.SheetListBox.Name = "SheetListBox";
             this.SheetListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.SheetListBox.Size = new System.Drawing.Size(230, 388);
+            this.SheetListBox.Size = new System.Drawing.Size(230, 372);
             this.SheetListBox.TabIndex = 0;
             this.SheetListBox.SelectedIndexChanged += new System.EventHandler(this.SheetListBox_SelectedIndexChanged);
             // 
@@ -213,14 +226,23 @@
             this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
-            // labelSelectedCount
+            // label1
             // 
-            this.labelSelectedCount.AutoSize = true;
-            this.labelSelectedCount.Location = new System.Drawing.Point(488, 346);
-            this.labelSelectedCount.Name = "labelSelectedCount";
-            this.labelSelectedCount.Size = new System.Drawing.Size(115, 17);
-            this.labelSelectedCount.TabIndex = 13;
-            this.labelSelectedCount.Text = "Selected Sheets:";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 17);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Sheet List";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(238, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 17);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Legends";
             // 
             // LegendPlacerForm
             // 
@@ -264,5 +286,7 @@
         private System.Windows.Forms.Button StopButton;
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.Label labelSelectedCount;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

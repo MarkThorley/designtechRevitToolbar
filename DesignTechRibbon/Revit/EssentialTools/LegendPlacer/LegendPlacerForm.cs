@@ -39,6 +39,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         XYZ userSelectedPoint;
 
+       
+
         public LegendPlacerForm(Document doc)
         {
             InitializeComponent();
@@ -46,6 +48,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker2.WorkerReportsProgress = true;
             backgroundWorker2.WorkerSupportsCancellation = true;
+
+            
 
             localDoc = doc;
 
@@ -101,7 +105,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
             StatusLabel.Visible = false;
             StopButton.Enabled = false;
-
+            
 
         }
 

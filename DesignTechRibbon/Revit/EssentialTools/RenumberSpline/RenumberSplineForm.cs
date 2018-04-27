@@ -25,11 +25,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         FilteredElementCollector collRooms;
         FilteredElementCollector collLevels;
         ElementId currentViewID;
-   
+
         Element localSpline;
 
         IList<XYZ> tessellation;
-        Dictionary<int,XYZ> splinePoints;
+        Dictionary<int, XYZ> splinePoints;
 
         Dictionary<Element, XYZ> doorPoints = new Dictionary<Element, XYZ>();
         Dictionary<Element, XYZ> windowPoints = new Dictionary<Element, XYZ>();
@@ -37,7 +37,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         List<Element> allViewportsOnSheet = new List<Element>();
 
-        List<Tuple<double,Element,XYZ,XYZ>> orderedPoints = new List<Tuple<double, Element, XYZ , XYZ>>();
+        List<Tuple<double, Element, XYZ, XYZ>> orderedPoints = new List<Tuple<double, Element, XYZ, XYZ>>();
         List<ElementId> LevelViewID = new List<ElementId>();
 
         string byDoors = "By Doors";
@@ -45,7 +45,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         string byRooms = "By Rooms";
         string currentLevel = "Current Level";
         string allLevels = "All Levels";
-
 
         public RenumberSplineForm(UIDocument doc)
         {
@@ -57,18 +56,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
             {
-                if(frm.Name == "SelectionForm")
+                if (frm.Name == "SelectionForm")
                 {
                     SelectionForm sf = frm as SelectionForm;
 
                     localSpline = sf.MyProperty;
+
+                    break;
 
                 }
             }
 
 
 
-           // localSpline = a.MyProperty;
+            // localSpline = a.MyProperty;
             currentViewID = localDoc.ActiveView.GenLevel.Id;
 
 
@@ -78,12 +79,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             collWindows = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Windows).WhereElementIsNotElementType();
 
-            collRooms= new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Rooms).WhereElementIsNotElementType();
+            collRooms = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Rooms).WhereElementIsNotElementType();
 
-            collLevels= new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType();
+            collLevels = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType();
 
             collWalls = new FilteredElementCollector(localDoc.Document).OfCategory(BuiltInCategory.OST_Walls).WhereElementIsNotElementType();
- 
+
 
             foreach (var item in collLevels)    //Document to level collection to levels ID
             {
@@ -101,14 +102,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             SelectLevelBox.Items.Add(currentLevel);
             SelectLevelBox.Items.Add(allLevels);
             SelectLevelBox.SelectedIndex = 0;
-
-
-            comboBoxZeroPad.Items.Add("0");
-            comboBoxZeroPad.Items.Add("0");
-            comboBoxZeroPad.Items.Add("0");
-            comboBoxZeroPad.Items.Add("0");
-            comboBoxZeroPad.Items.Add("0");
-            comboBoxZeroPad.Items.Add("0");
 
 
         }
@@ -152,7 +145,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             }
 
-            if (SelectElementBox.SelectedItem.ToString() == byWindows && SelectLevelBox.SelectedItem.ToString() ==  allLevels)
+            if (SelectElementBox.SelectedItem.ToString() == byWindows && SelectLevelBox.SelectedItem.ToString() == allLevels)
             {
                 if (!this.backgroundWorker4.IsBusy)
                 {
@@ -214,13 +207,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         void ButtonsEnabled()
         {
             SplineCancelButton.Enabled = false;
-      
+
         }
 
         void ButtonsDisabled()
         {
             SplineCancelButton.Enabled = true;
- 
+
         }
 
         #endregion
@@ -238,16 +231,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             foreach (Element E in collDoors)
             {
 
-      
+
                 if (E.LevelId == currentViewID)
                 {
                     LocationPoint getDoorPoint = E.Location as LocationPoint;
 
 
-                    if(getDoorPoint == null)
+                    if (getDoorPoint == null)
                     {
 
-                        if(checkBoxCurtainWalls.Checked == true) //Add curtain walls to the list
+                        if (checkBoxCurtainWalls.Checked == true) //Add curtain walls to the list
                         {
                             Autodesk.Revit.DB.Element door = E as Autodesk.Revit.DB.Element;
                             ElementId typeId = door.GetTypeId();
@@ -269,7 +262,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                             //Dont add any doors with null points (The doors on curtain walls)
 
                         }
-         
+
 
 
                     }
@@ -278,7 +271,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         doorPoints.Add(E, getDoorPoint.Point as Autodesk.Revit.DB.XYZ);
                     }
 
-                   
+
                 }
 
             }
@@ -318,8 +311,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             }
 
-              foreach (KeyValuePair<Element,XYZ> door in doorPoints)
-              {
+            foreach (KeyValuePair<Element, XYZ> door in doorPoints)
+            {
 
 
                 i += 100 / max;
@@ -348,45 +341,45 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
                 for (int x = 0; x < splinePoints.Count; x++) //finds the shortest lenght door to point
-                  {
+                {
 
-                      if (x == 0) // apply to first door in loop
-                      {
-                          shortestLength = door.Value.DistanceTo(splinePoints[0]);
-                          closestPoint = splinePoints[0];
+                    if (x == 0) // apply to first door in loop
+                    {
+                        shortestLength = door.Value.DistanceTo(splinePoints[0]);
+                        closestPoint = splinePoints[0];
 
 
                     }
-                      else
-                      {
-                          
-                          if (door.Value.DistanceTo(splinePoints[x]) < shortestLength)// if there is a shorter door
-                          {
-                             closestPoint = splinePoints[x];
-                             shortestLength = door.Value.DistanceTo(splinePoints[x]);// add the door 
+                    else
+                    {
 
-                          }
+                        if (door.Value.DistanceTo(splinePoints[x]) < shortestLength)// if there is a shorter door
+                        {
+                            closestPoint = splinePoints[x];
+                            shortestLength = door.Value.DistanceTo(splinePoints[x]);// add the door 
 
-
-                      }
-                  }
+                        }
 
 
-                  foreach (var item in splinePoints)
-                  {
+                    }
+                }
 
 
-                      if (closestPoint == item.Value)
-                      {
-                          //Spline point num/Door Element/Door Point/Closest point on spline
-                         orderedPoints.Add(new Tuple<double, Element, XYZ, XYZ>(item.Key,door.Key, door.Value, closestPoint));
-                      }
+                foreach (var item in splinePoints)
+                {
 
 
-                  }
+                    if (closestPoint == item.Value)
+                    {
+                        //Spline point num/Door Element/Door Point/Closest point on spline
+                        orderedPoints.Add(new Tuple<double, Element, XYZ, XYZ>(item.Key, door.Key, door.Value, closestPoint));
+                    }
 
 
-              }
+                }
+
+
+            }
 
 
 
@@ -422,28 +415,22 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         t.Start();
 
-                      /*  var sort = from element in orderedPoints //sort by distance to the door
-                                   orderby element.Item1 ascending
-                                   select element;*/
+                        //var sort = from element in orderedPoints //sort by distance to the door
+                        //           orderby element.Item1 ascending
+                        //           select element;
 
-
-                        orderedPoints = orderedPoints.OrderBy(b => b.Item1).ToList();
+                        orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
-
-
-                       // string paddingNumber = sort.ToList().Count.ToString();
 
                         int zeroes = paddingNumber.Count(char.IsNumber);
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
-                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes,'0') + SuffixString.Text);
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes, '0') + SuffixString.Text);
 
                         }
-
-
 
 
 
@@ -451,39 +438,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         t.Commit();
 
                     }
-
-                    ////TEST CODE TO DRAW LINES///////////////////////////////////////////////////////////////////////////
-                    //using (Transaction tx = new Transaction(localDoc.Document))
-                    //{
-                    //    tx.Start("Draw Curves at Points");
-
-                    //    foreach (KeyValuePair<int, XYZ> pt in splinePoints)
-                    //    {
-                    //        CreateCircle(localDoc.Document, pt.Value, 1);
-
-
-                    //    }
-
-                      
-                    //    for (int x = 0; x < orderedPoints.ToList().Count; x++)
-                    //    {
-
-                    //        orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set("a" + x);
-
-
-                    //        XYZ P1 = new XYZ(orderedPoints.ToList()[x].Item3.X, orderedPoints.ToList()[x].Item3.Y, 0);
-                    //        XYZ P2 = new XYZ(orderedPoints.ToList()[x].Item4.X, orderedPoints.ToList()[x].Item4.Y, 0);
-                    //        Line L1 = Line.CreateBound(P1, P2);
-                    //        localDoc.Document.Create.NewDetailCurve(localDoc.ActiveView, L1);
-
-
-                    //    }
-
-
-                    //    tx.Commit();
-
-                    //}
-
 
 
                     MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -501,8 +455,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
+
             this.Close();
-            this.Dispose();
 
         }
 
@@ -698,7 +652,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
-                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes,'0') + SuffixString.Text);
+                            orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes, '0') + SuffixString.Text);
                         }
 
                         t.Commit();
@@ -720,8 +674,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-            this.Close();
-            this.Dispose();
+
         }
 
 
@@ -817,7 +770,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
                     else
                     {
-                      
+
                         if (window.Value.DistanceTo(splinePoints[x]) < shortestLength)// if there is a shorter door
                         {
                             closestPoint = splinePoints[x];
@@ -881,8 +834,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         //           orderby element.Item1 ascending
                         //           select element;
 
-
-                        orderedPoints = orderedPoints.OrderBy(b => b.Item1).ToList();
+                        orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
@@ -915,8 +867,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-            this.Close();
-            this.Dispose();
+
         }
 
 
@@ -1104,8 +1055,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-            this.Close();
-            this.Dispose();
+
         }
 
 
@@ -1300,12 +1250,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-            this.Close();
-            this.Dispose();
-
         }
 
-    
+
         private void backgroundWorker6_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
@@ -1468,9 +1415,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         t.Start();
 
-                       orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
+                        orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
-                
+
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
@@ -1508,9 +1455,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-
-            this.Close();
-            this.Dispose();
         }
 
 
@@ -1519,7 +1463,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         private void SelectElementBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if(SelectElementBox.Text == "By Doors")
+            if (SelectElementBox.Text == "By Doors")
             {
                 checkBoxCurtainWalls.Enabled = true;
             }
@@ -1538,28 +1482,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         }
 
-
-        DetailArc CreateCircle(Document doc, XYZ location, double radius)
-        {
-            XYZ norm = XYZ.BasisZ;
-
-            double startAngle = 0;
-            double endAngle = 2 * Math.PI;
-
-            //   Plane plane = new Plane(norm, location);
-
-            Plane plane;
-
-            plane = Plane.CreateByNormalAndOrigin(norm, location);
-
-
-            Arc arc = Arc.Create(plane,
-              radius, startAngle, endAngle);
-
-            return doc.Create.NewDetailCurve(
-              doc.ActiveView, arc) as DetailArc;
-        }
-
         private void RenumberSplineForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             FormCollection fc = Application.OpenForms;
@@ -1572,8 +1494,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     frm.Dispose();
                     break;
 
+          
+
                 }
             }
+
+
         }
     }
 

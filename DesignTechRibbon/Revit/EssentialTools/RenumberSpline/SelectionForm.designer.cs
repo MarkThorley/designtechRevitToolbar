@@ -32,12 +32,12 @@
             this.SelectionButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.InfoLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.CloseWindow = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.label2 = new System.Windows.Forms.Label();
+            this.InfoLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
@@ -72,22 +72,22 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(529, 301);
+            this.groupBox1.Size = new System.Drawing.Size(529, 529);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
-            // InfoLabel
+            // label2
             // 
-            this.InfoLabel.Location = new System.Drawing.Point(17, 64);
-            this.InfoLabel.Name = "InfoLabel";
-            this.InfoLabel.Size = new System.Drawing.Size(274, 99);
-            this.InfoLabel.TabIndex = 13;
-            this.InfoLabel.Text = "This Tool Renumbers All Doors/Windows/Rooms Based On The Proximity Of The Element" +
-    " To The Line ";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 177);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(378, 17);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Please Draw Spline As Close As Possible To The Elements";
             // 
             // CloseWindow
             // 
-            this.CloseWindow.Location = new System.Drawing.Point(332, 236);
+            this.CloseWindow.Location = new System.Drawing.Point(332, 464);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(186, 47);
             this.CloseWindow.TabIndex = 10;
@@ -98,7 +98,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.SelectionButton);
-            this.groupBox2.Location = new System.Drawing.Point(332, 18);
+            this.groupBox2.Location = new System.Drawing.Point(20, 247);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(186, 104);
             this.groupBox2.TabIndex = 9;
@@ -109,7 +109,7 @@
             this.designtechLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.designtechLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.designtechLogo.Image = ((System.Drawing.Image)(resources.GetObject("designtechLogo.Image")));
-            this.designtechLogo.Location = new System.Drawing.Point(7, 210);
+            this.designtechLogo.Location = new System.Drawing.Point(7, 438);
             this.designtechLogo.Margin = new System.Windows.Forms.Padding(4);
             this.designtechLogo.Name = "designtechLogo";
             this.designtechLogo.Size = new System.Drawing.Size(313, 73);
@@ -117,26 +117,25 @@
             this.designtechLogo.TabIndex = 8;
             this.designtechLogo.TabStop = false;
             // 
-            // label2
+            // InfoLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 146);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(378, 17);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Please Draw Spline As Close As Possible To The Elements";
+            this.InfoLabel.Location = new System.Drawing.Point(17, 64);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(501, 99);
+            this.InfoLabel.TabIndex = 13;
+            this.InfoLabel.Text = "This Tool Renumbers All Doors/Windows/Rooms Based On The Proximity Of The Element" +
+    " To The Line ";
             // 
             // SelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 317);
+            this.ClientSize = new System.Drawing.Size(551, 545);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Selection";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectionForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -154,7 +153,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.PictureBox designtechLogo;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Label InfoLabel;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label InfoLabel;
     }
 }

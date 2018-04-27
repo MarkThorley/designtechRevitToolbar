@@ -52,16 +52,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 Element S = localDoc.Document.GetElement(selectedRef);
 
+
                 if (S.GetType().Name.ToString() == typeof(ModelNurbSpline).Name.ToString())
                 {
+                    SelectedElement = localDoc.Document.GetElement(S.Id); 
+                     exEvent.Raise();
 
-                    exEvent.Raise();
-                    //abelSelected.Text = "This line is compatible";
-                    //  SelectedElement = localDoc.Document.GetElement(S.Id);
                 }
                 else
                 {
-                    LabelSelected.Text = "Not compatible";
+                    //LabelSelected.Text = "Not compatible";
                     MessageBox.Show("Selected Item Is Not A Model Nurb Spline", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
@@ -124,30 +124,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         }
 
-        private void LoadButton_Click(object sender, EventArgs e)
-        {
-
-            if (SelectedElement != null)
-            {
-
-               // var confirmResult = MessageBox.Show("Load This Item", "Confirm", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-
-               // if (confirmResult == DialogResult.Yes)
-                //{
-
-                    exEvent.Raise();
-
-               // }
-
-            }
-            else
-            {
-                MessageBox.Show("Please Select a Valid Model Spline","Error",MessageBoxButtons.OK,MessageBoxIcon.Stop);
-            }
-
-        }
-
-
         private void CloseWindow_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -160,11 +136,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             {
                 return this.SelectedElement;
             }
-        }
-
-        private void SelectionForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
         }
     }
 

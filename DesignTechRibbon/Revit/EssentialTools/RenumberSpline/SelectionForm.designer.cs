@@ -72,14 +72,14 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(529, 529);
+            this.groupBox1.Size = new System.Drawing.Size(694, 529);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 177);
+            this.label2.Location = new System.Drawing.Point(17, 84);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(378, 17);
             this.label2.TabIndex = 14;
@@ -100,7 +100,7 @@
             this.groupBox2.Controls.Add(this.SelectionButton);
             this.groupBox2.Location = new System.Drawing.Point(20, 247);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(186, 104);
+            this.groupBox2.Size = new System.Drawing.Size(186, 92);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             // 
@@ -119,9 +119,10 @@
             // 
             // InfoLabel
             // 
-            this.InfoLabel.Location = new System.Drawing.Point(17, 64);
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.Location = new System.Drawing.Point(17, 49);
             this.InfoLabel.Name = "InfoLabel";
-            this.InfoLabel.Size = new System.Drawing.Size(501, 99);
+            this.InfoLabel.Size = new System.Drawing.Size(657, 17);
             this.InfoLabel.TabIndex = 13;
             this.InfoLabel.Text = "This Tool Renumbers All Doors/Windows/Rooms Based On The Proximity Of The Element" +
     " To The Line ";
@@ -130,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 545);
+            this.ClientSize = new System.Drawing.Size(724, 545);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectionForm";

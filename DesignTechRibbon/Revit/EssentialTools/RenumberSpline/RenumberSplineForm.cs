@@ -46,6 +46,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         string currentLevel = "Current Level";
         string allLevels = "All Levels";
 
+
         public RenumberSplineForm(UIDocument doc)
         {
 
@@ -102,6 +103,19 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             SelectLevelBox.Items.Add(currentLevel);
             SelectLevelBox.Items.Add(allLevels);
             SelectLevelBox.SelectedIndex = 0;
+
+
+            comboBoxZeroPad.Items.Add("0");
+            comboBoxZeroPad.Items.Add("1");
+            comboBoxZeroPad.Items.Add("2");
+            comboBoxZeroPad.Items.Add("3");
+            comboBoxZeroPad.Items.Add("4");
+            comboBoxZeroPad.Items.Add("5");
+            comboBoxZeroPad.Items.Add("6");
+            comboBoxZeroPad.Items.Add("7");
+            comboBoxZeroPad.Items.Add("8");
+            comboBoxZeroPad.Items.Add("9");
+            comboBoxZeroPad.SelectedIndex = 0;
 
 
         }
@@ -424,7 +438,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        int zeroes = paddingNumber.Count(char.IsNumber);
+                        //int zeroes = paddingNumber.Count(char.IsNumber);
+
+                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
+
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
@@ -459,6 +476,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             this.Close();
 
         }
+
+
 
 
 
@@ -648,7 +667,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        int zeroes = paddingNumber.Count(char.IsNumber);
+                        //int zeroes = paddingNumber.Count(char.IsNumber);
+
+                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
@@ -838,8 +859,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        int zeroes = paddingNumber.Count(char.IsNumber);
+                        //int zeroes = paddingNumber.Count(char.IsNumber);
 
+                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
@@ -1026,8 +1048,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        int zeroes = paddingNumber.Count(char.IsNumber);
-
+                        //int zeroes = paddingNumber.Count(char.IsNumber);
+                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
@@ -1220,8 +1242,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        int zeroes = paddingNumber.Count(char.IsNumber);
-
+                        //int zeroes = paddingNumber.Count(char.IsNumber);
+                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
@@ -1421,8 +1443,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        int zeroes = paddingNumber.Count(char.IsNumber);
-
+                        //int zeroes = paddingNumber.Count(char.IsNumber);
+                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)

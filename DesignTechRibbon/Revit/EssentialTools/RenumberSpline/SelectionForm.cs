@@ -37,8 +37,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             InitializeComponent();
             localDoc = doc;
 
-            InfoLabel.Text = "";
-
         }
 
         private void SelectionButton_Click(object sender, EventArgs e)

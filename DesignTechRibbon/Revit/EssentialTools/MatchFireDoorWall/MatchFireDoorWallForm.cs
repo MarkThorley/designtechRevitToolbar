@@ -20,12 +20,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         FilteredElementCollector windowCollector;
         UIDocument localDoc;
 
-        //    List<Tuple<Parameter, string>> ChangeDoors = new List<Tuple<Parameter, string>>();
-        //   List<Tuple<Parameter, string>> ChangeWindow = new List<Tuple<Parameter, string>>();
-
-      //  List<FamilySymbol> wallToDoors = new List<FamilySymbol>();
-      //  Dictionary<Family,string> wallToDoors2 = new Dictionary<Family, string>();
-
         List<FamilySymbol> wallToWindows = new List<FamilySymbol>();
 
         List<Family> doorFamilies = new List<Family>();
@@ -38,6 +32,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         List<Family> deleteParametersWindows = new List<Family>();
 
         List<Element> doors = new List<Element>();
+
+        public string UserSelection = "";
+        public string UserDeleteParameter = "";
 
         public MatchFireDoorWallForm(UIDocument doc)
         {
@@ -58,6 +55,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             StatusLabel.Visible = false;
 
+            comboBoxMapToParam.Items.Add("Map To New Parameter");
+            comboBoxMapToParam.Items.Add("Map/Delete Existing Parameter");
+
+            comboBoxMapToParam.SelectedIndex = 0;
+         
+
         }
 
 
@@ -74,6 +77,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             buttonCancel.Enabled = true;
 
             StatusLabel.Visible = true;
+
+
+            if (comboBoxMapToParam.SelectedIndex == 0)
+            {
+                UserSelection = parameterNameInput.Text;
+            }
 
             if (!this.backgroundWorker1.IsBusy)
             {
@@ -123,6 +132,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             DeleteFireRatingsWindow.Enabled = false;
             buttonCancel.Enabled = true;
             StatusLabel.Visible = true;
+
+            if(comboBoxMapToParam.SelectedIndex == 0)
+            {
+                UserSelection = parameterNameInput.Text;
+            }
+
 
             if (!this.backgroundWorker2.IsBusy)
             {
@@ -265,7 +280,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                             try
                             {
 
-                                FamilyParameter newParam = familyManager.AddParameter("Fire_Rating", BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
+                                FamilyParameter newParam = familyManager.AddParameter(UserSelection, BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
 
 
                             }
@@ -297,7 +312,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
              
                             foreach (Parameter p in ps)
                             {
-                                if (p.Definition.Name == "Fire_Rating")
+                                if (p.Definition.Name == UserSelection)
                                 {
                                     p.Set(item.Value);
                                 }
@@ -458,7 +473,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                             try
                             {
 
-                                FamilyParameter newParam = familyManager.AddParameter("Fire_Rating", BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
+                                FamilyParameter newParam = familyManager.AddParameter(UserSelection, BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
 
 
                             }
@@ -490,7 +505,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
              
                             foreach (Parameter p in ps)
                             {
-                                if (p.Definition.Name == "Fire_Rating")
+                                if (p.Definition.Name == UserSelection)
                                 {
                                     p.Set(item.Value);
                                 }
@@ -639,7 +654,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                                 ///delete here
                                 ///
 
-                                FamilyParameter param = familyManager.get_Parameter("Fire_Rating");
+                                FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
           
                                 familyManager.RemoveParameter(param);
 
@@ -682,6 +697,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             StatusLabel.Visible = false;
 
             deleteParametersDoors.Clear();
+            comboBoxParameterList.SelectedIndex = 0;
 
         }
 
@@ -783,10 +799,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                             try
                             {
-                                ///delete here
-                                ///
+                 
 
-                                FamilyParameter param = familyManager.get_Parameter("Fire_Rating");
+                                FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
 
                                 familyManager.RemoveParameter(param);
 
@@ -828,6 +843,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             buttonCancel.Enabled = false;
             StatusLabel.Visible = false;
 
+            comboBoxParameterList.SelectedIndex = 0;
+
         }
 
 
@@ -845,8 +862,61 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
         }
 
+        private void comboBoxMapToParam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (comboBoxMapToParam.SelectedIndex == 0) //Map To New
+            {
+                parameterNameInput.Visible = true;
+                comboBoxParameterList.Visible = false;
 
 
+            }
+            else //Map To Existing
+            {
+
+                parameterNameInput.Visible = false;
+                comboBoxParameterList.Visible = true;
+                comboBoxParameterList.Items.Clear();
+                comboBoxParameterList.SelectedIndex = 0;
+
+                List<Parameter> P = new List<Parameter>();
+
+
+                foreach (var item in doorCollector)
+                {
+
+                    foreach (Parameter a in item.Parameters)
+                    {
+                        P.Add(a);
+
+                    }
+
+                }
+
+                var distinct = P.GroupBy(x => x.Id.IntegerValue).Select(y => y.FirstOrDefault());
+
+
+                foreach (Parameter item in distinct)
+                {
+                    comboBoxParameterList.Items.Add(item.Definition.Name);
+                }
+
+            }
+
+
+        }
+
+        private void comboBoxParameterList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UserSelection = comboBoxParameterList.Text;
+            UserDeleteParameter = comboBoxParameterList.Text;
+        }
+
+        private void parameterNameInput_TextChanged(object sender, EventArgs e)
+        {
+            UserSelection = parameterNameInput.Text;
+        }
     }
 
 

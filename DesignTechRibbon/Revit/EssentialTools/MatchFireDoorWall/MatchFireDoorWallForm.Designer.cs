@@ -45,6 +45,10 @@
             this.StatusLabel = new System.Windows.Forms.Label();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
+            this.comboBoxMapToParam = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.parameterNameInput = new System.Windows.Forms.RichTextBox();
+            this.comboBoxParameterList = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -63,7 +67,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(11, 240);
+            this.progressBar1.Location = new System.Drawing.Point(11, 363);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(312, 43);
             this.progressBar1.TabIndex = 2;
@@ -95,7 +99,7 @@
             this.designtechLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.designtechLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.designtechLogo.Image = ((System.Drawing.Image)(resources.GetObject("designtechLogo.Image")));
-            this.designtechLogo.Location = new System.Drawing.Point(11, 297);
+            this.designtechLogo.Location = new System.Drawing.Point(11, 423);
             this.designtechLogo.Margin = new System.Windows.Forms.Padding(4);
             this.designtechLogo.Name = "designtechLogo";
             this.designtechLogo.Size = new System.Drawing.Size(312, 73);
@@ -105,7 +109,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(333, 240);
+            this.buttonCancel.Location = new System.Drawing.Point(333, 364);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(194, 42);
             this.buttonCancel.TabIndex = 6;
@@ -115,7 +119,7 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(333, 321);
+            this.buttonClose.Location = new System.Drawing.Point(333, 454);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(194, 42);
             this.buttonClose.TabIndex = 7;
@@ -125,6 +129,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBoxParameterList);
+            this.groupBox1.Controls.Add(this.parameterNameInput);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.comboBoxMapToParam);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.SetFireRatingsGB);
             this.groupBox1.Controls.Add(this.StatusLabel);
@@ -134,7 +142,7 @@
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Location = new System.Drawing.Point(14, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(543, 388);
+            this.groupBox1.Size = new System.Drawing.Size(561, 514);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
@@ -183,7 +191,7 @@
             // StatusLabel
             // 
             this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(387, 290);
+            this.StatusLabel.Location = new System.Drawing.Point(380, 423);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(83, 17);
             this.StatusLabel.TabIndex = 8;
@@ -205,11 +213,49 @@
             this.backgroundWorker4.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker4_ProgressChanged);
             this.backgroundWorker4.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker4_RunWorkerCompleted);
             // 
+            // comboBoxMapToParam
+            // 
+            this.comboBoxMapToParam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMapToParam.FormattingEnabled = true;
+            this.comboBoxMapToParam.Location = new System.Drawing.Point(27, 222);
+            this.comboBoxMapToParam.Name = "comboBoxMapToParam";
+            this.comboBoxMapToParam.Size = new System.Drawing.Size(247, 24);
+            this.comboBoxMapToParam.TabIndex = 12;
+            this.comboBoxMapToParam.SelectedIndexChanged += new System.EventHandler(this.comboBoxMapToParam_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 304);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 17);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Paramter Name:";
+            // 
+            // parameterNameInput
+            // 
+            this.parameterNameInput.Location = new System.Drawing.Point(141, 301);
+            this.parameterNameInput.Name = "parameterNameInput";
+            this.parameterNameInput.Size = new System.Drawing.Size(257, 26);
+            this.parameterNameInput.TabIndex = 14;
+            this.parameterNameInput.Text = "";
+            this.parameterNameInput.TextChanged += new System.EventHandler(this.parameterNameInput_TextChanged);
+            // 
+            // comboBoxParameterList
+            // 
+            this.comboBoxParameterList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxParameterList.FormattingEnabled = true;
+            this.comboBoxParameterList.Location = new System.Drawing.Point(141, 271);
+            this.comboBoxParameterList.Name = "comboBoxParameterList";
+            this.comboBoxParameterList.Size = new System.Drawing.Size(257, 24);
+            this.comboBoxParameterList.TabIndex = 15;
+            this.comboBoxParameterList.SelectedIndexChanged += new System.EventHandler(this.comboBoxParameterList_SelectedIndexChanged);
+            // 
             // MatchFireDoorWallForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 413);
+            this.ClientSize = new System.Drawing.Size(587, 538);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -242,5 +288,9 @@
         private System.Windows.Forms.Button DeleteFireRatingsWindow;
         private System.Windows.Forms.GroupBox SetFireRatingsGB;
         private System.ComponentModel.BackgroundWorker backgroundWorker4;
+        private System.Windows.Forms.ComboBox comboBoxMapToParam;
+        private System.Windows.Forms.RichTextBox parameterNameInput;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxParameterList;
     }
 }

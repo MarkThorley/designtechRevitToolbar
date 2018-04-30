@@ -155,13 +155,6 @@
     <Compile Include="Revit\EssentialTools\PinAndUnpin\PinAndUnpinForm.Designer.cs">
       <DependentUpon>PinAndUnpinForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Revit\EssentialTools\PopulateRoomInfo\PopulateRoom.cs" />
-    <Compile Include="Revit\EssentialTools\PopulateRoomInfo\PopulateRoomForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Revit\EssentialTools\PopulateRoomInfo\PopulateRoomForm.Designer.cs">
-      <DependentUpon>PopulateRoomForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Revit\EssentialTools\RenumberSpline\RenumberSpline.cs" />
     <Compile Include="Revit\EssentialTools\RenumberSpline\RenumberSplineForm.cs">
       <SubType>Form</SubType>

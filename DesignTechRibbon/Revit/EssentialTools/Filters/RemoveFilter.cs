@@ -118,7 +118,10 @@ namespace EssentialTools
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                    MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters.");
+                   // MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters.");
+
+                    MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
             }
         }

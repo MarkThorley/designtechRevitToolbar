@@ -92,18 +92,30 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                     string name = E.Key.Name.Remove(E.Key.Name.IndexOf(":") + 1);
 
-                //    stringElements.Add("RVT Link" + "\t\t" + name + "\t" + E.Value);
+                    //    stringElements.Add("RVT Link" + "\t\t" + name + "\t" + E.Value);
 
-                    stringElementsLV.Add(new Tuple<string, string, string>("RVT Links",name,E.Value));
 
-                    elementInfo.Add(new Tuple<string, string, string>("RVT Links", name, E.Value));
+                    Tuple<string, string, string> check = new Tuple<string, string, string>("RVT Links",name,E.Value);
 
-                    ListViewItem LVI = new ListViewItem(E.Key.Category.Name);
-                    LVI.SubItems.Add(name);
-                    LVI.SubItems.Add(E.Value);
+                    if (stringElementsLV.Contains(check)) //Stops Duplicate RVT elements
+                    {
+                        continue;
+                    }
+                    else
+                    {
 
-                    listView1.Items.Add(LVI);
+                        stringElementsLV.Add(new Tuple<string, string, string>("RVT Links", name, E.Value));
 
+                        elementInfo.Add(new Tuple<string, string, string>("RVT Links", name, E.Value));
+
+                        ListViewItem LVI = new ListViewItem(E.Key.Category.Name);
+                        LVI.SubItems.Add(name);
+                        LVI.SubItems.Add(E.Value);
+
+                        listView1.Items.Add(LVI);
+
+
+                    }
 
                 }
                 else
@@ -943,7 +955,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                             changeElement.Add(E.Key);
 
-                            pinElementRVT.Add(E.Key, currentElementLink);
+                            if (pinElementRVT.ContainsKey(E.Key)) //If a duplicate key is added
+                            {
+                                continue; //continue the loop
+                            }
+                            else
+                            {
+                                pinElementRVT.Add(E.Key, currentElementLink);
+                            }
+
+                            // pinElementRVT.Add(E.Key, currentElementLink);
 
                         }
 
@@ -1166,7 +1187,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                             changeElement.Add(E.Key);
 
-                            unpinElementRVT.Add(E.Key, currentElementLink);
+                            //unpinElementRVT.Add(E.Key, currentElementLink);
+
+                            if (unpinElementRVT.ContainsKey(E.Key)) //If a duplicate key is added
+                            {
+                                continue; //continue the loop
+                            }
+                            else
+                            {
+                                unpinElementRVT.Add(E.Key, currentElementLink);
+                            }
 
                         }
 

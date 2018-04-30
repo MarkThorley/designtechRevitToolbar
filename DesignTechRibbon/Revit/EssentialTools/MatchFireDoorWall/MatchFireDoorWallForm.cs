@@ -697,7 +697,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             StatusLabel.Visible = false;
 
             deleteParametersDoors.Clear();
-            comboBoxParameterList.SelectedIndex = 0;
+ 
 
         }
 
@@ -843,7 +843,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             buttonCancel.Enabled = false;
             StatusLabel.Visible = false;
 
-            comboBoxParameterList.SelectedIndex = 0;
 
         }
 
@@ -878,8 +877,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 parameterNameInput.Visible = false;
                 comboBoxParameterList.Visible = true;
                 comboBoxParameterList.Items.Clear();
-                comboBoxParameterList.SelectedIndex = 0;
-
+            
                 List<Parameter> P = new List<Parameter>();
 
 
@@ -894,13 +892,15 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 }
 
-                var distinct = P.GroupBy(x => x.Id.IntegerValue).Select(y => y.FirstOrDefault());
+                var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n=> n.Definition.Name);
 
 
                 foreach (Parameter item in distinct)
                 {
                     comboBoxParameterList.Items.Add(item.Definition.Name);
                 }
+
+                comboBoxParameterList.SelectedIndex = 0;
 
             }
 

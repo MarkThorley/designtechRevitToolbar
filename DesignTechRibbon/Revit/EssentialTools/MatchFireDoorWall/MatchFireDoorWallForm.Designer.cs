@@ -226,7 +226,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 304);
+            this.label1.Location = new System.Drawing.Point(24, 291);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 17);
             this.label1.TabIndex = 13;
@@ -234,7 +234,7 @@
             // 
             // parameterNameInput
             // 
-            this.parameterNameInput.Location = new System.Drawing.Point(141, 301);
+            this.parameterNameInput.Location = new System.Drawing.Point(141, 316);
             this.parameterNameInput.Name = "parameterNameInput";
             this.parameterNameInput.Size = new System.Drawing.Size(257, 26);
             this.parameterNameInput.TabIndex = 14;
@@ -245,7 +245,7 @@
             // 
             this.comboBoxParameterList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxParameterList.FormattingEnabled = true;
-            this.comboBoxParameterList.Location = new System.Drawing.Point(141, 271);
+            this.comboBoxParameterList.Location = new System.Drawing.Point(141, 270);
             this.comboBoxParameterList.Name = "comboBoxParameterList";
             this.comboBoxParameterList.Size = new System.Drawing.Size(257, 24);
             this.comboBoxParameterList.TabIndex = 15;

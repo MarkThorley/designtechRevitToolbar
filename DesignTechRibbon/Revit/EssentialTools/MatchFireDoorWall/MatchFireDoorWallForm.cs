@@ -79,7 +79,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         {
 
             WallToDoor.Enabled = false;
-            WindowToWall.Enabled = false;
+            WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
            
@@ -108,7 +108,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         private void DeleteFireRatings_Click(object sender, EventArgs e)
         {
             WallToDoor.Enabled = false;
-            WindowToWall.Enabled = false;
+            WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
 
@@ -124,7 +124,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         {
 
             WallToDoor.Enabled = false;
-            WindowToWall.Enabled = false;
+            WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
 
@@ -143,7 +143,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         {
 
             WallToDoor.Enabled = false;
-            WindowToWall.Enabled = false;
+            WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
             buttonCancel.Enabled = true;
@@ -158,7 +158,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             if (!this.backgroundWorker2.IsBusy)
             {
                 this.backgroundWorker2.RunWorkerAsync();
-                this.WindowToWall.Enabled = false;
+                this.WallToWindow.Enabled = false;
 
             }
         }
@@ -185,6 +185,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         #region Background Workers
 
+
+        //Wall To Doors
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
@@ -281,10 +283,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     var distinctItems = doorFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
 
+
                     Document famDoc;
 
-                    foreach (var item in distinctItems)
+                    foreach (Family item in distinctItems)
                     {
+                       
 
                         famDoc = localDoc.Document.EditFamily(item); //get the family property of the family
                         FamilyManager familyManager = famDoc.FamilyManager;
@@ -359,14 +363,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
 
 
-            //ChangeWindow.Clear();
-            //ChangeDoors.Clear();
-
-
+            doorFamilies.Clear();
             doorElementsDictionary.Clear();
 
             WallToDoor.Enabled = true;
-            WindowToWall.Enabled = true;
+            WallToWindow.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
 
@@ -377,7 +378,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         }
 
 
-
+        //Wall To Windows
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
@@ -492,9 +493,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                             try
                             {
-
-                                FamilyParameter newParam = familyManager.AddParameter(UserSelection, BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
-
+                                if (comboBoxMapToParam.SelectedIndex != 1) //If mapping to existing paramter skip creating a new one
+                                {
+                                    FamilyParameter newParam = familyManager.AddParameter(UserSelection, BuiltInParameterGroup.PG_IDENTITY_DATA, ParameterType.Text, true);
+                                }
 
                             }
                             catch
@@ -552,9 +554,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
 
             windowElementsDictionary.Clear();
+            windowFamilies.Clear();
 
             WallToDoor.Enabled = true;
-            WindowToWall.Enabled = true;
+            WallToWindow.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
 
@@ -566,12 +569,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
 
         }
-        
 
 
-
-        #endregion
-
+        //Remove From Doors
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
@@ -656,7 +656,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 {
                     RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
-               
+
 
                     var distinctItems = deleteParametersDoors.GroupBy(x => x.Id).Select(y => y.First()); //Sorts the list into only unique items
 
@@ -672,9 +672,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                             try
                             {
-                  
+
                                 FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
-          
+
                                 familyManager.RemoveParameter(param);
 
 
@@ -708,7 +708,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
 
             WallToDoor.Enabled = true;
-            WindowToWall.Enabled = true;
+            WallToWindow.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
 
@@ -716,10 +716,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             StatusLabel.Visible = false;
 
             deleteParametersDoors.Clear();
- 
+
 
         }
 
+
+
+        //Remove From Windows
         private void backgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
         {
             double i = 0;
@@ -750,17 +753,17 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 Autodesk.Revit.DB.Element window = Ele as Autodesk.Revit.DB.Element;
                 ElementId windowID = window.GetTypeId();
-                Autodesk.Revit.DB.Element windowType = localDoc.Document.GetElement(windowID);                  
+                Autodesk.Revit.DB.Element windowType = localDoc.Document.GetElement(windowID);
 
-                FamilyInstance famInsWin = window as FamilyInstance;                                          
-                Element eleHostWin = famInsWin.Host;                                                        
-                Autodesk.Revit.DB.Element wallHostWin = eleHostWin as Element;                             
-                ElementId typeIdForWindow = wallHostWin.GetTypeId();                                        
-                Autodesk.Revit.DB.Element wallTypeWindow = localDoc.Document.GetElement(typeIdForWindow);  
+                FamilyInstance famInsWin = window as FamilyInstance;
+                Element eleHostWin = famInsWin.Host;
+                Autodesk.Revit.DB.Element wallHostWin = eleHostWin as Element;
+                ElementId typeIdForWindow = wallHostWin.GetTypeId();
+                Autodesk.Revit.DB.Element wallTypeWindow = localDoc.Document.GetElement(typeIdForWindow);
 
-                ParameterSet parametersWindow = windowType.Parameters; 
+                ParameterSet parametersWindow = windowType.Parameters;
 
-                ElementId typeIDW = famInsWin.GetTypeId(); 
+                ElementId typeIDW = famInsWin.GetTypeId();
 
                 FamilySymbol famW = localDoc.Document.GetElement(typeIDW) as FamilySymbol; // get the instance as a Family Symbol
 
@@ -818,7 +821,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                             try
                             {
-                 
+
 
                                 FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
 
@@ -853,7 +856,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
 
             WallToDoor.Enabled = true;
-            WindowToWall.Enabled = true;
+            WallToWindow.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
 
@@ -866,19 +869,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         }
 
 
-        class LoadOpts : IFamilyLoadOptions
-        {
-            public bool OnFamilyFound(bool familyInUse, out bool overwriteParameterValues)
-            {
-                overwriteParameterValues = true;
-                return true;
-            }
+        #endregion
 
-            public bool OnSharedFamilyFound(Family sharedFamily, bool familyInUse, out FamilySource source, out bool overwriteParameterValues)
-            {
-                throw new NotImplementedException();
-            }
-        }
+
+        #region Form Events
 
         private void comboBoxMapToParam_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -887,19 +881,25 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             {
                 parameterNameInput.Visible = true;
                 comboBoxParameterList.Visible = false;
+
+                WallToDoor.Enabled = true;
+                WallToWindow.Enabled = true;
+
                 DeleteFireRatingsDoors.Enabled = false;
                 DeleteFireRatingsWindow.Enabled = false;
+
 
 
             }
             if (comboBoxMapToParam.SelectedIndex == 1) //Map To Existing
             {
 
-                DeleteFireRatingsDoors.Enabled = false;
-                DeleteFireRatingsWindow.Enabled = false;
+                WallToDoor.Enabled = true;
+                WallToWindow.Enabled = true;
 
                 parameterNameInput.Visible = false;
                 comboBoxParameterList.Visible = true;
+
                 comboBoxParameterList.Items.Clear();
 
 
@@ -913,7 +913,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 DeleteFireRatingsDoors.Enabled = true;
                 DeleteFireRatingsWindow.Enabled = true;
                 WallToDoor.Enabled = false;
-                WindowToWall.Enabled = false;
+                WallToWindow.Enabled = false;
 
                 parameterNameInput.Visible = false;
                 comboBoxParameterList.Visible = true;
@@ -942,141 +942,169 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             UserSelection = parameterNameInput.Text;
         }
 
+        private void comboBoxChooseWD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBoxChooseWD.SelectedIndex == 0)
+            {
+                comboBoxMapToParam.SelectedIndex = 0;
+                gbDoors.Visible = true;
+                gbDoors.BringToFront();
+        
+            }
+            if (comboBoxChooseWD.SelectedIndex == 1)
+            {
+                comboBoxMapToParam.SelectedIndex = 0;
+                gbWindows.Visible = true;
+                gbWindows.BringToFront();
+                gbDoors.SendToBack();
+                gbDoors.Visible = false;
+                
+            }
+        }
+
+        #endregion
+
+
 
 
         private void UpdateParameterList()
         {
-            List<Parameter> P = new List<Parameter>();
 
-            List<string> removeS = new List<string>();
 
-            #region Remove Parameters List
-
-            removeS.Add("Area");
-            removeS.Add("Category");
-            removeS.Add("Design Option");
-            removeS.Add("Family");
-            removeS.Add("Family and Type");
-            removeS.Add("Family Name");
-            removeS.Add("Head Height");
-            removeS.Add("Host Id");
-            removeS.Add("Image");
-            removeS.Add("Level");
-            removeS.Add("Phase Created");
-            removeS.Add("Phase Demolished");
-            removeS.Add("Sill Height");
-            removeS.Add("Type");
-            removeS.Add("Type Id");
-            removeS.Add("Type Name");
-            removeS.Add("Volume");
-
-            #endregion
-
-            foreach (var item in doorCollector)
+            if (comboBoxChooseWD.SelectedIndex == 0) //If Doors
             {
+                List<Parameter> P = new List<Parameter>();
 
-                foreach (Parameter a in item.Parameters)
-                {
-                    P.Add(a);
+                List<string> removeS = new List<string>();
 
-                }
+                #region Remove Parameters List
 
-            }
+                removeS.Add("Area");
+                removeS.Add("Category");
+                removeS.Add("Design Option");
+                removeS.Add("Family");
+                removeS.Add("Family and Type");
+                removeS.Add("Family Name");
+                removeS.Add("Head Height");
+                removeS.Add("Host Id");
+                removeS.Add("Image");
+                removeS.Add("Level");
+                removeS.Add("Phase Created");
+                removeS.Add("Phase Demolished");
+                removeS.Add("Sill Height");
+                removeS.Add("Type");
+                removeS.Add("Type Id");
+                removeS.Add("Type Name");
+                removeS.Add("Volume");
 
-            var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
+                #endregion
 
-            foreach (Parameter item in distinct)
-            {
-
-                bool exists = false;
-
-                foreach (string s in removeS) //Strings To remove
+                foreach (var item in doorCollector)
                 {
 
-                    if (item.Definition.Name == s) //If name Exists
+                    foreach (Parameter a in item.Parameters)
                     {
-                        exists = true; //Break Exit Loop
-                        break;
+                        P.Add(a);
+
                     }
 
                 }
 
+                var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
 
-
-                if (exists == false) //If not on remove list then remove it
+                foreach (Parameter item in distinct)
                 {
-                    comboBoxParameterList.Items.Add(item.Definition.Name);
-                }
 
-            }
+                    bool exists = false;
 
-
-
-            //foreach (Parameter item in distinct)
-            //{
-            //    comboBoxParameterList.Items.Add(item.Definition.Name);
-            //}
-
-            try
-            {
-                comboBoxParameterList.SelectedIndex = 0;
-            }
-            catch
-            {
-                MessageBox.Show("No Parameters Found","Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-            }
-
-
-
-        }
-
-        private void UpdateParameterListDelete()
-        {
-            List<Parameter> P = new List<Parameter>();
-
-            List<string> removeS = new List<string>();
-
-
-
-
-
-            foreach (var item in doorCollector)
-            {
-
-                foreach (Parameter a in item.Parameters)
-                {
-                    P.Add(a);
-
-                }
-
-            }
-
-            var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
-
-
-            foreach (Parameter item in distinct)
-            {
-
-                bool exists = false;
-
-                foreach (string s in removeS) //Strings To remove
-                {
-                   
-                    if(item.Definition.Name == s) //If name Exists
+                    foreach (string s in removeS) //Strings To remove
                     {
-                        exists = true; //Break Exit Loop
-                        break;
+
+                        if (item.Definition.Name == s) //If name Exists
+                        {
+                            exists = true; //Break Exit Loop
+                            break;
+                        }
+
+                    }
+
+
+
+                    if (exists == false) //If not on remove list then remove it
+                    {
+                        comboBoxParameterList.Items.Add(item.Definition.Name);
+                    }
+
+                }
+            }
+
+
+
+            if (comboBoxChooseWD.SelectedIndex == 1) //If Windows
+            {
+                List<Parameter> P = new List<Parameter>();
+
+                List<string> removeS = new List<string>();
+
+
+                #region Remove Parameters List
+
+                removeS.Add("Area");
+                removeS.Add("Category");
+                removeS.Add("Design Option");
+                removeS.Add("Family");
+                removeS.Add("Family and Type");
+                removeS.Add("Family Name");
+                removeS.Add("Head Height");
+                removeS.Add("Host Id");
+                removeS.Add("Image");
+                removeS.Add("Level");
+                removeS.Add("Phase Created");
+                removeS.Add("Phase Demolished");
+                removeS.Add("Sill Height");
+                removeS.Add("Type");
+                removeS.Add("Type Id");
+                removeS.Add("Type Name");
+                removeS.Add("Volume");
+
+                #endregion
+
+                foreach (var item in windowCollector)
+                {
+
+                    foreach (Parameter a in item.Parameters)
+                    {
+                        P.Add(a);
+
                     }
 
                 }
 
+                var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
 
-
-                if(exists == false) //If not on remove list then remove it
+                foreach (Parameter item in distinct)
                 {
-                    comboBoxParameterList.Items.Add(item.Definition.Name);
+
+                    bool exists = false;
+
+                    foreach (string s in removeS) //Strings To remove
+                    {
+
+                        if (item.Definition.Name == s) //If name Exists
+                        {
+                            exists = true; //Break Exit Loop
+                            break;
+                        }
+
+                    }
+
+
+                    if (exists == false) //If not on remove list then remove it
+                    {
+                        comboBoxParameterList.Items.Add(item.Definition.Name);
+                    }
+
                 }
-               
             }
 
             try
@@ -1090,22 +1118,194 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         }
 
-        private void comboBoxChooseWD_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpdateParameterListDelete()
         {
-            if(comboBoxChooseWD.SelectedIndex == 0)
+
+            if (comboBoxChooseWD.SelectedIndex == 0) //If Doors
             {
-                gbDoors.Visible = true;
-                gbDoors.BringToFront();
-        
+
+                List<Parameter> P = new List<Parameter>();
+
+                List<string> removeS = new List<string>();
+
+
+                #region Remove Parameters List
+
+                removeS.Add("Area");
+                removeS.Add("Category");
+                removeS.Add("Design Option");
+                removeS.Add("Family");
+                removeS.Add("Family and Type");
+                removeS.Add("Family Name");
+                removeS.Add("Head Height");
+                removeS.Add("Host Id");
+                removeS.Add("Image");
+                removeS.Add("Level");
+                removeS.Add("Phase Created");
+                removeS.Add("Phase Demolished");
+                removeS.Add("Sill Height");
+                removeS.Add("Type");
+                removeS.Add("Type Id");
+                removeS.Add("Type Name");
+                removeS.Add("Volume");
+
+
+                removeS.Add("Comments");
+                removeS.Add("Finish");
+                removeS.Add("Frame Material");
+                removeS.Add("Frame Type");
+                removeS.Add("Mark");
+
+                #endregion
+
+
+
+                foreach (var item in doorCollector)
+                {
+
+                    foreach (Parameter a in item.Parameters)
+                    {
+                        P.Add(a);
+
+                    }
+
+                }
+
+                var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
+
+
+                foreach (Parameter item in distinct)
+                {
+
+                    bool exists = false;
+
+                    foreach (string s in removeS) //Strings To remove
+                    {
+
+                        if (item.Definition.Name == s) //If name Exists
+                        {
+                            exists = true; //Break Exit Loop
+                            break;
+                        }
+
+                    }
+
+
+
+                    if (exists == false) //If not on remove list then remove it
+                    {
+                        comboBoxParameterList.Items.Add(item.Definition.Name);
+                    }
+
+                }
+
             }
-            if (comboBoxChooseWD.SelectedIndex == 1)
+
+
+            if (comboBoxChooseWD.SelectedIndex == 1)// If Windows
             {
-                gbWindows.Visible = true;
-                gbWindows.BringToFront();
-                gbDoors.SendToBack();
-                gbDoors.Visible = false;
-                
+
+                List<Parameter> P = new List<Parameter>();
+
+                List<string> removeS = new List<string>();
+
+
+                #region Remove Parameters List
+
+                removeS.Add("Area");
+                removeS.Add("Category");
+                removeS.Add("Design Option");
+                removeS.Add("Family");
+                removeS.Add("Family and Type");
+                removeS.Add("Family Name");
+                removeS.Add("Head Height");
+                removeS.Add("Host Id");
+                removeS.Add("Image");
+                removeS.Add("Level");
+                removeS.Add("Phase Created");
+                removeS.Add("Phase Demolished");
+                removeS.Add("Sill Height");
+                removeS.Add("Type");
+                removeS.Add("Type Id");
+                removeS.Add("Type Name");
+                removeS.Add("Volume");
+
+
+                removeS.Add("Comments");
+                removeS.Add("Finish");
+                removeS.Add("Frame Material");
+                removeS.Add("Frame Type");
+                removeS.Add("Mark");
+
+                #endregion
+
+                foreach (var item in windowCollector)
+                {
+
+                    foreach (Parameter a in item.Parameters)
+                    {
+                        P.Add(a);
+
+                    }
+
+                }
+
+                var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
+
+
+                foreach (Parameter item in distinct)
+                {
+
+                    bool exists = false;
+
+                    foreach (string s in removeS) //Strings To remove
+                    {
+
+                        if (item.Definition.Name == s) //If name Exists
+                        {
+                            exists = true; //Break Exit Loop
+                            break;
+                        }
+
+                    }
+
+
+
+                    if (exists == false) //If not on remove list then remove it
+                    {
+                        comboBoxParameterList.Items.Add(item.Definition.Name);
+                    }
+
+                }
+            }
+
+
+
+            try
+            {
+                comboBoxParameterList.SelectedIndex = 0;
+            }
+            catch
+            {
+                MessageBox.Show("No Parameters Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+        class LoadOpts : IFamilyLoadOptions
+        {
+            public bool OnFamilyFound(bool familyInUse, out bool overwriteParameterValues)
+            {
+                overwriteParameterValues = true;
+                return true;
+            }
+
+            public bool OnSharedFamilyFound(Family sharedFamily, bool familyInUse, out FamilySource source, out bool overwriteParameterValues)
+            {
+                throw new NotImplementedException();
             }
         }
+
+
     }
-    }
+}

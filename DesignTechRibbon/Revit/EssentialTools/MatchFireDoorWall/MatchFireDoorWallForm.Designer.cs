@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MatchFireDoorWallForm));
-            this.WindowToWall = new System.Windows.Forms.Button();
+            this.WallToWindow = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.WallToDoor = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -64,13 +64,13 @@
             // 
             // WindowToWall
             // 
-            this.WindowToWall.Location = new System.Drawing.Point(40, 66);
-            this.WindowToWall.Name = "WindowToWall";
-            this.WindowToWall.Size = new System.Drawing.Size(194, 42);
-            this.WindowToWall.TabIndex = 1;
-            this.WindowToWall.Text = "Wall To Window";
-            this.WindowToWall.UseVisualStyleBackColor = true;
-            this.WindowToWall.Click += new System.EventHandler(this.WindowToWall_Click);
+            this.WallToWindow.Location = new System.Drawing.Point(40, 66);
+            this.WallToWindow.Name = "WindowToWall";
+            this.WallToWindow.Size = new System.Drawing.Size(194, 42);
+            this.WallToWindow.TabIndex = 1;
+            this.WallToWindow.Text = "Wall To Window";
+            this.WallToWindow.UseVisualStyleBackColor = true;
+            this.WallToWindow.Click += new System.EventHandler(this.WindowToWall_Click);
             // 
             // progressBar1
             // 
@@ -189,7 +189,7 @@
             this.gbWindows.Controls.Add(this.label4);
             this.gbWindows.Controls.Add(this.label5);
             this.gbWindows.Controls.Add(this.DeleteFireRatingsWindow);
-            this.gbWindows.Controls.Add(this.WindowToWall);
+            this.gbWindows.Controls.Add(this.WallToWindow);
             this.gbWindows.Location = new System.Drawing.Point(15, 21);
             this.gbWindows.Name = "gbWindows";
             this.gbWindows.Size = new System.Drawing.Size(500, 151);
@@ -352,7 +352,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button WindowToWall;
+        private System.Windows.Forms.Button WallToWindow;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button WallToDoor;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;

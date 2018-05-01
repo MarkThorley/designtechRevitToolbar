@@ -56,7 +56,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             StatusLabel.Visible = false;
 
             comboBoxMapToParam.Items.Add("Map To New Parameter");
-            comboBoxMapToParam.Items.Add("Map/Delete Existing Parameter");
+            comboBoxMapToParam.Items.Add("Map To Existing Parameter");
+            comboBoxMapToParam.Items.Add("Delete Created Parameter");
 
             comboBoxMapToParam.SelectedIndex = 0;
             parameterNameInput.Text = "Fire_Rating";
@@ -884,11 +885,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
 
             }
-            else //Map To Existing
+            if (comboBoxMapToParam.SelectedIndex == 1) //Map To Existing
             {
 
-                DeleteFireRatingsDoors.Enabled = true;
-                DeleteFireRatingsWindow.Enabled = true;
+                DeleteFireRatingsDoors.Enabled = false;
+                DeleteFireRatingsWindow.Enabled = false;
 
                 parameterNameInput.Visible = false;
                 comboBoxParameterList.Visible = true;
@@ -898,7 +899,26 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 UpdateParameterList();
 
             }
-            
+
+            if (comboBoxMapToParam.SelectedIndex == 2) //Delete Existing
+            {
+
+                DeleteFireRatingsDoors.Enabled = true;
+                DeleteFireRatingsWindow.Enabled = true;
+                DoorToWall.Enabled = false;
+                DoorToWall.Enabled = false;
+
+                parameterNameInput.Visible = false;
+                comboBoxParameterList.Visible = true;
+                comboBoxParameterList.Items.Clear();
+
+
+                UpdateParameterList();
+
+            }
+
+
+
 
 
 
@@ -914,6 +934,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         {
             UserSelection = parameterNameInput.Text;
         }
+
 
 
         private void UpdateParameterList()

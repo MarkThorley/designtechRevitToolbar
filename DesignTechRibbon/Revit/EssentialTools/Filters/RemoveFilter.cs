@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using DesignTechRibbon.Revit.MessageBoxForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,7 +119,12 @@ namespace EssentialTools
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                   // MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters.");
+                    // MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters.");
+
+                    DTMessage mb = new DTMessage();
+                    string message = "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.";
+
+                    mb.ShowMessage(message, "Unused Filters");
 
                     MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

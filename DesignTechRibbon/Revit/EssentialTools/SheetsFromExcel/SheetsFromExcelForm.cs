@@ -92,7 +92,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             {
 
 
-                Variables.xlWorkBookTemplate.SaveAs(folderLocation + "/Template.xlsx");
+                Variables.xlWorkBookTemplate.SaveAs(folderLocation + "/designtech_ImportSheets_Template.xlsx");
 
                 MessageBox.Show("Template was Saved At" + folderLocation, "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -381,6 +381,146 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
         }
 
+
+
+        private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+
+            double i = 0;
+            double max = sheetData.Count;
+
+
+            foreach (var data in sheetData)
+            {
+
+
+                i += (100 * 1) / max;
+
+                if (i <= 100)
+                {
+                    backgroundWorker2.ReportProgress((int)i);
+                }
+
+
+                //if cancellation is pending, cancel work.  
+                if (backgroundWorker2.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+
+
+                bool doesIDExist = false;
+
+                foreach (var E in collSheets)
+                {
+                    ViewSheet VS = (ViewSheet)E;
+
+                    if (VS.SheetNumber == data.Key)
+                    {
+                        doesIDExist = true;
+                    }
+
+                }
+
+                if (doesIDExist == false)
+                {
+
+                    try
+                    {
+
+                        // Get an available title block from document
+                        FilteredElementCollector collector = new FilteredElementCollector(localDoc);
+                        collector.OfClass(typeof(FamilySymbol));
+                        collector.OfCategory(BuiltInCategory.OST_TitleBlocks);
+
+                        FamilySymbol fs = collector.FirstElement() as FamilySymbol;
+
+                        userSheets.Add(new Tuple<FamilySymbol, string, string>(fs, data.Key, data.Value));
+
+
+                    }
+                    catch
+                    {
+
+                    }
+
+                }
+
+
+
+            }
+
+        }
+
+        private void backgroundWorker2_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker2_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+
+            if (e.Cancelled)
+            {
+                MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                progressBar1.Value = 0;
+                StatusLabel.Visible = false;
+
+
+            }
+            else if (e.Error != null)
+            {
+                MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                progressBar1.Value = 0;
+                StatusLabel.Visible = false;
+            }
+            else
+            {
+
+                using (Transaction t = new Transaction(localDoc, "Add Sheet"))
+                {
+
+                    t.Start();
+
+                    foreach (Tuple<FamilySymbol, string, string> item in userSheets)
+                    {
+
+                        ViewSheet viewSheet = ViewSheet.Create(localDoc, item.Item1.Id);
+
+                        viewSheet.SheetNumber = item.Item2;
+
+                        viewSheet.ViewName = item.Item3;
+
+
+
+                    }
+
+                    t.Commit();
+
+                }
+
+
+                userSheets.Clear();
+                sheetData.Clear();
+
+                MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar1.Value = 0;
+
+
+
+            }
+
+
+
+
+
+
+
+
+        }
+
         #endregion
 
 
@@ -467,142 +607,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
 
 
-        private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-            double i = 0;
-            double max = sheetData.Count;
-
-
-                foreach (var data in sheetData)
-            {
-
-
-                i += (100 * 1) / max;
-
-                if (i <= 100)
-                {
-                    backgroundWorker2.ReportProgress((int)i);
-                }
-
-
-                //if cancellation is pending, cancel work.  
-                if (backgroundWorker2.CancellationPending)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-
-
-
-                bool doesIDExist = false;
-
-                    foreach (var E in collSheets)
-                    {
-                        ViewSheet VS = (ViewSheet)E;
-
-                        if (VS.SheetNumber == data.Key)
-                        {
-                            doesIDExist = true;
-                        }
-
-                    }
-
-                    if (doesIDExist == false)
-                    {
-
-                        try
-                        {
-
-                            // Get an available title block from document
-                            FilteredElementCollector collector = new FilteredElementCollector(localDoc);
-                            collector.OfClass(typeof(FamilySymbol));
-                            collector.OfCategory(BuiltInCategory.OST_TitleBlocks);
-
-                            FamilySymbol fs = collector.FirstElement() as FamilySymbol;
-
-                            userSheets.Add(new Tuple<FamilySymbol, string, string>(fs, data.Key, data.Value));
-
-
-                        }
-                        catch
-                        {
-
-                        }
-
-                    }
-                
-
-
-            }
-
-        }
-
-        private void backgroundWorker2_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-            progressBar1.Value = e.ProgressPercentage;
-        }
-
-        private void backgroundWorker2_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-    
-                if (e.Cancelled)
-                {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    progressBar1.Value = 0;
-                    StatusLabel.Visible = false;
-
-
-                }
-                else if (e.Error != null)
-                {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    progressBar1.Value = 0;
-                    StatusLabel.Visible = false;
-                }
-                else
-                {
-
-                using (Transaction t = new Transaction(localDoc, "Add Sheet"))
-                {
-
-                    t.Start();
-
-                    foreach (Tuple<FamilySymbol, string, string> item in userSheets)
-                    {
-
-                        ViewSheet viewSheet = ViewSheet.Create(localDoc, item.Item1.Id);
-
-                        viewSheet.SheetNumber = item.Item2;
-
-                        viewSheet.ViewName = item.Item3;
-
-                    
-
-                    }
-
-                    t.Commit();
-
-                }
-
-
-                userSheets.Clear();
-                sheetData.Clear();
-
-                MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                progressBar1.Value = 0;
-
-              
-
-                }
-
-
-
-
    
-
-
-
-        }
     }
     }

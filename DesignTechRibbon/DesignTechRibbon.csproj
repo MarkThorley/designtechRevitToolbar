@@ -183,6 +183,12 @@
     <Compile Include="Revit\EssentialTools\View Templates\TemplatesForm.designer.cs">
       <DependentUpon>TemplatesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Revit\MessageBoxForm\DTMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Revit\MessageBoxForm\DTMessage.Designer.cs">
+      <DependentUpon>DTMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Revit\Tools\PipingTotalLength.cs" />
     <Compile Include="Revit\Tools\FramingTotalLength.cs" />
     <Compile Include="Revit\Tools\CurveTotalLength.cs" />
@@ -302,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Revit\EssentialTools\View Templates\TemplatesForm.resx">
       <DependentUpon>TemplatesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Revit\MessageBoxForm\DTMessage.resx">
+      <DependentUpon>DTMessage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

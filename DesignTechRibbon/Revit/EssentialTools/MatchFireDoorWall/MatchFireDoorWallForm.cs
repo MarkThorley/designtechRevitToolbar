@@ -61,7 +61,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             comboBoxMapToParam.SelectedIndex = 0;
             parameterNameInput.Text = "Fire_Rating";
-         
+
+            comboBoxChooseWD.Items.Add("Doors");
+            comboBoxChooseWD.Items.Add("Windows");
+
+            comboBoxChooseWD.SelectedIndex = 0;
+
+            gbDoors.Visible = true;
+            gbDoors.BringToFront();
 
         }
 
@@ -71,7 +78,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         private void WallToDoor_Click(object sender, EventArgs e)
         {
 
-            DoorToWall.Enabled = false;
+            WallToDoor.Enabled = false;
             WindowToWall.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
@@ -89,7 +96,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             if (!this.backgroundWorker1.IsBusy)
             {
                 this.backgroundWorker1.RunWorkerAsync();
-                this.DoorToWall.Enabled = false;
+                this.WallToDoor.Enabled = false;
                 
 
             }
@@ -100,7 +107,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void DeleteFireRatings_Click(object sender, EventArgs e)
         {
-            DoorToWall.Enabled = false;
+            WallToDoor.Enabled = false;
             WindowToWall.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
@@ -116,7 +123,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         private void DeleteFireRatingsWindow_Click(object sender, EventArgs e)
         {
 
-            DoorToWall.Enabled = false;
+            WallToDoor.Enabled = false;
             WindowToWall.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
@@ -135,7 +142,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         private void WindowToWall_Click(object sender, EventArgs e)
         {
 
-            DoorToWall.Enabled = false;
+            WallToDoor.Enabled = false;
             WindowToWall.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
@@ -358,7 +365,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             doorElementsDictionary.Clear();
 
-            DoorToWall.Enabled = true;
+            WallToDoor.Enabled = true;
             WindowToWall.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
@@ -546,7 +553,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             windowElementsDictionary.Clear();
 
-            DoorToWall.Enabled = true;
+            WallToDoor.Enabled = true;
             WindowToWall.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
@@ -700,7 +707,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
 
 
-            DoorToWall.Enabled = true;
+            WallToDoor.Enabled = true;
             WindowToWall.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
@@ -845,7 +852,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 MessageBox.Show(ex.Message);
             }
 
-            DoorToWall.Enabled = true;
+            WallToDoor.Enabled = true;
             WindowToWall.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
@@ -905,7 +912,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 DeleteFireRatingsDoors.Enabled = true;
                 DeleteFireRatingsWindow.Enabled = true;
-                DoorToWall.Enabled = false;
+                WallToDoor.Enabled = false;
                 WindowToWall.Enabled = false;
 
                 parameterNameInput.Visible = false;
@@ -941,6 +948,29 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         {
             List<Parameter> P = new List<Parameter>();
 
+            List<string> removeS = new List<string>();
+
+            #region Remove Parameters List
+
+            removeS.Add("Area");
+            removeS.Add("Category");
+            removeS.Add("Design Option");
+            removeS.Add("Family");
+            removeS.Add("Family and Type");
+            removeS.Add("Family Name");
+            removeS.Add("Head Height");
+            removeS.Add("Host Id");
+            removeS.Add("Image");
+            removeS.Add("Level");
+            removeS.Add("Phase Created");
+            removeS.Add("Phase Demolished");
+            removeS.Add("Sill Height");
+            removeS.Add("Type");
+            removeS.Add("Type Id");
+            removeS.Add("Type Name");
+            removeS.Add("Volume");
+
+            #endregion
 
             foreach (var item in doorCollector)
             {
@@ -955,13 +985,48 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
 
-
             foreach (Parameter item in distinct)
             {
-                comboBoxParameterList.Items.Add(item.Definition.Name);
+
+                bool exists = false;
+
+                foreach (string s in removeS) //Strings To remove
+                {
+
+                    if (item.Definition.Name == s) //If name Exists
+                    {
+                        exists = true; //Break Exit Loop
+                        break;
+                    }
+
+                }
+
+
+
+                if (exists == false) //If not on remove list then remove it
+                {
+                    comboBoxParameterList.Items.Add(item.Definition.Name);
+                }
+
             }
 
-            comboBoxParameterList.SelectedIndex = 0;
+
+
+            //foreach (Parameter item in distinct)
+            //{
+            //    comboBoxParameterList.Items.Add(item.Definition.Name);
+            //}
+
+            try
+            {
+                comboBoxParameterList.SelectedIndex = 0;
+            }
+            catch
+            {
+                MessageBox.Show("No Parameters Found","Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+
+
 
         }
 
@@ -971,7 +1036,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             List<string> removeS = new List<string>();
 
-            removeS.Add("Area");
+
+
 
 
             foreach (var item in doorCollector)
@@ -1013,9 +1079,33 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                
             }
 
-            comboBoxParameterList.SelectedIndex = 0;
+            try
+            {
+                comboBoxParameterList.SelectedIndex = 0;
+            }
+            catch
+            {
+                MessageBox.Show("No Parameters Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
         }
 
+        private void comboBoxChooseWD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBoxChooseWD.SelectedIndex == 0)
+            {
+                gbDoors.Visible = true;
+                gbDoors.BringToFront();
+        
+            }
+            if (comboBoxChooseWD.SelectedIndex == 1)
+            {
+                gbWindows.Visible = true;
+                gbWindows.BringToFront();
+                gbDoors.SendToBack();
+                gbDoors.Visible = false;
+                
+            }
+        }
     }
     }

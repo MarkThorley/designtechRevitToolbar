@@ -38,6 +38,8 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.comboBoxChooseWD = new System.Windows.Forms.ComboBox();
             this.gbWindows = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -54,8 +56,6 @@
             this.StatusLabel = new System.Windows.Forms.Label();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.gbWindows.SuspendLayout();
@@ -81,7 +81,7 @@
             // 
             // WallToDoor
             // 
-            this.WallToDoor.Location = new System.Drawing.Point(37, 66);
+            this.WallToDoor.Location = new System.Drawing.Point(40, 66);
             this.WallToDoor.Name = "WallToDoor";
             this.WallToDoor.Size = new System.Drawing.Size(194, 42);
             this.WallToDoor.TabIndex = 3;
@@ -152,9 +152,27 @@
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Location = new System.Drawing.Point(14, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(560, 514);
+            this.groupBox1.Size = new System.Drawing.Size(542, 514);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 260);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 17);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Action:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 199);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(106, 17);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Doors/Windows";
             // 
             // comboBoxChooseWD
             // 
@@ -240,7 +258,7 @@
             // 
             // DeleteFireRatingsDoors
             // 
-            this.DeleteFireRatingsDoors.Location = new System.Drawing.Point(270, 66);
+            this.DeleteFireRatingsDoors.Location = new System.Drawing.Point(268, 66);
             this.DeleteFireRatingsDoors.Name = "DeleteFireRatingsDoors";
             this.DeleteFireRatingsDoors.Size = new System.Drawing.Size(194, 42);
             this.DeleteFireRatingsDoors.TabIndex = 9;
@@ -311,29 +329,11 @@
             this.backgroundWorker4.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker4_ProgressChanged);
             this.backgroundWorker4.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker4_RunWorkerCompleted);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 199);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(106, 17);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Doors/Windows";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 260);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(51, 17);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "Action:";
-            // 
             // MatchFireDoorWallForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 538);
+            this.ClientSize = new System.Drawing.Size(564, 538);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

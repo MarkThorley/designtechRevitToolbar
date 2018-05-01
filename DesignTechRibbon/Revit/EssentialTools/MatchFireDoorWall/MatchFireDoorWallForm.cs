@@ -906,14 +906,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 DeleteFireRatingsDoors.Enabled = true;
                 DeleteFireRatingsWindow.Enabled = true;
                 DoorToWall.Enabled = false;
-                DoorToWall.Enabled = false;
+                WindowToWall.Enabled = false;
 
                 parameterNameInput.Visible = false;
                 comboBoxParameterList.Visible = true;
                 comboBoxParameterList.Items.Clear();
 
 
-                UpdateParameterList();
+                UpdateParameterListDelete();
 
             }
 
@@ -959,6 +959,58 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             foreach (Parameter item in distinct)
             {
                 comboBoxParameterList.Items.Add(item.Definition.Name);
+            }
+
+            comboBoxParameterList.SelectedIndex = 0;
+
+        }
+
+        private void UpdateParameterListDelete()
+        {
+            List<Parameter> P = new List<Parameter>();
+
+            List<string> removeS = new List<string>();
+
+            removeS.Add("Area");
+
+
+            foreach (var item in doorCollector)
+            {
+
+                foreach (Parameter a in item.Parameters)
+                {
+                    P.Add(a);
+
+                }
+
+            }
+
+            var distinct = P.GroupBy(x => x.Definition.Name).Select(y => y.FirstOrDefault()).OrderBy(n => n.Definition.Name);
+
+
+            foreach (Parameter item in distinct)
+            {
+
+                bool exists = false;
+
+                foreach (string s in removeS) //Strings To remove
+                {
+                   
+                    if(item.Definition.Name == s) //If name Exists
+                    {
+                        exists = true; //Break Exit Loop
+                        break;
+                    }
+
+                }
+
+
+
+                if(exists == false) //If not on remove list then remove it
+                {
+                    comboBoxParameterList.Items.Add(item.Definition.Name);
+                }
+               
             }
 
             comboBoxParameterList.SelectedIndex = 0;

@@ -17,10 +17,11 @@ namespace DesignTechRibbon.Revit.MessageBoxForm
             InitializeComponent();
         }
 
-        public void ShowMessage(string MainText,string title)
+        public void ShowMessage(string MainText)
         {
             this.Show();
             label1.Text = MainText;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

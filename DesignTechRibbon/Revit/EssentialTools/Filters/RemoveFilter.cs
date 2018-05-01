@@ -122,11 +122,23 @@ namespace EssentialTools
                     // MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters.");
 
                     DTMessage mb = new DTMessage();
-                    string message = "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.";
 
-                    mb.ShowMessage(message, "Unused Filters");
+                    string message = "";
 
-                    MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (store.Count > 1)
+                    {
+                        message = "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.";
+                    }
+                    else
+                    {
+                        message = "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filter was removed.";
+                    }
+
+
+                    mb.ShowMessage(message);
+                    mb.Text = "Unused Filters";
+
+                   // MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
             }

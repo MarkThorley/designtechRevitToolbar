@@ -2,6 +2,7 @@
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using DesignTechRibbon.Revit.MessageBoxForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -409,16 +410,24 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             try
             {
 
+                DTMessage mb = new DTMessage();
+
                 if (e.Cancelled)
                 {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    mb.ShowMessage("The Task Has Been Cancelled");
+                    mb.Text = "Cancelled";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                    mb.Text = "Error";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
@@ -457,7 +466,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mb.ShowMessage("The Task Has Been Completed.");
+                    mb.Text = "Completed";
+
                     progressBar1.Value = 0;
                     doorPoints.Clear();
                     orderedPoints.Clear();
@@ -642,17 +654,26 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         {
             try
             {
+                DTMessage mb = new DTMessage();
 
                 if (e.Cancelled)
                 {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    // MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    mb.ShowMessage("The Task Has Been Cancelled");
+                    mb.Text = "Cancelled";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                    mb.Text = "Error";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
@@ -680,7 +701,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     }
 
-                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   // MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    mb.ShowMessage("The Task Has Been Completed.");
+                    mb.Text = "Completed";
+
                     progressBar1.Value = 0;
                     doorPoints.Clear();
                     orderedPoints.Clear();
@@ -831,16 +856,27 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         {
             try
             {
+                DTMessage mb = new DTMessage();
+
+
                 if (e.Cancelled)
                 {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    mb.ShowMessage("The Task Has Been Cancelled");
+                    mb.Text = "Cancelled";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                    mb.Text = "Error";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
@@ -874,7 +910,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    mb.ShowMessage("The Task Has Been Completed.");
+                    mb.Text = "Completed";
+
                     progressBar1.Value = 0;
                     windowPoints.Clear();
                     orderedPoints.Clear();
@@ -1023,16 +1063,26 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             try
             {
+                DTMessage mb = new DTMessage();
+
                 if (e.Cancelled)
                 {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    mb.ShowMessage("The Task Has Been Cancelled");
+                    mb.Text = "Cancelled";
+
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                    mb.Text = "Error";
+
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
@@ -1062,7 +1112,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mb.ShowMessage("The Task Has Been Completed.");
+                    mb.Text = "Completed";
+
+
                     progressBar1.Value = 0;
                     windowPoints.Clear();
                     orderedPoints.Clear();
@@ -1216,17 +1270,27 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         {
             try
             {
+                DTMessage mb = new DTMessage();
 
                 if (e.Cancelled)
                 {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    mb.ShowMessage("The Task Has Been Cancelled");
+                    mb.Text = "Cancelled";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                    mb.Text = "Error";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
@@ -1257,7 +1321,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    mb.ShowMessage("The Task Has Been Completed.");
+                    mb.Text = "Completed";
+
                     progressBar1.Value = 0;
                     roomPoints.Clear();
                     orderedPoints.Clear();
@@ -1417,16 +1485,26 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         {
             try
             {
+                DTMessage mb = new DTMessage();
+
                 if (e.Cancelled)
                 {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    mb.ShowMessage("The Task Has Been Cancelled");
+                    mb.Text = "Cancelled";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                    mb.Text = "Error";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
@@ -1462,7 +1540,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    mb.ShowMessage("The Task Has Been Completed.");
+                    mb.Text = "Completed";
+
                     progressBar1.Value = 0;
                     roomPoints.Clear();
                     orderedPoints.Clear();

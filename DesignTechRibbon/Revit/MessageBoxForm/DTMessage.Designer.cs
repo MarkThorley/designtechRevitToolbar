@@ -39,7 +39,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(400, 212);
+            this.button1.Location = new System.Drawing.Point(400, 155);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(117, 38);
             this.button1.TabIndex = 1;
@@ -52,10 +52,10 @@
             this.designtechLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.designtechLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.designtechLogo.Image = ((System.Drawing.Image)(resources.GetObject("designtechLogo.Image")));
-            this.designtechLogo.Location = new System.Drawing.Point(7, 140);
+            this.designtechLogo.Location = new System.Drawing.Point(7, 112);
             this.designtechLogo.Margin = new System.Windows.Forms.Padding(4);
             this.designtechLogo.Name = "designtechLogo";
-            this.designtechLogo.Size = new System.Drawing.Size(281, 109);
+            this.designtechLogo.Size = new System.Drawing.Size(221, 88);
             this.designtechLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.designtechLogo.TabIndex = 5;
             this.designtechLogo.TabStop = false;
@@ -75,9 +75,9 @@
             this.groupBox1.Controls.Add(this.designtechLogo);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(523, 256);
+            this.groupBox1.Size = new System.Drawing.Size(523, 207);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
@@ -85,10 +85,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 280);
+            this.ClientSize = new System.Drawing.Size(547, 223);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DTMessage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DTMessage";
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).EndInit();
             this.groupBox1.ResumeLayout(false);

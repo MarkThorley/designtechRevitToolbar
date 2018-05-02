@@ -12,6 +12,7 @@ using System.Windows.Media.Media3D;
 using System.Threading;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
+using DesignTechRibbon.Revit.MessageBoxForm;
 
 namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 {
@@ -413,9 +414,17 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
 
+            DTMessage mb = new DTMessage();
+
+
             if (e.Cancelled)
             {
-                MessageBox.Show("The task has been cancelled");
+                //MessageBox.Show("The task has been cancelled");
+
+                mb.ShowMessage("The Task Has Been Cancelled");
+                mb.Text = "Cancelled";
+
+
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
@@ -423,7 +432,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             }
             else if (e.Error != null)
             {
-                MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                mb.Text = "Error";
+
+
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
@@ -457,18 +471,28 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                     MessageBox.Show(ex.Message);
                 }
 
-                if(AddToSheet.Count == 0)
+
+
+             
+                mb.Text = "Completed";
+
+                if (AddToSheet.Count == 0)
                 {
-                    MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
+                    //MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
+                    mb.ShowMessage("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
                 }
                 else if(AddToSheet.Count == 1)
                 {
 
-                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mb.ShowMessage(("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet"));
+
                 }
                 else
                 {
-                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets");
+
                 }
 
                 WFItem.SelectedLegends.Clear();
@@ -609,9 +633,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+
+            DTMessage mb = new DTMessage();
+
             if (e.Cancelled)
             {
-                MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+              //  MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                mb.ShowMessage("The Task Has Been Cancelled");
+                mb.Text = "Cancelled";
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
@@ -619,7 +648,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             }
             else if (e.Error != null)
             {
-                MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                mb.Text = "Error";
+
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
@@ -657,16 +690,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 if (RemoveFromSheet.Count == 0)
                 {
-                    MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Deleted As They Do Not Exist");
+                    //MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Deleted As They Do Not Exist");
+                    mb.ShowMessage("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
                 }
                 else if (RemoveFromSheet.Count == 1)
                 {
 
                     MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet");
                 }
                 else
                 {
-                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets");
+
                 }
 
                 WFItem.SelectedLegends.Clear();

@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using DesignTechRibbon.Revit.MessageBoxForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,9 +105,28 @@ namespace EssentialTools
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                  //  MessageBox.Show("Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.", "Unused View Templates.");
 
-                    MessageBox.Show("Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.", "Unused View Templates.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DTMessage mb = new DTMessage();
+
+                    string message = "";
+
+                    if (store.Count > 1)
+                    {
+                        message = "Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed";
+                    }
+                    else
+                    {
+                        message = "Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed";
+                    }
+
+
+                    mb.ShowMessage(message);
+                    mb.Text = "Unused Filters";
+
+
+                    //  MessageBox.Show("Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.", "Unused View Templates.");
+
+                    // MessageBox.Show("Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.", "Unused View Templates.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
             }

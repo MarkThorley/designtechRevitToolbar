@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using DesignTechRibbon.Revit.MessageBoxForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -678,15 +679,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
+            DTMessage mb = new DTMessage();
+
             if (e.Cancelled)
             {
-                MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                mb.ShowMessage("The Task Has Been Cancelled");
+                mb.Text = "Cancelled";
 
             }
             else if (e.Error != null)
             {
-                MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                mb.Text = "Error";
             }
             else
             {
@@ -880,10 +886,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         }
 
+
+
         private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             double i = 0;
             double max = getListBoxAsStrings.Count;
+
 
             try
             {
@@ -981,11 +990,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 MessageBox.Show(ex.Message);
             }
 
-
-        }
-
-        private void backgroundWorker2_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
 
         }
 
@@ -1108,6 +1112,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         }
 
+
+
         private void backgroundWorker3_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
 
@@ -1214,11 +1220,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
             }
 
 
-
-        }
-
-        private void backgroundWorker3_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
 
         }
 

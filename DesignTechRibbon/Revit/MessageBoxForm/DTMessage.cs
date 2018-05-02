@@ -19,15 +19,15 @@ namespace DesignTechRibbon.Revit.MessageBoxForm
 
         public void ShowMessage(string MainText)
         {
-            this.Show();
             label1.Text = MainText;
+            this.ShowDialog();
+
             
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-            this.Dispose();
         }
     }
 }

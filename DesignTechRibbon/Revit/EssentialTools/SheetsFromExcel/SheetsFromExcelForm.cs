@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Linq;
+using DesignTechRibbon.Revit.MessageBoxForm;
 
 namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 {
@@ -301,10 +302,15 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
             try
             {
+                DTMessage mb = new DTMessage();
 
                 if (e.Cancelled)
                 {
-                    MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    mb.ShowMessage("The Task Has Been Cancelled");
+                    mb.Text = "Cancelled";
+
                     CleanUpListForm();
                     Variables.collOne.Clear();
                     Variables.collTwo.Clear();
@@ -315,7 +321,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 }
                 else if (e.Error != null)
                 {
-                    MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                    mb.Text = "Error";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
@@ -360,9 +370,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                     {
                         listViewExcel.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                     }
-                    
 
-                    MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    mb.ShowMessage("The Task Has Been Completed.");
+                    mb.Text = "Completed";
+
                     progressBar1.Value = 0;
                
                 }
@@ -462,17 +476,26 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
         private void backgroundWorker2_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
 
+            DTMessage mb = new DTMessage();
+
             if (e.Cancelled)
             {
-                MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                // MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                mb.ShowMessage("The Task Has Been Cancelled");
+                mb.Text = "Cancelled";
                 progressBar1.Value = 0;
                 StatusLabel.Visible = false;
+
 
 
             }
             else if (e.Error != null)
             {
-                MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                mb.Text = "Error";
+
                 progressBar1.Value = 0;
                 StatusLabel.Visible = false;
             }
@@ -505,7 +528,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 userSheets.Clear();
                 sheetData.Clear();
 
-                MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                mb.ShowMessage("The Task Has Been Completed.");
+                mb.Text = "Completed";
+
+
                 progressBar1.Value = 0;
 
 

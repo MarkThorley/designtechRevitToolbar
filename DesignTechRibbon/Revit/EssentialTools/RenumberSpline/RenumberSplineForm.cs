@@ -484,9 +484,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 MessageBox.Show(ex.Message);
             }
 
-
-            this.Close();
-
         }
 
 

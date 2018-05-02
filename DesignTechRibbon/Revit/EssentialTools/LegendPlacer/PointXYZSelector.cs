@@ -29,7 +29,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             InitializeComponent();
             localDoc = doc;
 
-            label2.Text = "Press the Select Point button and choose a Point\non the active view";
+            label2.Text = "Press the Select Point button and choose a Point\non the active view where the legend will be placed";
 
         }
 
@@ -45,9 +45,19 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 userSelectedPoint = localDoc.Selection.PickPoint();
 
-                label1.Text = "User Selected\n" + "\nX: " + Math.Round(userSelectedPoint.X,5)  + "\nY: " + Math.Round(userSelectedPoint.Y,5);
+                //label1.Text = "User Selected\n" + "\nX: " + Math.Round(userSelectedPoint.X,5)  + "\nY: " + Math.Round(userSelectedPoint.Y,5);
 
-                this.Show();
+                //this.Show();
+
+                if (userSelectedPoint != null)
+                {
+                    exEvent.Raise();
+                }
+                else
+                {
+                    MessageBox.Show("No Point Selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+
             }
             catch(Exception ex)
             {
@@ -57,27 +67,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             }
 
       
-        }
-
-        private void LoadPointButton_Click(object sender, EventArgs e)
-        {
-            if (userSelectedPoint != null)
-            {
-
-               // var confirmResult = MessageBox.Show("Use This Point", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                //if (confirmResult == DialogResult.Yes)
-                //{
-
-                    exEvent.Raise();
-
-                //}
-
-            }
-            else
-            {
-                MessageBox.Show("No Point Selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
         }
 
 

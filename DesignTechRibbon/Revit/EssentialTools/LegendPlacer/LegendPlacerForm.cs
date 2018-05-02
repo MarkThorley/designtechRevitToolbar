@@ -479,19 +479,19 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 if (AddToSheet.Count == 0)
                 {
                     //MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
-                    mb.ShowMessage("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
+                    mb.ShowMessage("The Task Has Been Completed.\nLegends Were Not Placed\n As They Already Exist On Selected Sheets");
                 }
                 else if(AddToSheet.Count == 1)
                 {
 
                    // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    mb.ShowMessage(("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet"));
+                    mb.ShowMessage(("The Task Has Been Completed. \n" + LegendListBox.SelectedItem.ToString() + " \nWas Added To " + AddToSheet.Count + " Sheet"));
 
                 }
                 else
                 {
                    // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets");
+                    mb.ShowMessage("The Task Has Been Completed. \n" + LegendListBox.SelectedItem.ToString() + " \nWas Added To " + AddToSheet.Count + " Sheets");
 
                 }
 
@@ -691,18 +691,18 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 if (RemoveFromSheet.Count == 0)
                 {
                     //MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Deleted As They Do Not Exist");
-                    mb.ShowMessage("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
+                    mb.ShowMessage("The Task Has Been Completed.\nLegends Were Not Placed\n As They Already Exist On Selected Sheets");
                 }
                 else if (RemoveFromSheet.Count == 1)
                 {
 
-                    MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet");
+                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mb.ShowMessage("The Task Has Been Completed. \n" + LegendListBox.SelectedItem.ToString() + " \nWas Deleted On " + RemoveFromSheet.Count + " Sheet");
                 }
                 else
                 {
                    // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets");
+                    mb.ShowMessage("The Task Has Been Completed. \n" + LegendListBox.SelectedItem.ToString() + " \nWas Deleted On " + RemoveFromSheet.Count + " Sheets");
 
                 }
 

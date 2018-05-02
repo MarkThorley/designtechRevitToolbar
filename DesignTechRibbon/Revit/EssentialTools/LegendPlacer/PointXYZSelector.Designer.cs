@@ -33,8 +33,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.LoadPointButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.SelectPointButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -45,7 +43,7 @@
             this.designtechLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.designtechLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.designtechLogo.Image = ((System.Drawing.Image)(resources.GetObject("designtechLogo.Image")));
-            this.designtechLogo.Location = new System.Drawing.Point(24, 228);
+            this.designtechLogo.Location = new System.Drawing.Point(24, 159);
             this.designtechLogo.Margin = new System.Windows.Forms.Padding(4);
             this.designtechLogo.Name = "designtechLogo";
             this.designtechLogo.Size = new System.Drawing.Size(312, 73);
@@ -57,19 +55,17 @@
             // 
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.LoadPointButton);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.SelectPointButton);
             this.groupBox1.Controls.Add(this.designtechLogo);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(368, 317);
+            this.groupBox1.Size = new System.Drawing.Size(368, 254);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(214, 171);
+            this.button1.Location = new System.Drawing.Point(198, 101);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(138, 38);
             this.button1.TabIndex = 12;
@@ -80,35 +76,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(4, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 17);
+            this.label2.Size = new System.Drawing.Size(35, 18);
             this.label2.TabIndex = 11;
             this.label2.Text = "Title";
             this.label2.UseWaitCursor = true;
             // 
-            // LoadPointButton
-            // 
-            this.LoadPointButton.Location = new System.Drawing.Point(214, 121);
-            this.LoadPointButton.Name = "LoadPointButton";
-            this.LoadPointButton.Size = new System.Drawing.Size(138, 38);
-            this.LoadPointButton.TabIndex = 10;
-            this.LoadPointButton.Text = "Use";
-            this.LoadPointButton.UseVisualStyleBackColor = true;
-            this.LoadPointButton.Click += new System.EventHandler(this.LoadPointButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 17);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "User Selection";
-            // 
             // SelectPointButton
             // 
-            this.SelectPointButton.Location = new System.Drawing.Point(214, 71);
+            this.SelectPointButton.Location = new System.Drawing.Point(24, 101);
             this.SelectPointButton.Name = "SelectPointButton";
             this.SelectPointButton.Size = new System.Drawing.Size(138, 38);
             this.SelectPointButton.TabIndex = 8;
@@ -120,7 +98,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 338);
+            this.ClientSize = new System.Drawing.Size(392, 276);
             this.Controls.Add(this.groupBox1);
             this.Name = "PointXYZSelector";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -136,8 +114,6 @@
 
         private System.Windows.Forms.PictureBox designtechLogo;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button LoadPointButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button SelectPointButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;

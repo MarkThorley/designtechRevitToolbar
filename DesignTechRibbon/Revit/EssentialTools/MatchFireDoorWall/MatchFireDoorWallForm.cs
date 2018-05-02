@@ -290,7 +290,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 else
                 {
              
-                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
                     var distinctItems = doorFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
 
@@ -498,7 +498,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
-                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
                     var distinctItems = windowFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
 
@@ -689,7 +689,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
-                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
 
 
@@ -850,7 +850,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
-                    RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
 
                     var distinctItems = deleteParametersWindows.GroupBy(x => x.Id).Select(y => y.First()); //Sorts the list into only unique items
@@ -947,6 +947,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 WallToDoor.Enabled = true;
                 WallToWindow.Enabled = true;
 
+                DeleteFireRatingsDoors.Enabled = false;
+                DeleteFireRatingsWindow.Enabled = false;
+
                 parameterNameInput.Visible = false;
                 comboBoxParameterList.Visible = true;
 
@@ -1019,7 +1022,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void UpdateParameterList()
         {
-
+            
 
             if (comboBoxChooseWD.SelectedIndex == 0) //If Doors
             {
@@ -1054,7 +1057,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     foreach (Parameter a in item.Parameters)
                     {
-                        P.Add(a);
+                        if(a.IsReadOnly)
+                        {
+                             P.Add(a);
+                     
+
+                        }
 
                     }
 
@@ -1124,7 +1132,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     foreach (Parameter a in item.Parameters)
                     {
-                        P.Add(a);
+                        if (a.IsReadOnly != true)
+                        {
+                 
+                            P.Add(a);
+                      
+                      
+                        }
 
                     }
 
@@ -1163,6 +1177,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
             catch
             {
+                DeleteFireRatingsDoors.Enabled = false;
+                DeleteFireRatingsWindow.Enabled = false;
                 MessageBox.Show("No Parameters Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
@@ -1215,7 +1231,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     foreach (Parameter a in item.Parameters)
                     {
-                        P.Add(a);
+                        if (a.IsReadOnly != true)
+                        {
+                            P.Add(a);
+                        }
 
                     }
 
@@ -1279,8 +1298,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 removeS.Add("Type Id");
                 removeS.Add("Type Name");
                 removeS.Add("Volume");
-
-
                 removeS.Add("Comments");
                 removeS.Add("Finish");
                 removeS.Add("Frame Material");
@@ -1294,7 +1311,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     foreach (Parameter a in item.Parameters)
                     {
-                        P.Add(a);
+                        if (a.IsReadOnly != true)
+                        {
+                            P.Add(a);
+                        }
 
                     }
 
@@ -1337,6 +1357,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
             catch
             {
+                DeleteFireRatingsDoors.Enabled = false;
+                DeleteFireRatingsWindow.Enabled = false;
                 MessageBox.Show("No Parameters Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 

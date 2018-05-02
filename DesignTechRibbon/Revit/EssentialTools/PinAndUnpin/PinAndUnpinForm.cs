@@ -1494,6 +1494,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
             else
                 totalLbl.Text = listView1.Items.Count.ToString() + " items";
         }
+
+        private void PinAndUnpinForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+            backgroundWorker2.CancelAsync();
+            backgroundWorker3.CancelAsync();
+        }
     }
 
 

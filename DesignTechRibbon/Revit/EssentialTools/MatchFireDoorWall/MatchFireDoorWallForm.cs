@@ -1378,6 +1378,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
         }
 
-
+        private void MatchFireDoorWallForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+            backgroundWorker2.CancelAsync();
+        }
     }
 }

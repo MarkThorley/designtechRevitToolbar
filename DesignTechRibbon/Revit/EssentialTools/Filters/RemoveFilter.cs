@@ -167,7 +167,7 @@ namespace EssentialTools
             FilteredElementCollector collViewPlan = new FilteredElementCollector(doc).OfClass(typeof(ViewPlan)).WhereElementIsNotElementType();
             FilteredElementCollector collViewSection = new FilteredElementCollector(doc).OfClass(typeof(ViewSection)).WhereElementIsNotElementType();
             FilteredElementCollector collView3D= new FilteredElementCollector(doc).OfClass(typeof(View3D)).WhereElementIsNotElementType();
-
+            
             IList<Element> filteredViews = new List<Element>();
 
             foreach (var item in collViewPlan)
@@ -225,7 +225,7 @@ namespace EssentialTools
                     
                 }
  
-            unassigned = new HashSet<ElementId>(unassigned.ToList().Except(used.ToList()));
+            used = new HashSet<ElementId>(used.ToList().Except(unassigned.ToList()));
         }
         /// <summary>
         /// Returns the unused filters in a projects as all filters minus used filters

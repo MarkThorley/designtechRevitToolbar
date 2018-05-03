@@ -151,7 +151,7 @@ namespace EssentialTools
                 SrchBox.Update();
 
                 lockIt = false;
-                return;
+                //return;
             }
         }
         private void toolStripMenuItem1_Click(object sender, EventArgs e)

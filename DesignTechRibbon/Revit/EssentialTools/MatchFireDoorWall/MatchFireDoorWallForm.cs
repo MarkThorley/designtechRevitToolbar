@@ -374,6 +374,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
+
             }
 
 
@@ -576,6 +578,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
             windowElementsDictionary.Clear();
@@ -742,6 +745,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
 
@@ -903,6 +907,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
             WallToDoor.Enabled = true;

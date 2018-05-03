@@ -482,6 +482,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
         }
@@ -715,6 +716,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
 
@@ -924,6 +926,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
 
@@ -1126,6 +1129,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
 
@@ -1335,6 +1339,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
         }
@@ -1554,6 +1559,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
         }
@@ -1585,6 +1591,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         private void RenumberSplineForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            backgroundWorker1.CancelAsync();
+            backgroundWorker2.CancelAsync();
+            backgroundWorker3.CancelAsync();
+            backgroundWorker4.CancelAsync();
+            backgroundWorker5.CancelAsync();
+
             FormCollection fc = Application.OpenForms;
 
             foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
@@ -1594,8 +1607,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     frm.Close();
                     frm.Dispose();
                     break;
-
-          
 
                 }
             }

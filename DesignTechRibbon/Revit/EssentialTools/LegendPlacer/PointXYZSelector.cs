@@ -41,9 +41,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
             try
             {
-
-
-                userSelectedPoint = localDoc.Selection.PickPoint();
+                try
+                {
+                    userSelectedPoint = localDoc.Selection.PickPoint();
+                }
+                catch
+                {
+                    MessageBox.Show("Please Choose a Point In the Active View Or Make this View The Active View Before Selecting", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Show();
+                }
+        
 
                 //label1.Text = "User Selected\n" + "\nX: " + Math.Round(userSelectedPoint.X,5)  + "\nY: " + Math.Round(userSelectedPoint.Y,5);
 
@@ -53,15 +60,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 {
                     exEvent.Raise();
                 }
-                else
-                {
-                    MessageBox.Show("No Point Selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                }
+
 
             }
             catch(Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
                 this.Show();
             }

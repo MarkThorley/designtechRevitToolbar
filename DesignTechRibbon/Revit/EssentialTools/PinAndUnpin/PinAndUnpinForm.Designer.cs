@@ -34,6 +34,7 @@
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.mainPanel = new System.Windows.Forms.GroupBox();
+            this.totalLbl = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Action = new System.Windows.Forms.GroupBox();
             this.UnpinAll = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.totalLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
             this.mainPanel.SuspendLayout();
             this.Action.SuspendLayout();
@@ -125,6 +125,15 @@
             this.mainPanel.Size = new System.Drawing.Size(685, 533);
             this.mainPanel.TabIndex = 0;
             this.mainPanel.TabStop = false;
+            // 
+            // totalLbl
+            // 
+            this.totalLbl.AutoSize = true;
+            this.totalLbl.Location = new System.Drawing.Point(2, 407);
+            this.totalLbl.Name = "totalLbl";
+            this.totalLbl.Size = new System.Drawing.Size(46, 19);
+            this.totalLbl.TabIndex = 19;
+            this.totalLbl.Text = "Total:";
             // 
             // listView1
             // 
@@ -287,15 +296,6 @@
             this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
             this.backgroundWorker3.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker3_RunWorkerCompleted);
             // 
-            // totalLbl
-            // 
-            this.totalLbl.AutoSize = true;
-            this.totalLbl.Location = new System.Drawing.Point(2, 407);
-            this.totalLbl.Name = "totalLbl";
-            this.totalLbl.Size = new System.Drawing.Size(46, 19);
-            this.totalLbl.TabIndex = 19;
-            this.totalLbl.Text = "Total:";
-            // 
             // PinAndUnpinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -308,6 +308,7 @@
             this.Name = "PinAndUnpinForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pin/Unpin List";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PinAndUnpinForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).EndInit();
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();

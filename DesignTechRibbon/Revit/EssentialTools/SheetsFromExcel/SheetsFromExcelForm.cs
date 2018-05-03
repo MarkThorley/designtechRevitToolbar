@@ -111,9 +111,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
         private void closeButton_Click(object sender, EventArgs e)
         {
             backgroundWorker1.CancelAsync();
-            CleanUpFiles();
-
-
             this.Close();
         }
 
@@ -385,6 +382,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                progressBar1.Value = 0;
             }
 
 
@@ -502,27 +500,40 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             else
             {
 
-                using (Transaction t = new Transaction(localDoc, "Add Sheet"))
+
+                try
                 {
-
-                    t.Start();
-
-                    foreach (Tuple<FamilySymbol, string, string> item in userSheets)
+                    using (Transaction t = new Transaction(localDoc, "Add Sheet"))
                     {
 
-                        ViewSheet viewSheet = ViewSheet.Create(localDoc, item.Item1.Id);
+                        t.Start();
 
-                        viewSheet.SheetNumber = item.Item2;
+                        foreach (Tuple<FamilySymbol, string, string> item in userSheets)
+                        {
 
-                        viewSheet.ViewName = item.Item3;
+                            ViewSheet viewSheet = ViewSheet.Create(localDoc, item.Item1.Id);
+
+                            viewSheet.SheetNumber = item.Item2;
+
+                            viewSheet.ViewName = item.Item3;
 
 
+
+                        }
+
+                        t.Commit();
 
                     }
 
-                    t.Commit();
 
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    progressBar1.Value = 0;
+                }
+
+
 
 
                 userSheets.Clear();
@@ -631,10 +642,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
         }
 
 
+
+
+
         #endregion
 
-
-
-   
+        private void SheetsFromExcelForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+            backgroundWorker2.CancelAsync();
+            CleanUpFiles();
+        }
     }
     }

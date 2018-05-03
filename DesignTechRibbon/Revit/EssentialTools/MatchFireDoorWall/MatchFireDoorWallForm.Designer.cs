@@ -62,10 +62,10 @@
             this.gbDoors.SuspendLayout();
             this.SuspendLayout();
             // 
-            // WindowToWall
+            // WallToWindow
             // 
             this.WallToWindow.Location = new System.Drawing.Point(40, 66);
-            this.WallToWindow.Name = "WindowToWall";
+            this.WallToWindow.Name = "WallToWindow";
             this.WallToWindow.Size = new System.Drawing.Size(194, 42);
             this.WallToWindow.TabIndex = 1;
             this.WallToWindow.Text = "Wall To Window";
@@ -340,6 +340,7 @@
             this.Name = "MatchFireDoorWallForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Match Fire Rating";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MatchFireDoorWallForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

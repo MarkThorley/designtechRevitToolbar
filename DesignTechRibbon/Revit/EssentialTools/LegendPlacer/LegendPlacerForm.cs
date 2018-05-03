@@ -469,6 +469,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    progressBar1.Value = 0;
                 }
 
 
@@ -684,6 +685,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    progressBar1.Value = 0;
                 }
 
 
@@ -756,6 +758,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         private void LegendPlacerForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+
+            backgroundWorker1.CancelAsync();
+            backgroundWorker2.CancelAsync();
+
             FormCollection fc = Application.OpenForms;
 
             foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from

@@ -28,6 +28,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         FilteredElementCollector viewPortCollector;
         FilteredElementCollector legendCollector;
 
+        List<Element> LegendElementList = new List<Element>();
+
         List<Viewport> vP = new List<Viewport>();
 
         List<Element> allElementsOnSheet = new List<Element>();
@@ -56,6 +58,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
             sheetCollector = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Sheets).WhereElementIsNotElementType();
             legendCollector = new FilteredElementCollector(doc).OfClass(typeof(Autodesk.Revit.DB.View)).WhereElementIsNotElementType();
+            
             viewPortCollector = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Viewports).WhereElementIsNotElementType();
 
 
@@ -85,6 +88,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 if (v.ViewType == ViewType.Legend)
                 {   
                     LegendListBox.Items.Add(v.Name);
+                    LegendElementList.Add(v);
                 }
 
             }
@@ -180,6 +184,15 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 StatusLabel.Visible = true;
                 StatusLabel.Text = "Please Wait";
 
+
+                foreach (string SL in LegendListBox.SelectedItems)
+                {
+
+                    WFItem.SelectedLegends.Add(SL);
+                }
+
+
+
                 foreach (string SS in SheetListBox.SelectedItems) // in every selected item by user
                 {
 
@@ -201,12 +214,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                     }
 
-
-                    foreach (string SL in LegendListBox.SelectedItems)
-                    {
-
-                        WFItem.SelectedLegends.Add(SL);
-                    }
 
 
                     // progressBar1.Style = ProgressBarStyle.Marquee;
@@ -240,6 +247,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 StopButton.Enabled = true;
                 StatusLabel.Text = "Please Wait";
 
+
+                foreach (string SL in LegendListBox.SelectedItems)
+                {
+
+                    WFItem.SelectedLegends.Add(SL);
+                }
+
+
                 foreach (string SS in SheetListBox.SelectedItems) // in every selected item by user
                 {
 
@@ -263,11 +278,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 }
 
-                foreach (string SL in LegendListBox.SelectedItems)
-                {
-
-                    WFItem.SelectedLegends.Add(SL);
-                }
 
                 if (!this.backgroundWorker2.IsBusy)
                 {
@@ -306,7 +316,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             foreach (Element S in sheetCollector)
             {
 
-                 i += max / 100;
+                 i += max/100;
                  Math.Round(i,MidpointRounding.AwayFromZero);
 
                 if(i <= 100)
@@ -326,14 +336,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 }
 
 
-                foreach (Element L in legendCollector)
+                foreach (Element L in LegendElementList)
                 {
 
                     foreach (Tuple<string, Element> selectedSheet in WFItem.selectedSheetsList)  //Finds which Sheets where selected
                     {
                         foreach( string selectedLegend in WFItem.SelectedLegends) //Finds which Legends were selected
                         {
-
+                           
                             if ((S.get_Parameter(BuiltInParameter.SHEET_NUMBER).AsString() == selectedSheet.Item1) && (L.Name == selectedLegend))
                             {
                                 
@@ -516,7 +526,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            //https://nerdparadise.com/programming/csharpbackgroundworker
 
             double i = 0;
             double max = sheetCollector.Count();
@@ -546,7 +555,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 }
 
 
-                foreach (Element L in legendCollector)
+                foreach (Element L in LegendElementList)
                 {
 
                     foreach (Tuple<string, Element> selectedSheet in WFItem.selectedSheetsList)  //Finds which Sheets where selected
@@ -574,14 +583,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                                     if (L.Id == thisLegend.Id)
                                     {
                                         legendOnSheet = true;
-                                        e.Result = "Legend on sheet removing";
+                                        //e.Result = "Legend on sheet removing";
                                         break;
                                     }
 
                                     else
                                     {
                                         legendOnSheet = false;
-                                        e.Result = "no legend found";
+                                        //e.Result = "no legend found";
                                     }
 
                                 }
@@ -739,6 +748,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             public List<Tuple<string, Element>> selectedSheetsList = new List<Tuple<string, Element>>();
 
             public List<string> SelectedLegends = new List<string>();
+            
             public List<string> SelectedSheets = new List<string>();
 
 

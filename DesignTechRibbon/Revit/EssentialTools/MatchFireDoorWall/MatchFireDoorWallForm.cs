@@ -71,6 +71,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             gbDoors.Visible = true;
             gbDoors.BringToFront();
 
+            
+
+
         }
 
 
@@ -88,7 +91,48 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             StatusLabel.Visible = true;
 
+            if (doorCollector.Count() >= 100)
+            {
+                if (MessageBox.Show("There are " + doorCollector.Count() + " doors. This will take a while to complete. Proceed?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //user clicked yes
 
+                    if (comboBoxMapToParam.SelectedIndex == 0)
+                    {
+                        UserSelection = parameterNameInput.Text;
+                    }
+
+                    if (!this.backgroundWorker1.IsBusy)
+                    {
+                        this.backgroundWorker1.RunWorkerAsync();
+                        this.WallToDoor.Enabled = false;
+
+                    }
+                }
+                else
+                {
+                    //user escaped
+                    this.WallToDoor.Enabled = true;
+                    
+                    //this.wallToWindows
+                }
+
+            }
+            else
+            {
+                if (comboBoxMapToParam.SelectedIndex == 0)
+                {
+                    UserSelection = parameterNameInput.Text;
+                }
+
+                if (!this.backgroundWorker1.IsBusy)
+                {
+                    this.backgroundWorker1.RunWorkerAsync();
+                    this.WallToDoor.Enabled = false;
+
+                }
+            }
+/*
             if (comboBoxMapToParam.SelectedIndex == 0)
             {
                 UserSelection = parameterNameInput.Text;
@@ -99,10 +143,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 this.backgroundWorker1.RunWorkerAsync();
                 this.WallToDoor.Enabled = false;
                 
-
             }
 
-
+    */
           
         }
 
@@ -1066,7 +1109,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                         {
                              P.Add(a);
                      
-
                         }
 
                     }

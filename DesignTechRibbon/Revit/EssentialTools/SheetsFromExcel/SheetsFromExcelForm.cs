@@ -111,9 +111,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
         private void closeButton_Click(object sender, EventArgs e)
         {
             backgroundWorker1.CancelAsync();
-            CleanUpFiles();
-
-
             this.Close();
         }
 
@@ -631,10 +628,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
         }
 
 
+
+
+
         #endregion
 
-
-
-   
+        private void SheetsFromExcelForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+            backgroundWorker2.CancelAsync();
+            CleanUpFiles();
+        }
     }
     }

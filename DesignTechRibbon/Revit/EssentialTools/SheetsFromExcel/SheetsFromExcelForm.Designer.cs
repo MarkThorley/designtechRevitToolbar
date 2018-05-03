@@ -229,6 +229,7 @@
             this.Name = "SheetsFromExcelForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Import Sheets";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SheetsFromExcelForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);

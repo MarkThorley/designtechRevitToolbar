@@ -710,6 +710,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             try
             {
                 DTMessage mb = new DTMessage();
+                bool notFamilyParamerer = false;
 
                 if (e.Cancelled)
                 {
@@ -756,7 +757,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                                 FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
 
-                                familyManager.RemoveParameter(param);
+
+                                if(param != null)
+                                {
+                                    familyManager.RemoveParameter(param);
+                                }
+                                else
+                                {
+                                 
+                                    notFamilyParamerer = true;
+                                    t.Commit();
+                                    break;
+                                }
+
+                               
 
 
                             }
@@ -778,8 +792,19 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
+                    if(notFamilyParamerer == true)
+                    {
+                        mb.Text = "Error";
+                        mb.ShowMessage("This Parameter Is an Built-In\n Parameter And Cannot Be Deleted");
+
+                    }
+                    else
+                    {
+                        mb.Text = "Completed";
+                        mb.ShowMessage("The Task Has Been Completed.");
+                    }
+          
+  
 
                     progressBar1.Value = 0;
 
@@ -876,7 +901,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             {
 
                 DTMessage mb = new DTMessage();
-
+                bool notFamilyParamerer = false;
                 if (e.Cancelled)
                 {
                     //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -918,7 +943,18 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                                 FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
 
-                                familyManager.RemoveParameter(param);
+                                if (param != null)
+                                {
+                                    familyManager.RemoveParameter(param);
+                                }
+                                else
+                                {
+
+                                    notFamilyParamerer = true;
+                                    t.Commit();
+                                    break;
+                                }
+
 
 
                             }
@@ -940,8 +976,19 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
+                    if (notFamilyParamerer == true)
+                    {
+                        mb.Text = "Error";
+                        mb.ShowMessage("This Parameter is an Built-In\n Parameter And Cannot Be Deleted");
+
+                    }
+                    else
+                    {
+                        mb.Text = "Completed";
+                        mb.ShowMessage("The Task Has Been Completed.");
+                    }
+
+
 
                     progressBar1.Value = 0;
 
@@ -1278,6 +1325,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     foreach (Parameter a in item.Parameters)
                     {
+
                         if (a.IsReadOnly != true)
                         {
                             P.Add(a);

@@ -752,7 +752,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     if(notFamilyParamerer == true)
                     {
                         mb.Text = "Error";
-                        mb.ShowMessage("This Parameter Is an In-Built\n Parameter And Cannot Be Deleted");
+                        mb.ShowMessage("This Parameter Is an Built-In\n Parameter And Cannot Be Deleted");
 
                     }
                     else
@@ -936,7 +936,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     if (notFamilyParamerer == true)
                     {
                         mb.Text = "Error";
-                        mb.ShowMessage("This Parameter is an In-Built\n Parameter And Cannot Be Deleted");
+                        mb.ShowMessage("This Parameter is an Built-In\n Parameter And Cannot Be Deleted");
 
                     }
                     else

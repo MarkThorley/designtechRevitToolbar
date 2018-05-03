@@ -290,7 +290,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 else
                 {
              
-                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+                   // RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
                     var distinctItems = doorFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
 
@@ -500,7 +500,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
-                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
+                   // RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
 
                     var distinctItems = windowFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
 

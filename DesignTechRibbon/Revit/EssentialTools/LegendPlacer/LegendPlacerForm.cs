@@ -469,6 +469,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    progressBar1.Value = 0;
                 }
 
 
@@ -684,6 +685,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    progressBar1.Value = 0;
                 }
 
 

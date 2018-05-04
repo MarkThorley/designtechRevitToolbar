@@ -93,7 +93,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             if (doorCollector.Count() >= 100)
             {
-                if (MessageBox.Show("There are " + doorCollector.Count() + " doors. This will take a while to complete. Proceed?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("There are " + doorCollector.Count() + " doors. This will take a while to complete. Proceed?", "Info",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     //user clicked yes
 
@@ -113,8 +114,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 {
                     //user escaped
                     this.WallToDoor.Enabled = true;
-                    
-                    //this.wallToWindows
+                    WallToWindow.Enabled = true;
+                   
                 }
 
             }
@@ -132,21 +133,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 }
             }
-/*
-            if (comboBoxMapToParam.SelectedIndex == 0)
-            {
-                UserSelection = parameterNameInput.Text;
-            }
-
-            if (!this.backgroundWorker1.IsBusy)
-            {
-                this.backgroundWorker1.RunWorkerAsync();
-                this.WallToDoor.Enabled = false;
-                
-            }
-
-    */
-          
+            
         }
 
         private void DeleteFireRatings_Click(object sender, EventArgs e)
@@ -156,15 +143,45 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
 
-            if (!this.backgroundWorker3.IsBusy)
+
+            if (doorCollector.Count() >= 100)
             {
-                this.backgroundWorker3.RunWorkerAsync();
+                if (MessageBox.Show("There are " + doorCollector.Count() + " doors. This will take a while to complete. Proceed?", "Info",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //user clicked yes
+
+                    if (!this.backgroundWorker3.IsBusy)
+                    {
+                        this.backgroundWorker3.RunWorkerAsync();
+                    }
+
+                    comboBoxMapToParam.SelectedIndex = 0;
+                }
+                else
+                {
+                    //user escaped
+                    DeleteFireRatingsDoors.Enabled = true;
+                    DeleteFireRatingsWindow.Enabled = true;
+
+                }
+
+            }
+            else
+            {
+                if (!this.backgroundWorker3.IsBusy)
+                {
+                    this.backgroundWorker3.RunWorkerAsync();
+                }
+
+                comboBoxMapToParam.SelectedIndex = 0;
             }
 
-            comboBoxMapToParam.SelectedIndex = 0;
+            //----------------------------------
+            
         }
 
-        private void DeleteFireRatingsWindow_Click(object sender, EventArgs e)
+        private void DeleteFireRatingsWindow_Click(object sender, EventArgs e) //****///
         {
 
             WallToDoor.Enabled = false;
@@ -172,11 +189,42 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             DeleteFireRatingsDoors.Enabled = false;
             DeleteFireRatingsWindow.Enabled = false;
 
-
-            if (!this.backgroundWorker4.IsBusy)
+            //------------------------------------
+            if (windowCollector.Count() >= 100)
             {
-                this.backgroundWorker4.RunWorkerAsync();
+                if (MessageBox.Show("There are " + windowCollector.Count() + " windows. This will take a while to complete. Proceed?", "Info",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //user clicked yes
+
+                    if (!this.backgroundWorker4.IsBusy)
+                    {
+                        this.backgroundWorker4.RunWorkerAsync();
+                    }
+                    comboBoxMapToParam.SelectedIndex = 0;
+                }
+                else
+                {
+                    //user escaped
+                    DeleteFireRatingsDoors.Enabled = true;
+                    DeleteFireRatingsWindow.Enabled = true;
+
+                }
+
             }
+            else
+            {
+
+                if (!this.backgroundWorker4.IsBusy)
+                {
+                    this.backgroundWorker4.RunWorkerAsync();
+                }
+
+                comboBoxMapToParam.SelectedIndex = 0;
+            }
+            //----------------------------
+
+            
 
 
 
@@ -193,18 +241,55 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             buttonCancel.Enabled = true;
             StatusLabel.Visible = true;
 
-            if(comboBoxMapToParam.SelectedIndex == 0)
+            if (windowCollector.Count() >= 100)
             {
-                UserSelection = parameterNameInput.Text;
+                if (MessageBox.Show("There are " + windowCollector.Count() + " windows. This will take a while to complete. Proceed?", "Info",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //user clicked yes
+
+                    if (comboBoxMapToParam.SelectedIndex == 0)
+                    {
+                        UserSelection = parameterNameInput.Text;
+                    }
+
+
+                    if (!this.backgroundWorker2.IsBusy)
+                    {
+                        this.backgroundWorker2.RunWorkerAsync();
+                        this.WallToWindow.Enabled = false;
+
+                    }
+
+                }
+                else
+                {
+                    //user clicked no
+                    this.WallToWindow.Enabled = true;
+                    WallToDoor.Enabled = true;
+                    
+                }
+
+            }
+            else
+            {
+                if (comboBoxMapToParam.SelectedIndex == 0)
+                {
+                    UserSelection = parameterNameInput.Text;
+                }
+
+
+                if (!this.backgroundWorker2.IsBusy)
+                {
+                    this.backgroundWorker2.RunWorkerAsync();
+                    this.WallToWindow.Enabled = false;
+
+                }
             }
 
+            
 
-            if (!this.backgroundWorker2.IsBusy)
-            {
-                this.backgroundWorker2.RunWorkerAsync();
-                this.WallToWindow.Enabled = false;
-
-            }
+            
         }
 
 

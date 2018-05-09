@@ -421,6 +421,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -430,6 +433,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     // MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -662,6 +668,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -672,6 +681,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -864,6 +876,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -874,6 +889,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -1068,6 +1086,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -1078,6 +1098,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
 
 
                     progressBar1.Value = 0;
@@ -1273,6 +1296,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -1284,6 +1310,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -1485,6 +1514,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -1495,6 +1527,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    CloseButton.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;

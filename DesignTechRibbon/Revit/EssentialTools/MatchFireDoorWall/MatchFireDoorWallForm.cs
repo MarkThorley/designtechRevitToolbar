@@ -76,12 +76,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         }
 
-
+       
         #region Buttons
 
         private void WallToDoor_Click(object sender, EventArgs e)
         {
-
+            StatusLabel.Text = "In Progress";
             WallToDoor.Enabled = false;
             WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
@@ -138,6 +138,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void DeleteFireRatings_Click(object sender, EventArgs e)
         {
+            StatusLabel.Text = "In Progress";
             WallToDoor.Enabled = false;
             WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
@@ -183,7 +184,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void DeleteFireRatingsWindow_Click(object sender, EventArgs e) //****///
         {
-
+            StatusLabel.Text = "In Progress";
             WallToDoor.Enabled = false;
             WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
@@ -233,7 +234,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void WindowToWall_Click(object sender, EventArgs e)
         {
-
+            StatusLabel.Text = "In Progress";
             WallToDoor.Enabled = false;
             WallToWindow.Enabled = false;
             DeleteFireRatingsDoors.Enabled = false;
@@ -401,6 +402,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Cancelled";
+                    buttonClose.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -411,6 +415,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -489,10 +496,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                         t.Commit();
                     }
 
-                  //  MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
+                    StatusLabel.Text = "Completed";
+                    buttonClose.Text = "Finish";
 
                     progressBar1.Value = 0;
 
@@ -512,11 +517,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             WallToDoor.Enabled = true;
             WallToWindow.Enabled = true;
-            DeleteFireRatingsDoors.Enabled = true;
-            DeleteFireRatingsWindow.Enabled = true;
 
             buttonCancel.Enabled = false;
-            StatusLabel.Visible = false;
+  
 
 
         }
@@ -611,6 +614,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Cancelled";
+                    buttonClose.Text = "Close";
+
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -621,6 +627,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
 
                     progressBar1.Value = 0;
@@ -695,9 +704,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     }
 
 
-                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
+
+                    StatusLabel.Text = "Completed";
+                    buttonClose.Text = "Finish";
+
                     progressBar1.Value = 0;
 
 
@@ -714,14 +724,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             WallToDoor.Enabled = true;
             WallToWindow.Enabled = true;
-            DeleteFireRatingsDoors.Enabled = true;
-            DeleteFireRatingsWindow.Enabled = true;
+
 
 
             buttonCancel.Enabled = false;
-            StatusLabel.Visible = false;
-
-
 
 
         }
@@ -805,6 +811,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Cancelled";
+                    buttonClose.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -815,6 +824,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -885,8 +897,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     }
                     else
                     {
-                        mb.Text = "Completed";
-                        mb.ShowMessage("The Task Has Been Completed.");
+                        StatusLabel.Text = "Completed";
+                        buttonClose.Text = "Finish";
                     }
           
   
@@ -902,15 +914,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             }
 
 
-
-            WallToDoor.Enabled = true;
-            WallToWindow.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
 
             buttonCancel.Enabled = false;
-            StatusLabel.Visible = false;
-
             deleteParametersDoors.Clear();
 
 
@@ -986,12 +993,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             {
 
                 DTMessage mb = new DTMessage();
-                bool notFamilyParamerer = false;
+                bool notFamilyParameter = false;
                 if (e.Cancelled)
                 {
                     //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
+
+                    StatusLabel.Text = "Cancelled";
+                    buttonClose.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -1001,6 +1012,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -1035,7 +1049,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                                 else
                                 {
 
-                                    notFamilyParamerer = true;
+                                    notFamilyParameter = true;
                                     t.Commit();
                                     break;
                                 }
@@ -1061,7 +1075,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    if (notFamilyParamerer == true)
+                    if (notFamilyParameter == true)
                     {
                         mb.Text = "Error";
                         mb.ShowMessage("This Parameter is an Built-In\n Parameter And Cannot Be Deleted");
@@ -1069,8 +1083,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     }
                     else
                     {
-                        mb.Text = "Completed";
-                        mb.ShowMessage("The Task Has Been Completed.");
+
+                        StatusLabel.Text = "Completed";
+                        buttonClose.Text = "Finish";
                     }
 
 
@@ -1085,16 +1100,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 progressBar1.Value = 0;
             }
 
-            WallToDoor.Enabled = true;
-            WallToWindow.Enabled = true;
             DeleteFireRatingsDoors.Enabled = true;
             DeleteFireRatingsWindow.Enabled = true;
 
             deleteParametersWindows.Clear();
 
             buttonCancel.Enabled = false;
-            StatusLabel.Visible = false;
-
 
         }
 
@@ -1106,6 +1117,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void comboBoxMapToParam_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            buttonClose.Text = "Close";
 
             if (comboBoxMapToParam.SelectedIndex == 0) //Map To New
             {
@@ -1177,7 +1190,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void comboBoxChooseWD_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBoxChooseWD.SelectedIndex == 0)
+
+            buttonClose.Text = "Close";
+
+            StatusLabel.Text = "";
+
+            if (comboBoxChooseWD.SelectedIndex == 0)
             {
                 comboBoxMapToParam.SelectedIndex = 0;
                 gbDoors.Visible = true;

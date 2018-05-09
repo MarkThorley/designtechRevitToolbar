@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LegendPlacerForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelSelectedCount = new System.Windows.Forms.Label();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.StopButton = new System.Windows.Forms.Button();
@@ -37,7 +39,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.PlaceButton = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.groupBoxSelection = new System.Windows.Forms.GroupBox();
             this.DeselectAll = new System.Windows.Forms.Button();
@@ -46,8 +48,6 @@
             this.SheetListBox = new System.Windows.Forms.ListBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.designtechLogo)).BeginInit();
@@ -63,7 +63,7 @@
             this.groupBox1.Controls.Add(this.StopButton);
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.button4);
+            this.groupBox1.Controls.Add(this.closeButton);
             this.groupBox1.Controls.Add(this.designtechLogo);
             this.groupBox1.Controls.Add(this.groupBoxSelection);
             this.groupBox1.Controls.Add(this.LegendListBox);
@@ -73,6 +73,24 @@
             this.groupBox1.Size = new System.Drawing.Size(685, 540);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(238, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 17);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Legends";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 17);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Sheet List";
             // 
             // labelSelectedCount
             // 
@@ -140,15 +158,15 @@
             this.PlaceButton.UseVisualStyleBackColor = true;
             this.PlaceButton.Click += new System.EventHandler(this.PlaceButton_Click);
             // 
-            // button4
+            // closeButton
             // 
-            this.button4.Location = new System.Drawing.Point(551, 496);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(129, 38);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Close";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.closeButton.Location = new System.Drawing.Point(551, 496);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(129, 38);
+            this.closeButton.TabIndex = 7;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.button4_Click);
             // 
             // designtechLogo
             // 
@@ -226,24 +244,6 @@
             this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 17);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Sheet List";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(238, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 17);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Legends";
-            // 
             // LegendPlacerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -275,7 +275,7 @@
         private System.Windows.Forms.Button PlaceButton;
         private System.Windows.Forms.GroupBox groupBoxSelection;
         private System.Windows.Forms.PictureBox designtechLogo;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button SelectAllSheets;
         private System.Windows.Forms.Button DeselectAll;
         private System.Windows.Forms.GroupBox groupBox2;

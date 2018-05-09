@@ -52,7 +52,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             backgroundWorker2.WorkerReportsProgress = true;
             backgroundWorker2.WorkerSupportsCancellation = true;
 
-            
+            StatusLabel.Text = "";
 
             localDoc = doc;
 
@@ -435,6 +435,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 mb.ShowMessage("The Task Has Been Cancelled");
                 mb.Text = "Cancelled";
 
+                StatusLabel.Text = "Error";
+                closeButton.Text = "Close";
+
 
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
@@ -447,6 +450,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                 mb.Text = "Error";
+
+                StatusLabel.Text = "Error";
+                closeButton.Text = "Close";
 
 
                 progressBar1.Value = 0;
@@ -516,8 +522,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 this.RemoveButton.Enabled = true;
                 StopButton.Enabled = false;
 
-                StatusLabel.Visible = false;
-              
+                StatusLabel.Text = "Completed";
+                closeButton.Text = "Finish";
+
             }
 
 
@@ -655,7 +662,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
-                StatusLabel.Visible = false;
+                StatusLabel.Text = "Error";
+                closeButton.Text = "Close";
+
+
+
             }
             else if (e.Error != null)
             {
@@ -663,11 +674,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                 mb.Text = "Error";
+                StatusLabel.Text = "Error";
+                closeButton.Text = "Close";
 
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
-                StatusLabel.Visible = false;
+          
             }
             else
             {
@@ -727,7 +740,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
                 StopButton.Enabled = false;
-                StatusLabel.Visible = false;
+   
+
+                StatusLabel.Text = "Completed";
+                closeButton.Text = "Finish";
+
                 //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 

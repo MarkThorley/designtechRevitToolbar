@@ -402,6 +402,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Cancelled";
+                    buttonClose.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -412,6 +415,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -490,9 +496,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                         t.Commit();
                     }
 
-                    //  MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     StatusLabel.Text = "Completed";
+                    buttonClose.Text = "Finish";
 
                     progressBar1.Value = 0;
 
@@ -609,6 +614,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Cancelled";
+                    buttonClose.Text = "Close";
+
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -619,6 +627,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
 
                     progressBar1.Value = 0;
@@ -800,6 +811,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+                    StatusLabel.Text = "Cancelled";
+                    buttonClose.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -810,6 +824,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -983,7 +1000,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
-                    StatusLabel.Text = "Error";
+                    StatusLabel.Text = "Cancelled";
                     buttonClose.Text = "Close";
 
                     progressBar1.Value = 0;
@@ -1101,6 +1118,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
         private void comboBoxMapToParam_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            buttonClose.Text = "Close";
+
             if (comboBoxMapToParam.SelectedIndex == 0) //Map To New
             {
                 parameterNameInput.Visible = true;
@@ -1171,6 +1190,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         private void comboBoxChooseWD_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            buttonClose.Text = "Close";
 
             StatusLabel.Text = "";
 

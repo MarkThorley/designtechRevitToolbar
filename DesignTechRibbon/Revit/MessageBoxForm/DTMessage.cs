@@ -21,10 +21,16 @@ namespace DesignTechRibbon.Revit.MessageBoxForm
         {
             label1.Text = MainText;
 
-            label1.MinimumSize = new Size(groupBox1.Width, groupBox1.Width /*- this.Height/6*/);
-            label1.MaximumSize = new Size(groupBox1.Width, groupBox1.Width /*- this.Height/6*/);
-
+            label1.MinimumSize = new Size(groupBox1.Width, 40 );
+            label1.MaximumSize = new Size(groupBox1.Width, 70 );
+            
             //label1.AutoSize = true;
+
+            if(label1.Height > groupBox1.Height)
+            {
+                groupBox1.Height = label1.Height;
+                this.Height = label1.Height;
+            }
             
             this.ShowDialog();
 

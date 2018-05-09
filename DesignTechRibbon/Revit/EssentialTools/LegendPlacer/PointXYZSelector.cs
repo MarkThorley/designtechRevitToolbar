@@ -17,12 +17,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         XYZ userSelectedPoint;
         UIDocument localDoc;
-
+        
 
         static IExternalEventHandler handler_event = new ExternalEventMy();
         ExternalEvent exEvent = ExternalEvent.Create(handler_event);
 
-
+        
 
         public PointXYZSelector(UIDocument doc)
         {
@@ -36,7 +36,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         private void SelectPointButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            MessageBox.Show(localDoc.Document.ActiveView.Title);
+            //MessageBox.Show(localDoc.Document.ActiveView.Title);
                         
             try
             {

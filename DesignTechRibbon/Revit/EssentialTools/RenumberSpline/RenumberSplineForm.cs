@@ -1156,6 +1156,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         private void backgroundWorker5_DoWork(object sender, DoWorkEventArgs e)
         {
 
+            List<Element> noLocation = new List<Element>();
+
             double i = 0;
             double max = roomPoints.Count;
 
@@ -1164,9 +1166,18 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 if (E.LevelId == currentViewID)
                 {
-                    LocationPoint getRoomPoint = E.Location as LocationPoint;
+                    try
+                    {
+                        LocationPoint getRoomPoint = E.Location as LocationPoint;
 
-                    roomPoints.Add(E, getRoomPoint.Point as Autodesk.Revit.DB.XYZ);
+                        roomPoints.Add(E, getRoomPoint.Point as Autodesk.Revit.DB.XYZ);
+                    }
+                    catch
+                    {
+                        noLocation.Add(E);
+
+                    }
+            
                 }
 
             }

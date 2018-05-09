@@ -55,11 +55,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 }
                 catch
                 {
-                    MessageBox.Show("Please Choose a Point In the Active View\nDouble Left Click The View Which The Legend Will Be Placed On", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Please Choose a Point In the Active View\nDouble Left Click The View Which The Legend Will Be Placed On"
+                        , "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
                     this.Show();
                 }
-        
-
                 //label1.Text = "User Selected\n" + "\nX: " + Math.Round(userSelectedPoint.X,5)  + "\nY: " + Math.Round(userSelectedPoint.Y,5);
 
                 //this.Show();

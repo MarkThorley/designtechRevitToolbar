@@ -215,18 +215,22 @@
             // LegendListBox
             // 
             this.LegendListBox.FormattingEnabled = true;
+            this.LegendListBox.HorizontalScrollbar = true;
             this.LegendListBox.ItemHeight = 16;
             this.LegendListBox.Location = new System.Drawing.Point(241, 37);
             this.LegendListBox.Name = "LegendListBox";
+            this.LegendListBox.ScrollAlwaysVisible = true;
             this.LegendListBox.Size = new System.Drawing.Size(230, 372);
             this.LegendListBox.TabIndex = 1;
             // 
             // SheetListBox
             // 
             this.SheetListBox.FormattingEnabled = true;
+            this.SheetListBox.HorizontalScrollbar = true;
             this.SheetListBox.ItemHeight = 16;
             this.SheetListBox.Location = new System.Drawing.Point(5, 37);
             this.SheetListBox.Name = "SheetListBox";
+            this.SheetListBox.ScrollAlwaysVisible = true;
             this.SheetListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.SheetListBox.Size = new System.Drawing.Size(230, 372);
             this.SheetListBox.TabIndex = 0;

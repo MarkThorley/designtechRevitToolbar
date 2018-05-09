@@ -72,6 +72,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                     userSelectedPoint = pxyz.MyPoint;
 
+                  //  frm.Close();
                 }
             }
 

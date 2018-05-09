@@ -43,19 +43,24 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 try
                 {
                     Autodesk.Revit.DB.View view = localDoc.ActiveView;
+
                     if (view is Autodesk.Revit.DB.ViewSheet)
-                    {                  
+                    {
+
+
                         userSelectedPoint = localDoc.Selection.PickPoint();
+
+
                     }
                     else
                     {
-                        MessageBox.Show("Please Choose a View Sheet", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Please Choose a View Sheet\nDouble Left Click The View Sheet Which The Legend Will Be Placed On", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Show();
                     }                   
                 }
                 catch
                 {
-                    MessageBox.Show("Please Choose a Point In the Active View\nDouble Left Click The View Which The Legend Will Be Placed On", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Please Choose a Point In the Active View\nDouble Left Click The View Sheet Which The Legend Will Be Placed On", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Show();
                 }
         

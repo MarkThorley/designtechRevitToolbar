@@ -56,7 +56,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             StatusLabel.Visible = false;
 
-            comboBoxMapToParam.Items.Add("Map To New Parameter");
+            comboBoxMapToParam.Items.Add("Map To New Instance Parameter");
             comboBoxMapToParam.Items.Add("Map To Existing Parameter");
             comboBoxMapToParam.Items.Add("Delete Created Parameter");
 

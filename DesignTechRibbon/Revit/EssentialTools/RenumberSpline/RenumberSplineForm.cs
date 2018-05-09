@@ -63,7 +63,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     SelectionForm sf = frm as SelectionForm;
 
                     localSpline = sf.MyProperty;
-
+                    frm.Close();
                     break;
 
                 }
@@ -125,6 +125,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+
+            StatusLabel.Text = "In Progress";
 
             if (SelectElementBox.SelectedItem.ToString() == byDoors && SelectLevelBox.SelectedItem.ToString() == currentLevel)
             {
@@ -466,15 +468,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
-
+                    StatusLabel.Text = "Completed";
                     progressBar1.Value = 0;
                     doorPoints.Clear();
                     orderedPoints.Clear();
                     ButtonsEnabled();
-                    StatusLabel.Visible = false;
+      
 
                 }
 
@@ -699,16 +698,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     }
 
-                   // MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
-
+                    StatusLabel.Text = "Completed";
                     progressBar1.Value = 0;
                     doorPoints.Clear();
                     orderedPoints.Clear();
                     ButtonsEnabled();
-                    StatusLabel.Visible = false;
+        
 
                 }
 
@@ -909,16 +905,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
-
+                    StatusLabel.Text = "Completed";
                     progressBar1.Value = 0;
                     windowPoints.Clear();
                     orderedPoints.Clear();
                     ButtonsEnabled();
-                    StatusLabel.Visible = false;
+    
 
                 }
 
@@ -1112,15 +1105,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
-
-
+                    StatusLabel.Text = "Completed";
                     progressBar1.Value = 0;
                     windowPoints.Clear();
                     orderedPoints.Clear();
-                    StatusLabel.Visible = false;
                     ButtonsEnabled();
 
                 }
@@ -1322,15 +1310,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
 
-                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
-
+                    StatusLabel.Text = "Completed";
                     progressBar1.Value = 0;
                     roomPoints.Clear();
                     orderedPoints.Clear();
-                    StatusLabel.Visible = false;
                     ButtonsEnabled();
 
                 }
@@ -1541,16 +1524,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                     }
 
-
-                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
+                    StatusLabel.Text = "Completed";
 
                     progressBar1.Value = 0;
                     roomPoints.Clear();
                     orderedPoints.Clear();
-                    StatusLabel.Visible = false;
                     ButtonsEnabled();
 
                 }

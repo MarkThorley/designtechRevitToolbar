@@ -36,6 +36,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
             InitializeComponent();
             localDoc = doc;
+            label2.Text = "Select A Model Nurb Spline In The Document\n\nThis Renumbers Elements Based Off Proximity\n\n Please Draw Spline As Close As Possible To The Elements";
 
         }
 

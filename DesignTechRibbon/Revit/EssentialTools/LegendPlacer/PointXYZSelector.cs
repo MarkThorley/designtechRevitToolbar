@@ -43,11 +43,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             {
                 try
                 {
+
+                    Autodesk.Revit.DB.View v = localDoc.ActiveView;
+
                     userSelectedPoint = localDoc.Selection.PickPoint();
                 }
                 catch
                 {
-                    MessageBox.Show("Please Choose a Point In the Active View Or Make this View The Active View Before Selecting", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Please Choose a Point In the Active View\nDouble Left Click The View Which The Legend Will Be Placed On", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Show();
                 }
         

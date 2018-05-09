@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectionForm));
             this.SelectionButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.CloseWindow = new System.Windows.Forms.Button();
@@ -42,7 +41,7 @@
             // 
             // SelectionButton
             // 
-            this.SelectionButton.Location = new System.Drawing.Point(20, 98);
+            this.SelectionButton.Location = new System.Drawing.Point(20, 121);
             this.SelectionButton.Name = "SelectionButton";
             this.SelectionButton.Size = new System.Drawing.Size(186, 47);
             this.SelectionButton.TabIndex = 0;
@@ -50,22 +49,12 @@
             this.SelectionButton.UseVisualStyleBackColor = true;
             this.SelectionButton.Click += new System.EventHandler(this.SelectionButton_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(292, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Select A Model Nurb Spline In The Document";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.SelectionButton);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.CloseWindow);
             this.groupBox1.Controls.Add(this.designtechLogo);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(645, 263);
@@ -75,12 +64,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 54);
+            this.label2.Location = new System.Drawing.Point(17, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(613, 17);
+            this.label2.Size = new System.Drawing.Size(58, 17);
             this.label2.TabIndex = 14;
-            this.label2.Text = "This Renumbers Based Off Proximity Please Draw Spline As Close As Possible To The" +
-    " Elements";
+            this.label2.Text = "InfoText";
             // 
             // CloseWindow
             // 
@@ -125,7 +113,6 @@
         #endregion
 
         private System.Windows.Forms.Button SelectionButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button CloseWindow;
         private System.Windows.Forms.PictureBox designtechLogo;

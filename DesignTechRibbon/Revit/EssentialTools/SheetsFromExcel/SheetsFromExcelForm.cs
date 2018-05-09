@@ -308,6 +308,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
+
+                    StatusLabel.Text = "Cancelled";
+                    closeButton.Text = "Close";
+
                     CleanUpListForm();
                     Variables.collOne.Clear();
                     Variables.collTwo.Clear();
@@ -322,6 +326,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    closeButton.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -368,11 +375,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                         listViewExcel.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                     }
 
-
-                    // MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    mb.ShowMessage("The Task Has Been Completed.");
-                    mb.Text = "Completed";
 
                     progressBar1.Value = 0;
                
@@ -481,8 +483,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 // MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 mb.ShowMessage("The Task Has Been Cancelled");
                 mb.Text = "Cancelled";
+
+
+                StatusLabel.Text = "Cancelled";
+                closeButton.Text = "Close";
+
                 progressBar1.Value = 0;
-                StatusLabel.Visible = false;
+          
 
 
 
@@ -494,8 +501,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                 mb.Text = "Error";
 
+                StatusLabel.Text = "Error";
+                closeButton.Text = "Close";
+
                 progressBar1.Value = 0;
-                StatusLabel.Visible = false;
+              
             }
             else
             {
@@ -534,16 +544,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 }
 
 
-
+                StatusLabel.Text = "Completed";
+                closeButton.Text = "Finish";
 
                 userSheets.Clear();
                 sheetData.Clear();
-
-                //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                mb.ShowMessage("The Task Has Been Completed.");
-                mb.Text = "Completed";
-
 
                 progressBar1.Value = 0;
 

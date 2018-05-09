@@ -76,7 +76,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         }
 
-
+       
         #region Buttons
 
         private void WallToDoor_Click(object sender, EventArgs e)
@@ -694,7 +694,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
 
 
-                    StatusLabel.Text = "In Progress";
+                    StatusLabel.Text = "Completed";
+                    buttonClose.Text = "Finish";
 
                     progressBar1.Value = 0;
 
@@ -880,6 +881,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     else
                     {
                         StatusLabel.Text = "Completed";
+                        buttonClose.Text = "Finish";
                     }
           
   
@@ -980,6 +982,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
+
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
 
@@ -989,6 +995,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
+
+                    StatusLabel.Text = "Error";
+                    buttonClose.Text = "Close";
 
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
@@ -1059,6 +1068,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     {
 
                         StatusLabel.Text = "Completed";
+                        buttonClose.Text = "Finish";
                     }
 
 

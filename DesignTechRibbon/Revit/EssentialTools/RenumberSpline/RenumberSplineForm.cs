@@ -127,6 +127,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
         {
 
             StatusLabel.Text = "In Progress";
+            CloseButton.Text = "Close";
 
             if (SelectElementBox.SelectedItem.ToString() == byDoors && SelectLevelBox.SelectedItem.ToString() == currentLevel)
             {
@@ -469,6 +470,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
                     StatusLabel.Text = "Completed";
+                    CloseButton.Text = "Finish";
                     progressBar1.Value = 0;
                     doorPoints.Clear();
                     orderedPoints.Clear();
@@ -700,6 +702,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
                     StatusLabel.Text = "Completed";
+                    CloseButton.Text = "Finish";
                     progressBar1.Value = 0;
                     doorPoints.Clear();
                     orderedPoints.Clear();
@@ -907,6 +910,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
                     StatusLabel.Text = "Completed";
+                    CloseButton.Text = "Finish";
                     progressBar1.Value = 0;
                     windowPoints.Clear();
                     orderedPoints.Clear();
@@ -1106,6 +1110,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
                     StatusLabel.Text = "Completed";
+                    CloseButton.Text = "Finish";
                     progressBar1.Value = 0;
                     windowPoints.Clear();
                     orderedPoints.Clear();
@@ -1311,6 +1316,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
                     StatusLabel.Text = "Completed";
+                    CloseButton.Text = "Finish";
                     progressBar1.Value = 0;
                     roomPoints.Clear();
                     orderedPoints.Clear();
@@ -1525,6 +1531,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                     }
 
                     StatusLabel.Text = "Completed";
+                    CloseButton.Text = "Finish";
 
                     progressBar1.Value = 0;
                     roomPoints.Clear();

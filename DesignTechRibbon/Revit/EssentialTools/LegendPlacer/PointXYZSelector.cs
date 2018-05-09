@@ -30,20 +30,28 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             localDoc = doc;
 
             label2.Text = "Press the Select Point button and choose a Point\non the active view where the legend will be placed";
-
+            
         }
 
         private void SelectPointButton_Click(object sender, EventArgs e)
         {
-
-
             this.Hide();
-
+            MessageBox.Show(localDoc.Document.ActiveView.Title);
+                        
             try
             {
                 try
                 {
-                    userSelectedPoint = localDoc.Selection.PickPoint();
+                    Autodesk.Revit.DB.View view = localDoc.ActiveView;
+                    if (view is Autodesk.Revit.DB.ViewSheet)
+                    {                  
+                        userSelectedPoint = localDoc.Selection.PickPoint();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Choose a View Sheet", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Show();
+                    }                   
                 }
                 catch
                 {

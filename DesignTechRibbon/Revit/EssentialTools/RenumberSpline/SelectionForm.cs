@@ -14,14 +14,9 @@ using System.Windows.Forms;
 
 namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 {
-
-
     public partial class SelectionForm : System.Windows.Forms.Form
     {
         UIDocument localDoc;
-
-      //  ICollection<ElementId> selectedIds = new List<ElementId>();
-     //   public List<Element> filteredDetailGroups = new List<Element>();
 
         private Element SelectedElement;
 
@@ -56,11 +51,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 {
                     SelectedElement = localDoc.Document.GetElement(S.Id); 
                      exEvent.Raise();
-
                 }
                 else
                 {
-                    //LabelSelected.Text = "Not compatible";
                     MessageBox.Show("Selected Item Is Not A Model Nurb Spline", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
@@ -76,50 +69,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
      
             }
 
-
-            /*
-            selectedIds.Clear();
-
-            selectedIds = localDoc.Selection.GetElementIds();
-         
-            if (0 == selectedIds.Count)
-            {
-                // If no elements selected.
-                MessageBox.Show("You haven't selected any elements.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-                this.Show();
-
-            }
-            else if (selectedIds.Count > 1)
-            {
-
-                // If no elements selected.
-                MessageBox.Show("Please Select Only One Element (Type: Lines)","Error",MessageBoxButtons.OK ,MessageBoxIcon.Stop);
-
-                this.Show();
-
-            }
-            else
-            {
-
-                foreach (var item in selectedIds)
-                {
-
-                    Element S = localDoc.Document.GetElement(item);
-
-                    if (S.Category.Name.ToString() == "Lines")
-                    {
-                        LabelSelected.Text = "User Selected: " + S.Name;
-                        SelectedElement = localDoc.Document.GetElement(item);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please Only Select Line", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    }
-                }
-
-                this.Show();
-            }*/
 
         }
 

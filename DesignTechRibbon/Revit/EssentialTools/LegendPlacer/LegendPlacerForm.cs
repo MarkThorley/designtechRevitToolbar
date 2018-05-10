@@ -214,11 +214,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                         }
 
                     }
-
-
-
-                    // progressBar1.Style = ProgressBarStyle.Marquee;
-
                     if (!this.backgroundWorker1.IsBusy)
                     {
                         this.backgroundWorker1.RunWorkerAsync();
@@ -288,12 +283,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 }
 
-
             }
-
-
-         
-
 
         }
 
@@ -303,7 +293,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             backgroundWorker1.CancelAsync();
             backgroundWorker2.CancelAsync();
         }
-
 
         #endregion
 
@@ -394,11 +383,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                                 }
 
-
                                 allElementsOnSheet.Clear();
-
-              
-                                //End of if
                             }
 
 
@@ -424,14 +409,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
             DTMessage mb = new DTMessage();
-
 
             if (e.Cancelled)
             {
-                //MessageBox.Show("The task has been cancelled");
-
                 mb.ShowMessage("The Task Has Been Cancelled");
                 mb.Text = "Cancelled";
 
@@ -446,8 +427,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             }
             else if (e.Error != null)
             {
-                //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                 mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                 mb.Text = "Error";
 
@@ -462,9 +441,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             }
             else
             {
-
-                //Placed the elements onto the sheet here
-
                 XYZ point = userSelectedPoint;
 
                 try
@@ -489,30 +465,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                     progressBar1.Value = 0;
                 }
 
-
-
-             
                 mb.Text = "Completed";
 
                 if (AddToSheet.Count == 0)
                 {
-                    //MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Placed As They Already Exist On Selected Sheets");
+     
                     mb.ShowMessage("The Task Has Been Completed. Legends Were Not Placed As They Already Exist On Selected Sheets");
                 }
                 else if(AddToSheet.Count == 1)
                 {
-
-                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     mb.ShowMessage(("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheet"));
-
-                    
-
                 }
                 else
                 {
-                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Added To " + AddToSheet.Count + " Sheets");
-
                 }
 
                 WFItem.SelectedLegends.Clear();
@@ -593,14 +559,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                                     if (L.Id == thisLegend.Id)
                                     {
                                         legendOnSheet = true;
-                                        //e.Result = "Legend on sheet removing";
                                         break;
                                     }
 
                                     else
                                     {
                                         legendOnSheet = false;
-                                        //e.Result = "no legend found";
                                     }
 
                                 }
@@ -623,13 +587,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                                 }
 
-
-
-
                                 allElementsOnSheet.Clear();
 
-
-                                //End of if
                             }
 
 
@@ -658,7 +617,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
             if (e.Cancelled)
             {
-              //  MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 mb.ShowMessage("The Task Has Been Cancelled");
                 mb.Text = "Cancelled";
                 progressBar1.Value = 0;
@@ -667,18 +625,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 StatusLabel.Text = "Error";
                 closeButton.Text = "Close";
 
-
-
             }
             else if (e.Error != null)
             {
-                // MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                 mb.Text = "Error";
                 StatusLabel.Text = "Error";
                 closeButton.Text = "Close";
-
                 progressBar1.Value = 0;
                 this.PlaceButton.Enabled = true;
                 this.RemoveButton.Enabled = true;
@@ -717,20 +670,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 if (RemoveFromSheet.Count == 0)
                 {
-                    //MessageBox.Show("The Task Has Been Completed.\nLegends Were Not Deleted As They Do Not Exist");
+                    
                     mb.ShowMessage("The Task Has Been Completed. Legends Were Not Placed As They Already Exist On Selected Sheets");
                 }
                 else if (RemoveFromSheet.Count == 1)
                 {
-
-                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheet");
                 }
                 else
                 {
-                   // MessageBox.Show("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     mb.ShowMessage("The Task Has Been Completed. " + LegendListBox.SelectedItem.ToString() + " Was Deleted On " + RemoveFromSheet.Count + " Sheets");
-
                 }
 
                 WFItem.SelectedLegends.Clear();
@@ -746,9 +695,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                 StatusLabel.Text = "Completed";
                 closeButton.Text = "Finish";
-
-                //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 
             }
 
@@ -771,15 +717,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             
             public List<string> SelectedSheets = new List<string>();
 
-
             public Dictionary<string, Element> IDLegends = new Dictionary<string, Element>();
-
-
 
         }
 
-
         #endregion
+
+        #region Form Events
 
         private void SheetListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -807,6 +751,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
             }
 
         }
+
+        #endregion
+
     }
 
 

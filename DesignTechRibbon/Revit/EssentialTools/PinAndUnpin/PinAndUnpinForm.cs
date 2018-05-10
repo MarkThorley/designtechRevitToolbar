@@ -16,27 +16,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
         Document localDoc;
 
         Dictionary<Element, string> localElements = new Dictionary<Element, string>();
+        Dictionary<Element, string> pinElement = new Dictionary<Element, string>();
+        Dictionary<Element, string> unpinElement = new Dictionary<Element, string>();
+        Dictionary<Element, string> pinElementRVT = new Dictionary<Element, string>();
+        Dictionary<Element, string> unpinElementRVT = new Dictionary<Element, string>();
 
         List<Element> changeElement = new List<Element>();
-    //    List<string> stringElements = new List<string>();
         List<Tuple<string, string, string>> stringElementsLV = new List<Tuple<string, string, string>>();
         List<RadioButton> aa = new List<RadioButton>();
+        List<string> getListBoxAsStrings = new List<string>();
+
 
         FilteredElementCollector levelCollector;
         FilteredElementCollector gridCollector;
         FilteredElementCollector linkCollector;
-
-        Dictionary<Element, string> pinElement = new Dictionary<Element, string>();
-        Dictionary<Element, string> unpinElement = new Dictionary<Element, string>();
-
-        Dictionary<Element, string> pinElementRVT = new Dictionary<Element, string>();
-        Dictionary<Element, string> unpinElementRVT = new Dictionary<Element, string>();
-
-        string col1 = "Type";
-        string col2 = "Name";
-        string col3 = "Pinned";
-    
-        List<string> getListBoxAsStrings = new List<string>();
 
         public PinAndUnpinForm(Document doc)
         {
@@ -93,9 +86,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                     string name = E.Key.Name.Remove(E.Key.Name.IndexOf(":") + 1);
 
-                    //    stringElements.Add("RVT Link" + "\t\t" + name + "\t" + E.Value);
-
-
                     Tuple<string, string, string> check = new Tuple<string, string, string>("RVT Links",name,E.Value);
 
                     if (stringElementsLV.Contains(check)) //Stops Duplicate RVT elements
@@ -122,7 +112,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 else
                 {
 
-
                     stringElementsLV.Add(new Tuple<string, string, string>(E.Key.Category.Name, E.Key.Name, E.Value));
 
                     elementInfo.Add(new Tuple<string, string,string>(E.Key.Category.Name, E.Key.Name, E.Value));
@@ -134,7 +123,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                     listView1.Items.Add(LVI);
 
-
                 }
 
 
@@ -143,7 +131,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
             this.totalLbl.Text = listView1.Items.Count.ToString() + " items";
 
             elementList.Hide();
-            //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
             if (listView1.Columns[0].Width < 200 || listView1.Columns[1].Width < 200 || listView1.Columns[2].Width < 200)
             {
@@ -171,47 +158,25 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         private void PinUnpinBtn_Click(object sender, EventArgs e)
         {
-
-
             ClearLists();
-
-
-
-            foreach (string s in elementList.SelectedItems )
-            {
-
-              //  getListBoxAsStrings.Add(s); changed
-
-            }
-
 
             foreach (int index in listView1.SelectedIndices)
             {
 
                 ListViewItem LVI = listView1.Items[index];
 
-
                 string addString = LVI.SubItems[0].Text + LVI.SubItems[1].Text + LVI.SubItems[2].Text;
 
                 getListBoxAsStrings.Add(addString);
-             //   getListBoxAsStrings.Add(item.Text);
-                
-               
+                             
             }
       
-
-
-   
-         //   getListBoxAsStrings.Add()
-
-
             if (!this.backgroundWorker1.IsBusy)
             {
                 AllDisabled();
                 this.backgroundWorker1.RunWorkerAsync();
 
             }
-
 
         }
 
@@ -225,16 +190,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 if (radioLevel.Checked)
                 {
 
-                  //  List<string> levelsAsString = new List<string>();
-
                     foreach (KeyValuePair<Element, string> E in localElements)
                     {
 
                         if (E.Key.Category.Name == "Levels")
                         {
-
-
-                          //  levelsAsString.Add(E.Key.Category.Name + "\t\t" + E.Key.Name + "\t\t" + E.Value);
                             ListViewItem LVI = new ListViewItem(E.Key.Category.Name);
                             LVI.SubItems.Add(E.Key.Name);
                             LVI.SubItems.Add(E.Value);
@@ -245,26 +205,14 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                     }
 
-                //    elementList.Items.Clear();
-
                     listView1.Refresh();
-
-
-
-
-
                 }
 
             }
             catch(Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
-
             }
-
-
-
 
         }
 
@@ -314,12 +262,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
             }
 
-
-
-
-
-
-
         }
 
         private void radioLink_CheckedChanged(object sender, EventArgs e)
@@ -329,14 +271,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 listView1.Items.Clear();
                 if (radioLink.Checked)
                 {
-
                     List<string> radioAsString = new List<string>();
 
                     foreach (KeyValuePair<Element, string> E in localElements)
                     {
-
-                       
-
                         if (E.Key.GetType().ToString() == "Autodesk.Revit.DB.RevitLinkInstance")
                         {
                             string name = E.Key.Name.Remove(E.Key.Name.IndexOf(":") + 1);
@@ -364,7 +302,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                     listView1.Refresh();
 
-
                 }
             }
             catch (Exception ex)
@@ -375,7 +312,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         private void buttonAll_Click(object sender, EventArgs e)
         {
-
             try
             {
                 for (int x = 0; x < listView1.Items.Count; x++)
@@ -390,7 +326,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 MessageBox.Show(ex.Message);
             }
 
-
         }
 
         private void buttonNone_Click(object sender, EventArgs e)
@@ -400,7 +335,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 for (int x = 0; x < listView1.Items.Count; x++)
                 {
                     listView1.Items[x].Selected = false;
-                   // listView1.Select();
                 }
                 totalLbl.Text = listView1.Items.Count.ToString() + " items";
 
@@ -429,8 +363,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 MessageBox.Show(ex.Message);
             }
 
-
-
         }
 
         private void ClearLists()
@@ -447,16 +379,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
         private void PinAll_Click(object sender, EventArgs e)
         {
 
-
             ClearLists();
-
-            /*  foreach (string s in elementList.Items)
-              {
-
-                  getListBoxAsStrings.Add(s);
-
-              }
-              */
 
             for (int x = 0; x < listView1.Items.Count; x++)
             {
@@ -464,23 +387,16 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 listView1.Select();
             }
 
-
-
-
             foreach (int index in listView1.SelectedIndices)
             {
 
                 ListViewItem LVI = listView1.Items[index];
 
-
                 string addString = LVI.SubItems[0].Text + LVI.SubItems[1].Text + LVI.SubItems[2].Text;
 
                 getListBoxAsStrings.Add(addString);
-                //   getListBoxAsStrings.Add(item.Text);
-
 
             }
-
 
             if (!this.backgroundWorker2.IsBusy)
             {
@@ -488,16 +404,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 cancelBtn.Enabled = true;
                 this.backgroundWorker2.RunWorkerAsync();
 
-
             }
         }
 
         private void UnpinAll_Click(object sender, EventArgs e)
         {
 
-
             ClearLists();
-
 
             for (int x = 0; x < listView1.Items.Count; x++)
             {
@@ -505,17 +418,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                 listView1.Select();
             }
 
-
-
-
             foreach (int index in listView1.SelectedIndices)
             {
 
                 ListViewItem LVI = listView1.Items[index];
-
-                //check which type it is
-
-                
 
                 string addString = LVI.SubItems[0].Text + LVI.SubItems[1].Text + LVI.SubItems[2].Text;
 
@@ -523,7 +429,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
   
 
             }
-
 
 
             if (!this.backgroundWorker3.IsBusy)
@@ -609,7 +514,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                             {
 
                                 //list for Unpin
-
                                 unpinElement.Add(E.Key, currentElement);
 
                             }
@@ -639,7 +543,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                             changeElement.Add(E.Key);
 
-                            #region UnPin
+           
                             if (E.Key.Pinned == true)
                             {
 
@@ -647,17 +551,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                             }
 
-                            #endregion
-
-                            #region Pin
                             if (E.Key.Pinned == false)
                             {
 
                                 pinElementRVT.Add(E.Key, currentElementLink);
 
                             }
-
-                            #endregion
 
 
                         }
@@ -683,14 +582,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
             if (e.Cancelled)
             {
-                //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 mb.ShowMessage("The Task Has Been Cancelled");
                 mb.Text = "Cancelled";
 
             }
             else if (e.Error != null)
             {
-                //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                 mb.Text = "Error";
             }
@@ -972,9 +869,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
                             {
                                 pinElementRVT.Add(E.Key, currentElementLink);
                             }
-
-                            // pinElementRVT.Add(E.Key, currentElementLink);
-
+       
                         }
 
                         #endregion
@@ -995,14 +890,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         private void backgroundWorker2_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
+
+            DTMessage mb = new DTMessage();
+
             if (e.Cancelled)
             {
-                MessageBox.Show("The task has been cancelled");
- 
+                mb.ShowMessage("The Task Has Been Cancelled");
+                mb.Text = "Cancelled";
+
+
             }
             else if (e.Error != null)
             {
-                MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString());
+                mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                mb.Text = "Error";
 
             }
             else
@@ -1193,8 +1094,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                             changeElement.Add(E.Key);
 
-                            //unpinElementRVT.Add(E.Key, currentElementLink);
-
                             if (unpinElementRVT.ContainsKey(E.Key)) //If a duplicate key is added
                             {
                                 continue; //continue the loop
@@ -1225,15 +1124,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         private void backgroundWorker3_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
+
+            DTMessage mb = new DTMessage();
+
             if (e.Cancelled)
             {
-                MessageBox.Show("The task has been cancelled");
-   
+                mb.ShowMessage("The Task Has Been Cancelled");
+                mb.Text = "Cancelled";
+
             }
             else if (e.Error != null)
             {
-                MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString());
-  
+                mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
+                mb.Text = "Error";
+
             }
             else
             {
@@ -1334,11 +1238,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         void UpdateElementList()
         {
-
-
             try
             {
-
                 listView1.Items.Clear();
 
                 foreach(var i in stringElementsLV)
@@ -1355,20 +1256,15 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
                 changeElement.Clear();
 
-
                 radioFull.Enabled = true;
 
                 this.Refresh();
-
-
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
 
         }
 
@@ -1412,13 +1308,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
         {
             try
             {
-
                 foreach (Element Change in changeElement)
                 {
 
                     localElements[Change] = "True";
 
                 }
+
                 UpdateElementList();
 
 
@@ -1487,6 +1383,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
 
         #endregion
 
+
+        #region Form Events
+
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
@@ -1501,6 +1400,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.PinAndUnpinForm
             backgroundWorker2.CancelAsync();
             backgroundWorker3.CancelAsync();
         }
+
+        #endregion
     }
 
 

@@ -16,6 +16,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
     public partial class MatchFireDoorWallForm : System.Windows.Forms.Form
     {
 
+        #region Initalise
 
         FilteredElementCollector doorCollector;
         FilteredElementCollector windowCollector;
@@ -76,7 +77,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         }
 
-       
+        #endregion
+
+
         #region Buttons
 
         private void WallToDoor_Click(object sender, EventArgs e)
@@ -177,12 +180,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 comboBoxMapToParam.SelectedIndex = 0;
             }
-
-            //----------------------------------
             
         }
 
-        private void DeleteFireRatingsWindow_Click(object sender, EventArgs e) //****///
+        private void DeleteFireRatingsWindow_Click(object sender, EventArgs e)
         {
             StatusLabel.Text = "In Progress";
             WallToDoor.Enabled = false;
@@ -230,7 +231,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
 
         }
-
 
         private void WindowToWall_Click(object sender, EventArgs e)
         {
@@ -293,7 +293,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             
         }
 
-
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             backgroundWorker1.CancelAsync();
@@ -307,8 +306,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             backgroundWorker2.CancelAsync();
             this.Close();
         }
-
-
 
         #endregion
 
@@ -364,16 +361,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     stringParamWall = "No Value";
                 }
 
-
                 ParameterSet parameters = door.Parameters;  //Finds All walls which needs to be changed
 
                 ElementId typeID = famIns.GetTypeId(); //get type id of the family instance
 
                 FamilySymbol fam = localDoc.Document.GetElement(typeID) as FamilySymbol; // get the instance as a Family Symbol
-
-                //wallToDoors.Add(fam);
-
-                //  wallToDoors2.Add(fam.Family,stringParamWall);
 
                 doorFamilies.Add(fam.Family);
                 doorElementsDictionary.Add(Ele, stringParamWall);
@@ -394,11 +386,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             try
             {
-
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -411,8 +400,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -424,18 +411,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
-             
-                   // RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
-
                     var distinctItems = doorFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
-
 
                     Document famDoc;
 
                     foreach (Family item in distinctItems)
                     {
                        
-
                         famDoc = localDoc.Document.EditFamily(item); //get the family property of the family
                         FamilyManager familyManager = famDoc.FamilyManager;
 
@@ -451,8 +433,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                                 }
                              
-
-
                             }
                             catch
                             {
@@ -581,19 +561,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 FamilySymbol fam = localDoc.Document.GetElement(typeID) as FamilySymbol; // get the instance as a Family Symbol
 
-
-
-              //  wallToWindows.Add(fam);
-
                 windowFamilies.Add(fam.Family);
                 windowElementsDictionary.Add(Ele,stringParamWindow);
 
-
-
-
             }
-
-
 
         }
 
@@ -610,7 +581,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -624,21 +594,17 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
                     StatusLabel.Text = "Error";
                     buttonClose.Text = "Close";
 
-
                     progressBar1.Value = 0;
                     StatusLabel.Visible = false;
                 }
                 else
                 {
-                   // RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
-
                     var distinctItems = windowFamilies.GroupBy(x => x.Id).Select(y => y.First()); //Make List Have Only Unique Families
 
                     Document famDoc;
@@ -739,7 +705,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             double i = 0;
             double max = doorCollector.Count();
 
-
             foreach (Element Ele in doorCollector)
             {
 
@@ -761,9 +726,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     return;
                 }
 
-
-                //
-
                 Autodesk.Revit.DB.Element door = Ele as Autodesk.Revit.DB.Element;
                 ElementId typeId = door.GetTypeId();
                 Autodesk.Revit.DB.Element doorType = localDoc.Document.GetElement(typeId);   //Gets All the Doors
@@ -780,14 +742,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 FamilySymbol fam = localDoc.Document.GetElement(typeID) as FamilySymbol; // get the instance as a Family Symbol
 
-
                 deleteParametersDoors.Add(fam.Family);
-                //wallToDoors.Add(fam);
-
-
             }
-
-
 
         }
 
@@ -804,10 +760,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 bool notFamilyParamerer = false;
 
                 if (e.Cancelled)
-                {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-
+                { 
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -820,7 +773,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
@@ -833,9 +785,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
-                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
-
-
 
                     var distinctItems = deleteParametersDoors.GroupBy(x => x.Id).Select(y => y.First()); //Sorts the list into only unique items
 
@@ -851,24 +800,18 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                             try
                             {
-
                                 FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
-
 
                                 if(param != null)
                                 {
                                     familyManager.RemoveParameter(param);
                                 }
                                 else
-                                {
-                                 
+                                {        
                                     notFamilyParamerer = true;
                                     t.Commit();
                                     break;
                                 }
-
-                               
-
 
                             }
                             catch
@@ -931,7 +874,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             double i = 0;
             double max = windowCollector.Count();
 
-
             foreach (Element Ele in windowCollector)
             {
 
@@ -953,7 +895,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     return;
                 }
 
-
                 Autodesk.Revit.DB.Element window = Ele as Autodesk.Revit.DB.Element;
                 ElementId windowID = window.GetTypeId();
                 Autodesk.Revit.DB.Element windowType = localDoc.Document.GetElement(windowID);
@@ -970,13 +911,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                 FamilySymbol famW = localDoc.Document.GetElement(typeIDW) as FamilySymbol; // get the instance as a Family Symbol
 
-
                 deleteParametersWindows.Add(famW.Family);
-
-
-
-
-
 
             }
 
@@ -996,7 +931,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 bool notFamilyParameter = false;
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -1009,7 +943,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -1021,9 +954,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 }
                 else
                 {
-                    //RevitServices.Transactions.TransactionManager.Instance.ForceCloseTransaction();
-
-
                     var distinctItems = deleteParametersWindows.GroupBy(x => x.Id).Select(y => y.First()); //Sorts the list into only unique items
 
                     foreach (var item in distinctItems)
@@ -1038,8 +968,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                             try
                             {
-
-
                                 FamilyParameter param = familyManager.get_Parameter(UserDeleteParameter);
 
                                 if (param != null)
@@ -1053,9 +981,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                                     t.Commit();
                                     break;
                                 }
-
-
-
                             }
                             catch
                             {
@@ -1071,10 +996,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
                     }
 
-
-
-                    //MessageBox.Show("The Task Has Been Completed.", "Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     if (notFamilyParameter == true)
                     {
                         mb.Text = "Error";
@@ -1083,12 +1004,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                     }
                     else
                     {
-
                         StatusLabel.Text = "Completed";
                         buttonClose.Text = "Finish";
                     }
-
-
 
                     progressBar1.Value = 0;
 
@@ -1170,11 +1088,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
             }
 
-
-
-
-
-
         }
 
         private void comboBoxParameterList_SelectedIndexChanged(object sender, EventArgs e)
@@ -1212,11 +1125,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 
             }
         }
-
-        #endregion
-
-
-
 
         private void UpdateParameterList()
         {
@@ -1562,6 +1470,15 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
 
         }
 
+        private void MatchFireDoorWallForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+            backgroundWorker2.CancelAsync();
+        }
+
+        #endregion
+
+
         class LoadOpts : IFamilyLoadOptions
         {
             public bool OnFamilyFound(bool familyInUse, out bool overwriteParameterValues)
@@ -1574,12 +1491,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
             {
                 throw new NotImplementedException();
             }
-        }
-
-        private void MatchFireDoorWallForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            backgroundWorker1.CancelAsync();
-            backgroundWorker2.CancelAsync();
         }
     }
 }

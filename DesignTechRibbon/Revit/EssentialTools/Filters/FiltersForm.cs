@@ -209,13 +209,6 @@ namespace EssentialTools
         /// <param name="sender"></param>
         /// <param name="e"></param>
         
-        private void designtechLogo_Click(object sender, EventArgs e)
-        {
-            ProcessStartInfo designtechWeb = new ProcessStartInfo("http://designtech.io/");
-            Process.Start(designtechWeb);
-        }
-
-
         #endregion
 
         private void filtersList_SelectedIndexChanged(object sender, EventArgs e)

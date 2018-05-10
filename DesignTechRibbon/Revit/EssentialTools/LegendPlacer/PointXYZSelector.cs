@@ -18,11 +18,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         XYZ userSelectedPoint;
         UIDocument localDoc;
         
-
         static IExternalEventHandler handler_event = new ExternalEventMy();
         ExternalEvent exEvent = ExternalEvent.Create(handler_event);
-
-        
 
         public PointXYZSelector(UIDocument doc)
         {
@@ -36,8 +33,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         private void SelectPointButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            //MessageBox.Show(localDoc.Document.ActiveView.Title);
-                        
+            
             try
             {
                 try
@@ -46,11 +42,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
 
                     if (view is Autodesk.Revit.DB.ViewSheet)
                     {
-
-
                         userSelectedPoint = localDoc.Selection.PickPoint();
-
-
                     }
                     else
                     {
@@ -65,9 +57,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                     
                     this.Show();
                 }
-                //label1.Text = "User Selected\n" + "\nX: " + Math.Round(userSelectedPoint.X,5)  + "\nY: " + Math.Round(userSelectedPoint.Y,5);
-
-                //this.Show();
 
                 if (userSelectedPoint != null)
                 {
@@ -81,8 +70,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
                 MessageBox.Show(ex.Message);
                 this.Show();
             }
-
-      
         }
 
 
@@ -90,22 +77,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.LegendPlacer
         {
             public void Execute(UIApplication uiapp) //External Event Is used to get around the transaction limit
             {
-
-                //MessageBox.Show("External Event is running");
-
                 UIDocument uidoc = uiapp.ActiveUIDocument;
                 Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
                 Document doc = uidoc.Document;
 
-                //  RenumberSplineForm RenumForm = new RenumberSplineForm(uidoc);
-                //  RenumForm.ShowDialog();
-
                 LegendPlacerForm form = new LegendPlacerForm(doc);
 
                 form.ShowDialog();
-
-
-
 
             }
             public string GetName()

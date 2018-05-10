@@ -10,13 +10,6 @@ namespace EssentialTools
 
     class RenumberSpline : IExternalCommand
     {
-
-        public RenumberSplineForm RenumForm;
-
-        Reference splineRefrence;
-
-        Element selectedSpline;
-
         bool isFormOpen;
 
         public Autodesk.Revit.UI.Result Execute(ExternalCommandData revit,
@@ -28,19 +21,19 @@ namespace EssentialTools
             Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
-       
+
             FormCollection fc = Application.OpenForms;
 
             foreach (System.Windows.Forms.Form frm in fc) //tries looking for the Open Form to get the spline from
             {
-                if(frm.Name == "SelectionForm")
+                if (frm.Name == "SelectionForm")
                 {
                     isFormOpen = true;
 
                 }
             }
 
-            if(isFormOpen == false)
+            if (isFormOpen == false)
             {
                 isFormOpen = true;
 
@@ -56,37 +49,11 @@ namespace EssentialTools
             }
             else
             {
-                MessageBox.Show("Form Already Open, Please Close Previous Instance","Warning",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                MessageBox.Show("Form Already Open, Please Close Previous Instance", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-
-
-            /*
-            ReferenceArray ra = new ReferenceArray();
-            ISelectionFilter selFilter = new DetailLineFilter();
-
-            try
-            {
-                splineRefrence = uidoc.Selection.PickObject(Autodesk.Revit.UI.Selection.ObjectType.Element, selFilter);
-                selectedSpline = uidoc.Document.GetElement(splineRefrence.ElementId);
-                RenumberSplineForm form = new RenumberSplineForm(uidoc,selectedSpline);
-                form.ShowDialog();
-
-                form.Dispose();
-            }
-            catch(Exception ex)
-            {
-                TaskDialog.Show("Error", ex.Message);
-            }
-            */
-
-
-     
-                return Result.Succeeded;
-
-
-
-    }
+            return Result.Succeeded;
+        }
 
 
     }

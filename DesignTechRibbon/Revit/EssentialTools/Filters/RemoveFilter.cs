@@ -86,23 +86,12 @@ namespace EssentialTools
         /// </summary>
         public void DeleteUnusedFilters()
         {
-            /*
-            Dictionary<string, ElementId> store = new Dictionary<string, ElementId>();
-            Dictionary<string, ElementId> storeAll = new Dictionary<string, ElementId>();
-            Dictionary<string, ElementId> storeUsed = new Dictionary<string, ElementId>();
-            Dictionary<string, ElementId> storeUnused = new Dictionary<string, ElementId>();
-            Dictionary<string, ElementId> storeUnassigned = new Dictionary<string, ElementId>();
-            */
             Dictionary<string, ElementId> store = new Dictionary<string, ElementId>();
             Dictionary<string, ElementId> storeAll = all.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
             Dictionary<string, ElementId> storeUsed = used.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
             Dictionary<string, ElementId> storeUnused = unused.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
             Dictionary<string, ElementId> storeUnassigned = unassigned.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
-            //Dictionary<string, ElementId> storeAll = all.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
-            //Dictionary<string, ElementId> storeUsed = used.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
-            //Dictionary<string, ElementId> storeUnused = unused.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
-            //Dictionary<string, ElementId> storeUnassigned = unassigned.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
-            
+
             using (FiltersForm form = new FiltersForm(storeAll, storeUsed, storeUnused, storeUnassigned))
             {
                 form.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -112,6 +101,8 @@ namespace EssentialTools
                 System.Windows.Forms.DialogResult result = form.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
+
+
                     store = form.resultStore;
                     using (Transaction t = new Transaction(doc, "Delete filters"))
                     {
@@ -119,7 +110,8 @@ namespace EssentialTools
                         doc.Delete(store.Values);
                         t.Commit();
                     }
-                    // MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters.");
+               
+
 
                     DTMessage mb = new DTMessage();
 
@@ -137,8 +129,6 @@ namespace EssentialTools
 
                     mb.ShowMessage(message);
                     mb.Text = "Unused Filters";
-
-                   // MessageBox.Show("Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.", "Unused Filters", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
             }
@@ -160,10 +150,7 @@ namespace EssentialTools
         /// <returns></returns>
         private void GetUsedFilters()
         {
-            //FilteredElementCollector collector = new FilteredElementCollector(doc);
-            //IList<Element> views = collector.OfClass(typeof(Autodesk.Revit.DB.View)).WhereElementIsNotElementType().ToElements();
             //Filted Out the Sheets
-
             FilteredElementCollector collViewPlan = new FilteredElementCollector(doc).OfClass(typeof(ViewPlan)).WhereElementIsNotElementType();
             FilteredElementCollector collViewSection = new FilteredElementCollector(doc).OfClass(typeof(ViewSection)).WhereElementIsNotElementType();
             FilteredElementCollector collView3D= new FilteredElementCollector(doc).OfClass(typeof(View3D)).WhereElementIsNotElementType();

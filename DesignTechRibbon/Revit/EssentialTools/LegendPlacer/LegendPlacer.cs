@@ -16,8 +16,6 @@ namespace EssentialTools
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
     class LegendPlacer : IExternalCommand
     {
-
-
         bool isFormOpen;
 
         public Autodesk.Revit.UI.Result Execute(ExternalCommandData revit,
@@ -29,7 +27,6 @@ namespace EssentialTools
             Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
             Document doc = uidoc.Document;
             UIApplication uiApp = new UIApplication(revit.Application.Application);
-
 
             FormCollection fc = Application.OpenForms;
 

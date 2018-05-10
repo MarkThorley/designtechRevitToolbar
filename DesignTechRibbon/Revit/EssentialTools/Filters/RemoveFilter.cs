@@ -127,11 +127,11 @@ namespace EssentialTools
 
                     if (store.Count > 1)
                     {
-                        message = "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filters were removed.";
+                        message = "Unused Filters:" + store.Count.ToString() + " Filters were removed.";
                     }
                     else
                     {
-                        message = "Unused Filters:" + Environment.NewLine + store.Count.ToString() + " Filter was removed.";
+                        message = "Unused Filters:" + store.Count.ToString() + " Filter was removed.";
                     }
 
 

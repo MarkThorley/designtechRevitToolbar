@@ -1168,12 +1168,18 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 {
                     try
                     {
-                        LocationPoint getRoomPoint = E.Location as LocationPoint;
+                        if(E.Location != null) //Skips All the Unplaced Template rooms
+                        {
+                            LocationPoint getRoomPoint = E.Location as LocationPoint;
 
-                        roomPoints.Add(E, getRoomPoint.Point as Autodesk.Revit.DB.XYZ);
+                            roomPoints.Add(E, getRoomPoint.Point as Autodesk.Revit.DB.XYZ);
+                        }
+
+                   
                     }
                     catch
                     {
+
                         noLocation.Add(E);
 
                     }
@@ -1387,9 +1393,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 {
                     if (E.LevelId == LV)
                     {
-                        LocationPoint getRoomPoint = E.Location as LocationPoint;
+                        if (E.Location != null) //Skips All the Unplaced Template rooms
+                        {
+                            LocationPoint getRoomPoint = E.Location as LocationPoint;
 
-                        roomPoints.Add(E, getRoomPoint.Point as Autodesk.Revit.DB.XYZ);
+                            roomPoints.Add(E, getRoomPoint.Point as Autodesk.Revit.DB.XYZ);
+                        }
                     }
 
 

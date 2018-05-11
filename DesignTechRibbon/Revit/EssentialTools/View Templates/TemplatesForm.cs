@@ -13,6 +13,9 @@ namespace EssentialTools
 {
     public partial class TemplatesForm : Form
     {
+
+        #region Initalise
+
         private Dictionary<string, Autodesk.Revit.DB.ElementId> store;
         private Dictionary<string, Autodesk.Revit.DB.ElementId> storeAll;
         private Dictionary<string, Autodesk.Revit.DB.ElementId> currentStore;
@@ -23,16 +26,14 @@ namespace EssentialTools
         private Dictionary<string, Autodesk.Revit.DB.ElementId> storeUnused;
         private Dictionary<string, Autodesk.Revit.DB.ElementId> storeUnassigned;
         private List<RadioButton> radioButtons = new List<RadioButton>();
-    
+
 
         public TemplatesForm(
-            Dictionary<string, Autodesk.Revit.DB.ElementId> _store, 
+            Dictionary<string, Autodesk.Revit.DB.ElementId> _store,
             Dictionary<string, Autodesk.Revit.DB.ElementId> _storeAll,
-             Dictionary<string, Autodesk.Revit.DB.ElementId> _storeUsed,
+            Dictionary<string, Autodesk.Revit.DB.ElementId> _storeUsed,
             Dictionary<string, Autodesk.Revit.DB.ElementId> _storeUnused,
-            Dictionary<string, Autodesk.Revit.DB.ElementId> _storeUnassigned
-
-            )
+            Dictionary<string, Autodesk.Revit.DB.ElementId> _storeUnassigned)
         {
             InitializeComponent();
             this.store = _store;
@@ -47,6 +48,8 @@ namespace EssentialTools
             totalLbl.Update();
     
         }
+
+        #endregion
 
         #region Methods
 
@@ -150,6 +153,7 @@ namespace EssentialTools
         #endregion
 
         #region End
+
         /// <summary>
         /// Cancel the command by Esc key
         /// </summary>
@@ -187,24 +191,16 @@ namespace EssentialTools
             this.DialogResult = DialogResult.Yes;
             this.Close();
         }
-        /// <summary>
-        /// Open designtech website
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
-        private void designtechLogo_Click(object sender, EventArgs e)
-        {
-            ProcessStartInfo designtechWeb = new ProcessStartInfo("http://designtech.io/");
-            Process.Start(designtechWeb);
-        }
-
 
         #endregion
+
+        #region Form Events
 
         private void templateList_SelectedIndexChanged(object sender, EventArgs e)
         {
             totalLbl.Text = templateList.SelectedItems.Count.ToString() + " selected items";
         }
+
+        #endregion
     }
 }

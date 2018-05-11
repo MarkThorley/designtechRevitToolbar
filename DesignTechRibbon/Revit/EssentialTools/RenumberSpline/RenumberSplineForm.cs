@@ -18,6 +18,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 {
     public partial class RenumberSplineForm : System.Windows.Forms.Form
     {
+
+        #region Initalise
+
         UIDocument localDoc;
         FilteredElementCollector collSplines;
         FilteredElementCollector collDoors;
@@ -121,6 +124,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
         }
 
+        #endregion
+
+
         #region Buttons
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -200,7 +206,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
         }
-
 
         private void SplineCancelButton_Click(object sender, EventArgs e)
         {
@@ -417,7 +422,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -430,7 +434,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 }
                 else if (e.Error != null)
                 {
-                    // MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -447,16 +450,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         t.Start();
 
-                        //var sort = from element in orderedPoints //sort by distance to the door
-                        //           orderby element.Item1 ascending
-                        //           select element;
-
                         orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
-
-                        //int zeroes = paddingNumber.Count(char.IsNumber);
 
                         int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
@@ -466,9 +463,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                             orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ALL_MODEL_MARK).Set(PrefixString.Text + x.ToString().PadLeft(zeroes, '0') + SuffixString.Text);
 
                         }
-
-
-
 
                         t.Commit();
 
@@ -663,8 +657,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 if (e.Cancelled)
                 {
-                    // MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -677,8 +669,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -698,8 +688,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
-
-                        //int zeroes = paddingNumber.Count(char.IsNumber);
 
                         int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
@@ -868,11 +856,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             {
                 DTMessage mb = new DTMessage();
 
-
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -885,8 +870,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 }
                 else if (e.Error != null)
                 {
-                    // MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -903,15 +886,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         t.Start();
 
-                        //var sort = from element in orderedPoints //sort by distance to the door
-                        //           orderby element.Item1 ascending
-                        //           select element;
-
                         orderedPoints = orderedPoints.OrderBy(a => a.Item2.LevelId.IntegerValue).ThenBy(b => b.Item1).ToList();
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
-
-                        //int zeroes = paddingNumber.Count(char.IsNumber);
 
                         int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
@@ -924,8 +901,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         t.Commit();
 
                     }
-
-
 
                     StatusLabel.Text = "Completed";
                     CloseButton.Text = "Finish";
@@ -1082,7 +1057,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -1095,7 +1069,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -1118,7 +1091,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        //int zeroes = paddingNumber.Count(char.IsNumber);
                         int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
@@ -1308,8 +1280,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -1322,9 +1292,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -1359,7 +1326,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                         t.Commit();
 
                     }
-
 
                     StatusLabel.Text = "Completed";
                     CloseButton.Text = "Finish";
@@ -1529,8 +1495,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
 
@@ -1543,8 +1507,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -1567,16 +1529,13 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
                         string paddingNumber = orderedPoints.ToList().Count.ToString();
 
-                        //int zeroes = paddingNumber.Count(char.IsNumber);
-                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
+                        int zeroes = Convert.ToInt32(comboBoxZeroPad.SelectedItem.ToString());
 
                         for (int x = 0; x < orderedPoints.ToList().Count; x++)
                         {
 
-
                             orderedPoints.ToList()[x].Item2.get_Parameter(BuiltInParameter.ROOM_NUMBER).Set(PrefixString.Text + x.ToString().PadLeft(zeroes, '0') + SuffixString.Text);
-
 
                         }
 
@@ -1606,6 +1565,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
         #endregion
+
+
+        #region Form Events
 
         private void SelectElementBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1653,6 +1615,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 
 
         }
+
+        #endregion
     }
 
 

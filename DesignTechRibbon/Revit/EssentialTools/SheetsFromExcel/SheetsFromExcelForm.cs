@@ -12,7 +12,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
     public partial class SheetsFromExcelForm : System.Windows.Forms.Form
     {
 
-
         #region Initalise
 
         Document localDoc;
@@ -303,11 +302,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
                 if (e.Cancelled)
                 {
-                    //MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                     mb.ShowMessage("The Task Has Been Cancelled");
                     mb.Text = "Cancelled";
-
 
                     StatusLabel.Text = "Cancelled";
                     closeButton.Text = "Close";
@@ -322,8 +319,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 }
                 else if (e.Error != null)
                 {
-                    //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                     mb.Text = "Error";
 
@@ -351,7 +346,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                         }
            
                     }
-
 
                     if (Variables.xlWorkBookExtract != null)
                     {
@@ -480,7 +474,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
             if (e.Cancelled)
             {
-                // MessageBox.Show("The Task Has Been Cancelled", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 mb.ShowMessage("The Task Has Been Cancelled");
                 mb.Text = "Cancelled";
 
@@ -489,14 +482,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 closeButton.Text = "Close";
 
                 progressBar1.Value = 0;
-          
-
-
-
+            
             }
             else if (e.Error != null)
             {
-                //MessageBox.Show("Error. Details: " + (e.Error as Exception).ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 mb.ShowMessage("Error. Details: " + (e.Error as Exception).ToString());
                 mb.Text = "Error";
@@ -509,7 +498,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             }
             else
             {
-
 
                 try
                 {
@@ -543,7 +531,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                     progressBar1.Value = 0;
                 }
 
-
                 StatusLabel.Text = "Completed";
                 closeButton.Text = "Finish";
 
@@ -553,15 +540,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                 progressBar1.Value = 0;
 
 
-
             }
-
-
-
-
-
-
-
 
         }
 
@@ -646,11 +625,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             public ListViewItem listElement;
         }
 
-
-
-
-
         #endregion
+
+
+        #region Form Events
 
         private void SheetsFromExcelForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -658,5 +636,8 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             backgroundWorker2.CancelAsync();
             CleanUpFiles();
         }
+
+        #endregion 
+
     }
-    }
+}

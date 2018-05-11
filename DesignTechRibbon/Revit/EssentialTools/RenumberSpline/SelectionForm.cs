@@ -16,6 +16,9 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
 {
     public partial class SelectionForm : System.Windows.Forms.Form
     {
+
+        #region Initalise
+
         UIDocument localDoc;
 
         private Element SelectedElement;
@@ -34,6 +37,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             label2.Text = "Select A Model Nurb Spline In The Document\n\nThis Renumbers Elements Based Off Proximity\n\n Please Draw Spline As Close As Possible To The Elements";
 
         }
+
+        #endregion
+
+
 
         private void SelectionButton_Click(object sender, EventArgs e)
         {
@@ -60,12 +67,12 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
                 this.Show();
 
             }
+
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 this.Close();
                 this.Dispose();
-
      
             }
 
@@ -91,9 +98,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
     {
         public void Execute(UIApplication uiapp) //External Event Is used to get around the transaction limit
         {
-
-            //MessageBox.Show("External Event is running");
-
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
             Document doc = uidoc.Document;
@@ -106,7 +110,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.RenumberSpline
             form.StartPosition = FormStartPosition.CenterScreen;
 
             form.ShowDialog();
-
 
         }
         public string GetName()

@@ -82,8 +82,6 @@ namespace EssentialTools
 
             Dictionary<string, ElementId> store = unusedTemplateIds.DistinctBy(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name).ToDictionary(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name, x => x);
             Dictionary<string, ElementId> storeAll = allTemplateIds.DistinctBy(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name).ToDictionary(x => (doc.GetElement(x) as Autodesk.Revit.DB.View).Name, x => x);
-            //Dictionary<string, ElementId> store = unusedTemplateIds.ToDictionary(x => (doc.GetElement(x) as View).Name, x => x);
-            //Dictionary<string, ElementId> storeAll = allTemplateIds.ToDictionary(x => (doc.GetElement(x) as View).Name, x => x);
 
             Dictionary<string, ElementId> storeUsed = used.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
             Dictionary<string, ElementId> storeUnused = unused.ToDictionary(x => (doc.GetElement(x) as ParameterFilterElement).Name, x => x);
@@ -119,15 +117,8 @@ namespace EssentialTools
                         message = "Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed";
                     }
 
-
                     mb.ShowMessage(message);
                     mb.Text = "Unused Filters";
-
-
-                    //  MessageBox.Show("Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.", "Unused View Templates.");
-
-                    // MessageBox.Show("Unused View Templates:" + Environment.NewLine + store.Count.ToString() + " View Templates were removed.", "Unused View Templates.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 }
             }
         }

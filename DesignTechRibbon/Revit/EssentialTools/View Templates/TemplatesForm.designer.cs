@@ -61,7 +61,6 @@
             this.designtechLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.designtechLogo.TabIndex = 4;
             this.designtechLogo.TabStop = false;
-            this.designtechLogo.Click += new System.EventHandler(this.designtechLogo_Click);
             // 
             // mainPanel
             // 

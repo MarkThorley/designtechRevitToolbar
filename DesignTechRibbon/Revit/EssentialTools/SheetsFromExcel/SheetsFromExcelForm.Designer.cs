@@ -45,6 +45,8 @@
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.comboBoxTitleblock = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -88,13 +90,15 @@
             this.listViewExcel.FullRowSelect = true;
             this.listViewExcel.Location = new System.Drawing.Point(9, 21);
             this.listViewExcel.Name = "listViewExcel";
-            this.listViewExcel.Size = new System.Drawing.Size(320, 378);
+            this.listViewExcel.Size = new System.Drawing.Size(320, 350);
             this.listViewExcel.TabIndex = 3;
             this.listViewExcel.UseCompatibleStateImageBehavior = false;
             this.listViewExcel.View = System.Windows.Forms.View.Details;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.comboBoxTitleblock);
             this.groupBox1.Controls.Add(this.CreateSheetsButton);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.StatusLabel);
@@ -218,6 +222,25 @@
             this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
+            // comboBoxTitleblock
+            // 
+            this.comboBoxTitleblock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTitleblock.FormattingEnabled = true;
+            this.comboBoxTitleblock.Location = new System.Drawing.Point(81, 377);
+            this.comboBoxTitleblock.Name = "comboBoxTitleblock";
+            this.comboBoxTitleblock.Size = new System.Drawing.Size(248, 24);
+            this.comboBoxTitleblock.TabIndex = 12;
+            this.comboBoxTitleblock.SelectedIndexChanged += new System.EventHandler(this.comboBoxTitleblock_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 380);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 17);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "TitleBlock:";
+            // 
             // SheetsFromExcelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -257,5 +280,7 @@
         private System.Windows.Forms.Button SelectNoneButton;
         private System.Windows.Forms.Button SelectAllButon;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxTitleblock;
     }
 }

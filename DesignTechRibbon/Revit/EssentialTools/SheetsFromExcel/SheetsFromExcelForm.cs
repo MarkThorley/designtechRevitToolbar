@@ -25,8 +25,11 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
         Dictionary<string, string> sheetData = new Dictionary<string, string>();
 
         List<Tuple<FamilySymbol,string,string>> userSheets = new List<Tuple<FamilySymbol, string, string>>();
- 
+
+        ElementId titleBlockID;
+
         FilteredElementCollector collSheets;
+        FilteredElementCollector collTitleblock;
 
         public SheetsFromExcelForm(Document doc)
         {
@@ -49,6 +52,24 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             StatusLabel.Visible = false;
 
             collSheets = new FilteredElementCollector(localDoc).OfClass(typeof(ViewSheet)).WhereElementIsNotElementType();
+            collTitleblock = new FilteredElementCollector(localDoc).OfCategory(BuiltInCategory.OST_TitleBlocks).WhereElementIsNotElementType();
+
+
+            foreach (var item in collTitleblock)
+            {
+                comboBoxTitleblock.Items.Add(item.Name);
+
+            }
+
+            if(comboBoxTitleblock.Items.Count>0) //if atleast one item is found
+            {
+                comboBoxTitleblock.SelectedIndex = 0; // set to first
+            }
+            else
+            {
+                comboBoxTitleblock.Enabled = false;
+            }
+
 
 
         }
@@ -90,8 +111,6 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
 
             try
             {
-
-
                 Variables.xlWorkBookTemplate.SaveAs(folderLocation + "/designtech_ImportSheets_Template.xlsx");
 
                 MessageBox.Show("Template was Saved At" + folderLocation, "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -509,14 +528,20 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
                         foreach (Tuple<FamilySymbol, string, string> item in userSheets)
                         {
 
-                            ViewSheet viewSheet = ViewSheet.Create(localDoc, item.Item1.Id);
+                            if(titleBlockID != null)
+                            {
+                               ViewSheet viewSheet = ViewSheet.Create(localDoc,titleBlockID);
+                               viewSheet.SheetNumber = item.Item2;
+                               viewSheet.ViewName = item.Item3;
+                            }
+                            else
+                            {
+                                ViewSheet viewSheet = ViewSheet.Create(localDoc,ElementId.InvalidElementId);
+                                viewSheet.SheetNumber = item.Item2;
+                                viewSheet.ViewName = item.Item3;
+                            }
 
-                            viewSheet.SheetNumber = item.Item2;
-
-                            viewSheet.ViewName = item.Item3;
-
-
-
+                      
                         }
 
                         t.Commit();
@@ -637,7 +662,22 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             CleanUpFiles();
         }
 
-        #endregion 
+        #endregion
 
+        private void comboBoxTitleblock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            foreach (var item in collTitleblock)
+            {
+                if(comboBoxTitleblock.SelectedItem.ToString() == item.Name)
+                {
+                    titleBlockID = item.GetTypeId();
+                }
+
+            }
+
+
+
+        }
     }
 }

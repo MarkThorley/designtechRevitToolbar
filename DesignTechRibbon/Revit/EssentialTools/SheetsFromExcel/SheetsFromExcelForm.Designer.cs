@@ -34,6 +34,8 @@
             this.GetDataButton = new System.Windows.Forms.Button();
             this.listViewExcel = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxTitleblock = new System.Windows.Forms.ComboBox();
             this.CreateSheetsButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.SelectNoneButton = new System.Windows.Forms.Button();
@@ -45,8 +47,6 @@
             this.designtechLogo = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.comboBoxTitleblock = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -114,6 +114,25 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Excel Data";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 380);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 17);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Title Block";
+            // 
+            // comboBoxTitleblock
+            // 
+            this.comboBoxTitleblock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTitleblock.FormattingEnabled = true;
+            this.comboBoxTitleblock.Location = new System.Drawing.Point(81, 377);
+            this.comboBoxTitleblock.Name = "comboBoxTitleblock";
+            this.comboBoxTitleblock.Size = new System.Drawing.Size(248, 24);
+            this.comboBoxTitleblock.TabIndex = 12;
+            this.comboBoxTitleblock.SelectedIndexChanged += new System.EventHandler(this.comboBoxTitleblock_SelectedIndexChanged);
             // 
             // CreateSheetsButton
             // 
@@ -221,25 +240,6 @@
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
-            // 
-            // comboBoxTitleblock
-            // 
-            this.comboBoxTitleblock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTitleblock.FormattingEnabled = true;
-            this.comboBoxTitleblock.Location = new System.Drawing.Point(81, 377);
-            this.comboBoxTitleblock.Name = "comboBoxTitleblock";
-            this.comboBoxTitleblock.Size = new System.Drawing.Size(248, 24);
-            this.comboBoxTitleblock.TabIndex = 12;
-            this.comboBoxTitleblock.SelectedIndexChanged += new System.EventHandler(this.comboBoxTitleblock_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 380);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 17);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "TitleBlock:";
             // 
             // SheetsFromExcelForm
             // 

@@ -52,10 +52,10 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             StatusLabel.Visible = false;
 
             collSheets = new FilteredElementCollector(localDoc).OfClass(typeof(ViewSheet)).WhereElementIsNotElementType();
-            collTitleblock = new FilteredElementCollector(localDoc).OfCategory(BuiltInCategory.OST_TitleBlocks).WhereElementIsNotElementType();
+            collTitleblock = new FilteredElementCollector(localDoc).OfCategory(BuiltInCategory.OST_TitleBlocks).WhereElementIsElementType();
 
 
-            foreach (var item in collTitleblock)
+            foreach (var item in collTitleblock.OrderBy(x => x.Name))
             {
                 comboBoxTitleblock.Items.Add(item.Name);
 
@@ -671,7 +671,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.SheetsFromExcelForm
             {
                 if(comboBoxTitleblock.SelectedItem.ToString() == item.Name)
                 {
-                    titleBlockID = item.GetTypeId();
+                    titleBlockID = item.Id;
                 }
 
             }

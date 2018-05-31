@@ -21,11 +21,8 @@ namespace DT_Install_Free
 
             VersionBox.Items.Add("2019");
             VersionBox.Items.Add("2018");
-          //  VersionBox.Items.Add("2017");
-         //   VersionBox.Items.Add("2016");
-          //  VersionBox.Items.Add("2015");
-         //   VersionBox.Items.Add("2014");
-         //   VersionBox.Items.Add("2005");
+            VersionBox.Items.Add("2017");
+            VersionBox.Items.Add("2016");
 
             VersionBox.DropDownStyle = ComboBoxStyle.DropDownList;
             VersionBox.SelectedItem = "2019";

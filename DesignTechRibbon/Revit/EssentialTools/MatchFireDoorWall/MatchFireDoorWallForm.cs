@@ -366,7 +366,7 @@ namespace DesignTechRibbon.Revit.EssentialTools.MatchFireDoorWall
                 ElementId typeID = famIns.GetTypeId(); //get type id of the family instance
 
                 FamilySymbol fam = localDoc.Document.GetElement(typeID) as FamilySymbol; // get the instance as a Family Symbol
-
+            
                 doorFamilies.Add(fam.Family);
                 doorElementsDictionary.Add(Ele, stringParamWall);
 

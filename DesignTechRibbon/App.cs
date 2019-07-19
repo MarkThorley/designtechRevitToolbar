@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System.Windows.Media.Imaging;
-using Autodesk.Windows;
-
-using UIFramework;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using VCButtonsWithVideoToolTip;
 using System.IO;
@@ -304,29 +300,29 @@ namespace DesignTechRibbon
 
         /////Ribbon
 
-        public Autodesk.Windows.RibbonItem GetRibbonItem(Autodesk.Revit.UI.RibbonItem item)
-        {
-            Type itemType = item.GetType();
+        //public Autodesk.Windows.RibbonItem GetRibbonItem(Autodesk.Revit.UI.RibbonItem item)
+        //{
+        //    Type itemType = item.GetType();
 
-            var mi = itemType.GetMethod("getRibbonItem",
-              BindingFlags.NonPublic | BindingFlags.Instance);
+        //    var mi = itemType.GetMethod("getRibbonItem",
+        //      BindingFlags.NonPublic | BindingFlags.Instance);
 
-            var windowRibbonItem = mi.Invoke(item, null);
+        //    var windowRibbonItem = mi.Invoke(item, null);
 
-            return windowRibbonItem
-              as Autodesk.Windows.RibbonItem;
-        }
+        //    return windowRibbonItem
+        //      as Autodesk.Windows.RibbonItem;
+        //}
 
-        static void SetRibbonItemToolTip(RibbonItem item, RibbonToolTip toolTip)
-        {
-            IUIRevitItemConverter itemConverter =
-                new InternalMethodUIRevitItemConverter();
+        //static void SetRibbonItemToolTip(RibbonItem item, RibbonToolTip toolTip)
+        //{
+        //    IUIRevitItemConverter itemConverter =
+        //        new InternalMethodUIRevitItemConverter();
 
-            var ribbonItem = itemConverter.GetRibbonItem(item);
-            if (ribbonItem == null)
-                return;
-            ribbonItem.ToolTip = toolTip;
-        }
+        //    var ribbonItem = itemConverter.GetRibbonItem(item);
+        //    if (ribbonItem == null)
+        //        return;
+        //    ribbonItem.ToolTip = toolTip;
+        //}
 
         public Result OnShutdown(UIControlledApplication application)
         {
